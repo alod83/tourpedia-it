@@ -1,9 +1,15 @@
 function Mappa(tipo){
 	if (tipo=="record") {
 $('#container').highcharts('Map', {
-       
+    chart: {
+			borderRadius: 20,
+			shadow: true,
+			style: {
+				fontFamily: '"Verdana"'
+				},
+	},		
 	title: {
-           text: 'Record'
+           text: 'Strutture'
 			},
 	subtitle: {
             text: 'Numero di strutture ricettive presenti negli open data'
@@ -45,7 +51,7 @@ $('#container').highcharts('Map', {
 	},
 
 	series: [
-	{ name: 'Numero di record',
+	{ name: 'Numero di strutture',
 		"type": "map",
 		"data": [
 			{
@@ -160,12 +166,18 @@ $('#container').highcharts('Map', {
 	
 	if (tipo=="recpop") {
 $('#container').highcharts('Map', {
-       
+	chart: {
+			borderRadius: 20,
+			shadow: true,
+			style: {
+				fontFamily: '"Verdana"'
+				},
+	},       
 	title: {
-            text: 'Record su popolazione'
+            text: 'Strutture su popolazione'
 			},
 	subtitle: {
-            text: 'Numero di record ogni mille abitanti'
+            text: 'Numero di strutture ricettive ogni mille abitanti'
 			},
 	mapNavigation: {
             enabled: false
@@ -200,7 +212,7 @@ $('#container').highcharts('Map', {
 	},
 
 	series: [
-	{ name: 'Numero di record per mille abitanti',
+	{ name: 'Numero di strutture per mille abitanti',
 		"type": "map",
 		"data": [
 			{
@@ -314,12 +326,18 @@ $('#container').highcharts('Map', {
 	}
 	if (tipo=="recterr") {
 $('#container').highcharts('Map', {
-       
+    chart: {
+			borderRadius: 20,
+			shadow: true,
+			style: {
+				fontFamily: '"Verdana"'
+				},
+	},   
 	title: {
-            text: 'Record su territorio'
+            text: 'Strutture su territorio'
 			},
 	subtitle: {
-            text: 'Numero di record ogni dieci chilometri quadri'
+            text: 'Numero di strutture ricettive ogni dieci chilometri quadri'
 			},
 	mapNavigation: {
             enabled: false
@@ -353,7 +371,7 @@ $('#container').highcharts('Map', {
 	},
 
 	series: [
-	{ name: 'Numero di record ogni dieci chilometri quadri',
+	{ name: 'Numero di strutture ogni dieci chilometri quadri',
 		"type": "map",
 		"data": [
 			{

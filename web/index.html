@@ -1,38 +1,241 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it">
-	<head>
-		<title> Tourpedia - IT </title>	
-		<link rel="stylesheet" type="text/css" href="css/stile.css" />
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<meta name="Lavoro" content="Lavoro" />
-		<script type="text/javascript" src="./libraries/jquery-1.11.2.min.js"></script>
-		<script type="text/javascript" src="./libraries/Highmaps-1.1.7/js/highmaps.js"></script>
-		<script type="text/javascript" src="./libraries/Highmaps-1.1.7/js/modules/exporting.js"></script>		
-		<script type="text/javascript" src="./js/main.js"></script>
-		<script type="text/javascript" src="./js/maps.js"></script>
-	</head>
+<html lang="it">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tour-pedia.org/it</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/tourpedia.css" rel="stylesheet">
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Tour-pedia.org/it</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#mappa">Mappa</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#dati">Dati</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#info">Info</a>
+                    </li>
+					<li>
+                        <a class="page-scroll" href="#contatti">Contatti</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Sezione introduttiva -->
+    <section id="intro" class="sezione_intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img id="logo" src="images/tourpedia.png" alt="logo" />
+                    <a class="btn btn-default page-scroll" href="#mappa">Mappa</a>
+					<a class="btn btn-default page-scroll" href="#dati">Dati</a>
+					<a class="btn btn-default page-scroll" href="#info">Info</a>
+					<a class="btn btn-default page-scroll" href="#contatti">Contatti</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione mappa -->
+    <section id="mappa" class="sezione_mappa">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Mappa</h1>
+					<div id="cont_radio">
+						Strutture<input id="record" type="radio" name="type" value="record" checked/>
+						Strutture/Popolazione<input id="popolazione" type="radio" name="type" value="recpop"/>
+						Strutture/Territorio<input id="territorio" type="radio" name="type" value="recterr"/>
+					</div>
+					<div id="container">
+					</div>
+					<div class="commento">
+						<div class="textcommento">
+						Blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione dati -->
+    <section id="dati" class="sezione_dati">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Dati</h1>
+					<table align="left">
+						<tr class="r1">
+							<td>Regione</td>
+							<td>Numero di strutture registrate</td>
+						</tr>
+						<tr class="rdispari">
+							<td width="50%">Toscana</td>
+							<td>15141</td>
+						</tr>
+						<tr class="rpari">
+							<td>Veneto</td>
+							<td>9769</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Lazio</td>
+							<td>9677</td>
+						</tr>
+						<tr class="rpari">
+							<td>Emilia Romagna</td>
+							<td>9372</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Lombardia</td>
+							<td>7650</td>
+						</tr>
+						<tr class="rpari">
+							<td>Piemonte</td>
+							<td>6556</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Puglia</td>
+							<td>5242</td>
+						</tr>
+						<tr class="rpari">
+							<td>Marche</td>
+							<td>4898</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Umbria</td>
+							<td>3940</td>
+						</tr>
+						<tr class="rpari">
+							<td>Liguria</td>
+							<td>1358</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Sardegna</td>
+							<td>1000</td>
+						</tr>
+						<tr class="rpari">
+							<td>Friuli Venezia Giulia</td>
+							<td>734</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Basilicata</td>
+							<td>152</td>
+						</tr>
+						<tr class="rpari">
+							<td>Abruzzo</td>
+							<td>n/a</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Campania</td>
+							<td>n/a</td>
+						</tr>
+						<tr class="rpari">
+							<td>Calabria</td>
+							<td>n/a</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Molise</td>
+							<td>n/a</td>
+						</tr>
+						<tr class="rpari">
+							<td>Sicilia</td>
+							<td>n/a</td>
+						</tr>
+						<tr class="rdispari">
+							<td>Trentino Alto Adige</td>
+							<td>n/a</td>
+						</tr>
+						<tr class="rpari">
+							<td>Valle d'Aosta</td>
+							<td>n/a</td>
+						</tr>
+					</table>
+					<div class="commento">
+						<div class="textcommento">
+						Blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap pafkaopfk pfjapfjoa paofjapwofj poj pfa blablablablabla fkofjfap
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione info -->
+    <section id="info" class="sezione_info">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Sezione info</h1>
+                </div>
+            </div>
+        </div>
+    </section>
 	
-	<body>
-		<div id="header">
-			<h1>Tour-pedia.org/it</h1>
-			<h2>Work in progress</h2>
-		</div>
-		<div id="fascia">
-			<div id="menu">
-				<button type="button" class="button active" id="home">Home</button>
-				<button type="button" class="button" id="dati">Dati</button>
-				<button type="button" class="button" id="mappa">Mappa</button>
-			</div>
-			<div id="rappr">
-				Record<input id="record" type="radio" name="type" value="record" checked/>
-				Record/Popolazione<input id="popolazione" type="radio" name="type" value="recpop"/>
-				Record/Territorio<input id="territorio" type="radio" name="type" value="recterr"/>
-			</div>
-			<div id="descr">
-				Questo portale ha lo scopo di rendere a disposizione e studiare i dati sul turismo nazionale e, in particolare sulle strutture ricettive così da creare una possibile alternativa ai portali proprietari.
-			</div>
-			<div id="container">
-			</div>
-		</div>
-	</body>
+	<!-- Sezione contatti -->
+    <section id="contatti" class="sezione_contatti">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Sezione contatti</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+	<!-- Creazione mappa -->
+	<script src="js/main.js"></script>
+	<script src="js/maps.js"></script>
+	<script type="text/javascript" src="./libraries/highmaps.js"></script>
+	<script type="text/javascript" src="./libraries/exporting.js"></script>	
+</body>
+
 </html>
