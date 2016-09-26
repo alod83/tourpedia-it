@@ -1,6 +1,6 @@
 function Mappa(tipo){
 	if (tipo=="record") {
-$('#container').highcharts('Map', {
+$('#heatmap').highcharts('Map', {
     chart: {
 			borderRadius: 20,
 			shadow: true,

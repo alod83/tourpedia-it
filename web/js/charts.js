@@ -1,5 +1,7 @@
 function Grafico() {
-    $('#cont_grafico').highcharts({
+
+    			
+    $('#gcontainer').highcharts({
         chart: {
             type: 'bar'
         },
@@ -43,7 +45,7 @@ function Grafico() {
             y: 80,
             floating: true,
             borderWidth: 1,
-            backgroundColor: ('#FFFFFF'),
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
             shadow: true
         },
         credits: {
@@ -60,4 +62,4 @@ function Grafico() {
             data: [1052, 954, 4250, 740, 38]
         }]
     });
-};
+}
