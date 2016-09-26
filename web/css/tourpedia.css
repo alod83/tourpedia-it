@@ -35,7 +35,7 @@ li { color: black;}
 	font-weight: bold;
 	font-style: italic;
 }		
-#container {
+#heatmap {
 		margin-top:3%;
 		width:75%;
 		float:left;
@@ -59,8 +59,8 @@ li { color: black;}
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
-		
-#cont_grafico {
+
+#gcontainer {
 		margin-top:3%;
 		width:75%;
 		float:left;
@@ -83,10 +83,16 @@ td { border: 1px solid black;}
 	float: left;
 }
 		
-#testoinfo	{
+.testoinfo	{
 	font-size: 23px;
+	text-align: justify;
+	margin-left: 8px;
+	margin-right: 8px;
 }
 
+.testoinfo.disclaimer { 
+	font-size: 12px;
+}
 .contfoto1 {
 	background: white;
 	border-color: #C0C0C0;
@@ -172,9 +178,28 @@ td { border: 1px solid black;}
 }
 
 .nome_regione {
-	height: 70px;
+	height: 80px;
 	font-size: 30px;
 	background: #CEECF5;
+}
+
+.nome_regione.red {
+	background: #FF8080;
+}
+
+.nome_regione.orange {
+	background: #ffb380;
+}
+
+.nonuff {
+	font-size: 10px;
+	text-align: left;
+	margin-left: 5px;
+	margin-top: -11px;
+}
+
+.regione_note {
+	margin-top: 13px;
 }
 
 .riga_fonti {

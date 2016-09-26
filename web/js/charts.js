@@ -3,7 +3,12 @@ function Grafico() {
     			
     $('#gcontainer').highcharts({
         chart: {
-            type: 'bar'
+            type: 'bar',
+			borderRadius: 20,
+			shadow: true,
+			style: {
+				fontFamily: '"Verdana"'
+				},
         },
         title: {
             text: 'Historic World Population by Region'
