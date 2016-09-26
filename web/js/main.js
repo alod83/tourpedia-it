@@ -1,6 +1,8 @@
 // Avvio della pagina
 $(document).ready(function() {
-	Mappa("record");
+	Mappa($('input[name="type"]:checked').val());
+	Grafico();
+	
 	
 	// Radio Record
 	$("#record").bind('click', function() {

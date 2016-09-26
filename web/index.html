@@ -50,7 +50,13 @@
                         <a class="page-scroll" href="#info">Info</a>
                     </li>
 					<li>
+                        <a class="page-scroll" href="#fonti">Fonti</a>
+                    </li>
+					<li>
                         <a class="page-scroll" href="#contatti">Contatti</a>
+                    </li>
+					<li>
+                        <a class="page-scroll" href="#credits">Credits</a>
                     </li>
                 </ul>
             </div>
@@ -65,10 +71,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <img id="logo" src="images/tourpedia.png" alt="logo" />
+					<h1 class="sottotitolo">- Dati open sul turismo -</h1>
                     <a class="btn btn-default page-scroll" href="#mappa">Mappa</a>
 					<a class="btn btn-default page-scroll" href="#dati">Dati</a>
 					<a class="btn btn-default page-scroll" href="#info">Info</a>
+					<a class="btn btn-default page-scroll" href="#fonti">Fonti</a>
 					<a class="btn btn-default page-scroll" href="#contatti">Contatti</a>
+					<a class="btn btn-default page-scroll" href="#credits">Credits</a>
                 </div>
             </div>
         </div>
@@ -89,7 +98,8 @@
 					</div>
 					<div class="commento">
 						<div class="textcommento">
-							Nella cartina a fianco &egrave possibile vedere quante strutture ricettive sono registrate negli open data messi a disposizione dalle regioni. Maggiore il numero di stutture pi&ugrave il colore tender&agrave ad essere scuro. Selezionando la sezione "Strutture/Popolazione" sar&agrave possibile visualizzare un dato maggiormente veritiero in quanto si calcola quante strutture sono state registrate ogni mille abitanti. Cos&igrave facendo sar&agrave pi&ugrave facile capire quanto il database sia effettivamente attendibile. Stesso concetto per la sezione "Strutture/Territorio" che visualizza quante strutture sono state registrate ogni dieci chilometri quadri.
+							Le regioni che hanno una maggiore quantit&agrave di strutture ricettive registrate sono principalmente quelle del Settentrione e del Centro, mentre nell'Italia Meridionale troviamo quattro delle cinque regioni che non hanno fornito un open data ufficiale sul tema: Abruzzo, Molise, Campania e Calabria alle quali si aggiunge la Valle d'Aosta.
+							Particolari sono le situazioni del Trentino-Alto Adige e della Basilicata che mettono a disposizione un database contenente solo le strutture di due province: rispettivamente,Trento e Matera.
 						</div>
 					</div>
                 </div>
@@ -103,92 +113,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Dati</h1>
-					<table align="left">
-						<tr class="r1">
-							<td>Regione</td>
-							<td>Numero di strutture registrate</td>
-						</tr>
-						<tr class="rdispari">
-							<td width="50%">Toscana</td>
-							<td>15141</td>
-						</tr>
-						<tr class="rpari">
-							<td>Veneto</td>
-							<td>9769</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Lazio</td>
-							<td>9677</td>
-						</tr>
-						<tr class="rpari">
-							<td>Emilia Romagna</td>
-							<td>9372</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Lombardia</td>
-							<td>7650</td>
-						</tr>
-						<tr class="rpari">
-							<td>Piemonte</td>
-							<td>6556</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Puglia</td>
-							<td>5242</td>
-						</tr>
-						<tr class="rpari">
-							<td>Marche</td>
-							<td>4898</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Umbria</td>
-							<td>3940</td>
-						</tr>
-						<tr class="rpari">
-							<td>Liguria</td>
-							<td>1358</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Sardegna</td>
-							<td>1000</td>
-						</tr>
-						<tr class="rpari">
-							<td>Friuli Venezia Giulia</td>
-							<td>734</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Basilicata</td>
-							<td>152</td>
-						</tr>
-						<tr class="rpari">
-							<td>Abruzzo</td>
-							<td>n/a</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Campania</td>
-							<td>n/a</td>
-						</tr>
-						<tr class="rpari">
-							<td>Calabria</td>
-							<td>n/a</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Molise</td>
-							<td>n/a</td>
-						</tr>
-						<tr class="rpari">
-							<td>Sicilia</td>
-							<td>n/a</td>
-						</tr>
-						<tr class="rdispari">
-							<td>Trentino Alto Adige</td>
-							<td>n/a</td>
-						</tr>
-						<tr class="rpari">
-							<td>Valle d'Aosta</td>
-							<td>n/a</td>
-						</tr>
-					</table>
+					<div id="cont_grafico">
+					</div>
 					<div class="commento">
 						<div class="textcommento">
 							Nella tabella a fianco &egrave possibile vedere quali regioni hanno messo a disposizione i dati relativi alle strutture ricettive nel loro territorio e, in particolare, quante di esse sono state registrate nel loro database. Purtroppo sette regioni non hanno alcun open data disponibile su tale argomento e alcune regioni hanno comunque una banca dati troppo povera per poter essere utilizzata in modo produttivo. 
@@ -208,8 +134,8 @@
 					<div class="testo">
 						<div class="textcommento">
 							<p id="testoinfo">
-								Questo portale &egrave stato creato con lo scopo di creare un osservatorio nazionale sul turismo italiano, cio&egrave un sito dove sia possibile consultare un database costantemente aggiornato contenente le informazioni riguardanti tutte le strutture ricettive sul territorio.
-								Per raggiungere tale scopo &egrave stato chiesto alle Regioni di condividere i dati in loro possesso per permetterci di fornire un servizio completo agli utenti. 
+								Questo portale &egrave stato creato con lo scopo di creare un osservatorio nazionale sul turismo italiano. Come primo passo vorremmo dare la possibilit&agrave di consultare un database costantemente aggiornato contenente le informazioni riguardanti tutte le strutture ricettive sul territorio.
+								Per raggiungere tale scopo verr&agrave chiesto alle Regioni di condividere i dati in loro possesso per permetterci di fornire un servizio completo agli utenti. 
 								Ad oggi &egrave possibile visualizzare la quantit&agrave di open data che sono stati messi a disposizione regione per regione. Come &egrave possibile vedere nelle altre sezioni, molte di queste non hanno dato libero accesso ai loro dati e, per questo, vogliamo sensibilizzarli ad una maggiore apertura per aiutare i fruitori del web ad avere un portale unico di riferimento che possa aiutare il turismo italiano a svilupparsi creando uno strumento libero per gli utenti.
 							</p>
 						</div>
@@ -221,6 +147,823 @@
 						<img class="foto" src="images/pisa.jpg" alt="Pisa"/>
 					</div>
                 </div>
+            </div>
+        </div>
+    </section>
+	
+	<!-- Sezione fonti -->
+    <section id="fonti" class="sezione_fonti">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Fonti</h1>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Abruzzo
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://opendata.regione.abruzzo.it">opendata.regione.abruzzo.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Basilicata
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.regione.basilicata.it/catalog/dataset/elenco-strutture-ricettive-nel-comune-di-matera-dal-2015">dati.regione.basilicata</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									240
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									Marzo 2015
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Attribution</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_dx1">
+						<table class="tab_fonti_dx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Calabria
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.reggiocal.it/">dati.reggiocal.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Campania
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="opendatacampania.it">opendatacampania.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Emilia-Romagna
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.emilia-romagna.it/dataset/strutture-ricettive-regionali-alberghiere-ed-extra-alberghiere--6005440e/resource/fdb22cba-61fb-4410-90c8-d20045807ab2">dati.emilia-romagna.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									9361
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									16 Giugno 2016
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://5.144.191.96/?q=node/18">CC-BY-RER</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_dx">
+						<table class="tab_fonti_dx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Friuli-Venezia Giulia
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="https://www.dati.friuliveneziagiulia.it/Turismo/Strutture-Alberghiere-e-RTA/fiiw-i5su">www.dati.friuliveneziagiulia.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>
+								<td>
+									734
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									8 Marzo 2016
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.dati.gov.it/iodl/2.0/">Italian Open Data License</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Lazio
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="https://dati.lazio.it/it">dati.lazio.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Liguria
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://www.regione.liguria.it/sep-servizi-online/catalogo-servizi-online/opendata/item/6883-strutture-ricettive-alberghiere.html">www.regione.liguria.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									1336
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									24 Agosto 2016
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="https://creativecommons.org/licenses/by/2.0/it/">CC-BY</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_dx">
+						<table class="tab_fonti_dx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Lombardia
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="https://www.dati.lombardia.it/Turismo/Strutture-Ricettive-Alberghiere-e-extra-alberghier/745d-3uyg">dati.lombardia.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>
+								<td>
+									8887
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									15 Settembre 2016
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.dati.gov.it/iodl/2.0/">Italian Open Data License</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Marche
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://goodpa.regione.marche.it/dataset/anagrafica-strutture-ricettive">goodpa.regione.marche.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									5250
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									21 Gennaio 2015
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									Non specificata
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Molise
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_dx">
+						<table class="tab_fonti_dx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Piemonte
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://www.dati.piemonte.it/catalogodati/dato/100966-.html">dati.piemonte.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>
+								<td>
+									6336
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									31 Dicembre 2015
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.dati.piemonte.it/media/files/Licenza_cczero.pdf">CC0 1.0 Universal</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Puglia
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://www.dataset.puglia.it/dataset/elenco-strutture-ricettive">dati.puglia.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									5718
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									6 Luglio 2015
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.dati.gov.it/iodl/2.0/">Italian Open Data License</a>
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Sardegna
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.regione.sardegna.it/dataset/guida-agli-hotel-e-camping-della-sardegna">opendata.sardegna.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									1111
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									25 Settembre 2016
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									Non specificata
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_dx">
+						<table class="tab_fonti_dx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Sicilia
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://pti.regione.sicilia.it/portal/page/portal/SIT_PORTALE/SIT_RICERCHE/SIT_RICERCA?tipoOfferta=1">nonportale.opendatasicilia.it/</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>
+								<td>
+									5592
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									Tutti i diritti riservati
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Toscana
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.toscana.it/dataset/rt-strutric">dati.toscana.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									15143
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									29 Gennaio 2016
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Attribution</a>
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Trentino-Alto Adige
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.trentino.it/dataset/esercizi-alberghieri">dati.trentino.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									1529
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									30 Novembre 2014
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Attribution</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_dx">
+						<table class="tab_fonti_dx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Umbria
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.umbria.it/dataset/elenco-delle-strutture-ricettive">dati.umbria.it/</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>
+								<td>
+									3940
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									20 Agosto 2014
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Attribution</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box_tab_sx">
+						<table class="tab_fonti_sx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Valle d'Aosta
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://www.regione.vda.it/statistica/opendata/default_i.aspx">www.regione.vda.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									n/a
+								</td>
+							</tr>
+						</table>
+						<table class="tab_fonti_cx">
+							<tr>
+								<td class="nome_regione" colspan="2">
+									Veneto
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Link
+								</td>
+								<td>
+									<a href="http://dati.veneto.it/dataset/elenco-strutture-ricettive-del-veneto">dati.veneto.it</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Numero strutture ricettive
+								</td>	
+								<td>
+									9689
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Ultimo aggiornamento
+								</td>
+								<td>
+									Aggiornamento quotidiano
+								</td>
+							</tr>
+							<tr>
+								<td class="riga_fonti">
+									Licenza
+								</td>
+								<td>
+									<a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Attribution</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
             </div>
         </div>
     </section>
@@ -237,9 +980,9 @@
 								Questo progetto &egrave sviluppato dal gruppo di ricerca <a href="http://wafi.iit.cnr.it/">WAFI</a> presso l'<a href="http://www.iit.cnr.it/">Istituto di Informatica e Telematica</a> del <a href="http://www.area.pi.cnr.it/">Consiglio Nazionale delle Ricerche di Pisa</a>.
 							</p>
 						</div>
-						<img class="img_iit_cnr" src="images/WAFI.png" alt="WAFI"/>
-						<img class="img_iit_cnr" src="images/IIT.png" alt="IIT"/>
-						<img class="img_iit_cnr" src="images/CNR.png" alt="CNR"/>
+						<a href="http://wafi.iit.cnr.it/"><img class="img_iit_cnr" src="images/WAFI.png" alt="WAFI"/></a>
+						<a href="http://www.iit.cnr.it/"><img class="img_iit_cnr" src="images/IIT.png" alt="IIT"/></a>
+						<a href="http://www.area.pi.cnr.it/"><img class="img_iit_cnr" src="images/CNR.png" alt="CNR"/></a>
 					</div>
 					<div class="box_cnr_iit">
 						<div class="textcontatti">
@@ -251,15 +994,7 @@
 					<div class="boxcontatti">
 						<div class="contatti">
 							<p id="testoinfo">
-								Giacomo Gregori<br>
-								<a class="mail" href="mailto:"giacomo.gregori87@gmail.com">giacomo.gregori87@gmail.com</a>
-							</p>
-						</div>
-					</div>
-					<div class="boxcontatti2">
-						<div class="contatti">
-							<p id="testoinfo">
-								Prof. Andrea Marchetti<br>
+								Andrea Marchetti<br>
 								<a class="mail" href="mailto:"andrea.marchetti@iit.cnr.it">andrea.marchetti@iit.cnr.it</a>
 							</p>
 						</div>
@@ -267,13 +1002,35 @@
 					<div class="boxcontatti">
 						<div class="contatti">
 							<p id="testoinfo">
-								Ing. Angelica Lo Duca<br>
+								Angelica Lo Duca<br>
 								<a class="mail" href="mailto:"angelica.loduca@iit.cnr.it">angelica.loduca@iit.cnr.it</a>
 							</p>
 						</div>
 					</div>
 					</div>
                 </div>
+            </div>
+        </div>
+    </section>
+	
+	<!-- Sezione credits -->
+    <section id="credits" class="sezione_credits">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+					<h1>Credits</h1>
+					<div class="box_cnr_iit">
+						<div class="textcontatti">
+							<p id="testoinfo">
+								Questo sito &egrave stato creato da Giacomo Gregori per il tirocinio formativo previsto dalla facolt&agrave di <a href="http://www.fileli.unipi.it/infouma/">Informatica Umanistica</a> presso l'<a href="https://www.unipi.it/">Universit&agrave di Pisa</a> presso l'<a href="http://www.iit.cnr.it/">Istituto di Informatica e Telematica</a> del <a href="http://www.area.pi.cnr.it/">Consiglio Nazionale delle Ricerche di Pisa</a>.<br><br>
+								E-mail:<br>
+								<a href="mailto:giacomo.gregori87@gmail.com">giacomo.gregori87@gmail.com</a>
+							</p>
+							<a href="https://www.unipi.it/"><img class="img_unipi_infouma" src="images/unipi.gif" alt="UniPi"/></a>
+							<a href="http://www.fileli.unipi.it/infouma/"><img class="img_unipi_infouma" src="images/infouma.svg" alt="InfoUma"/></a>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
     </section>
@@ -291,8 +1048,16 @@
 	<!-- Creazione mappa -->
 	<script src="js/main.js"></script>
 	<script src="js/maps.js"></script>
+	<script src="js/charts.js"></script>
 	<script type="text/javascript" src="./libraries/highmaps.js"></script>
-	<script type="text/javascript" src="./libraries/exporting.js"></script>	
+	<!--script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/highcharts-more.js"></script>
+	<script src="http://code.highcharts.com/modules/heatmap.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script-->
+	<script type="text/javascript" src="./libraries/Highcharts/js/highcharts.js"></script>
+	<script type="text/javascript" src="./libraries/Highcharts/js/highcharts-more.js"></script>
+	<script type="text/javascript" src="./libraries/Highcharts/js/modules/heatmap.js"></script>
+	<script type="text/javascript" src="./libraries/Highcharts/js/modules/exporting.js"></script>
 </body>
 
 </html>
