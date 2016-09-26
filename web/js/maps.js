@@ -165,7 +165,7 @@ $('#heatmap').highcharts('Map', {
 	}
 	
 	if (tipo=="recpop") {
-$('#container').highcharts('Map', {
+$('#heatmap').highcharts('Map', {
 	chart: {
 			borderRadius: 20,
 			shadow: true,
@@ -325,7 +325,7 @@ $('#container').highcharts('Map', {
     });
 	}
 	if (tipo=="recterr") {
-$('#container').highcharts('Map', {
+$('#heatmap').highcharts('Map', {
     chart: {
 			borderRadius: 20,
 			shadow: true,
