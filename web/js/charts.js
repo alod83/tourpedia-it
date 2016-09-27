@@ -11,13 +11,13 @@ function Grafico() {
 				},
         },
         title: {
-            text: 'Open Data vs. Booking.com'
+            text: 'Open Data vs. <a href="http://www.booking.com">Booking.com</a>'
         },
         subtitle: {
             text: 'Confronto tra i dati ricavati dagli open data delle Regioni e da Booking.com'
         },
         xAxis: {
-			categories: ['Abruzzo', 'Calabria', 'Campania', 'Lazio', 'Molise', 'Valle dAosta', 'Basilicata', 'Friuli-Venezia Giulia', 'Sardegna', 'Liguria', 'Trentino-Alto Adige', 'Umbria', 'Marche', 'Sicilia', 'Puglia', 'Piemonte', 'Lombardia', 'Emilia-Romagna', 'Veneto', 'Toscana'],
+			categories: ['Abruzzo', 'Calabria', 'Campania', 'Lazio', 'Molise', "Valle d'Aosta", 'Basilicata', 'Friuli-Venezia Giulia', 'Sardegna', 'Liguria', 'Trentino-Alto Adige', 'Umbria', 'Marche', 'Sicilia', 'Puglia', 'Piemonte', 'Lombardia', 'Emilia-Romagna', 'Veneto', 'Toscana'],
             title: {
                 text: null
             }
