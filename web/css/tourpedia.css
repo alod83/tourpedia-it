@@ -165,7 +165,7 @@ td { border: 1px solid black;}
 		margin-right: 25px;
 		box-shadow: 10px 10px 5px #C0C0C0;
 		font-size: 13px;
-		
+		text-align: center;
 }
 
 .tab_fonti_cx {
@@ -176,6 +176,7 @@ td { border: 1px solid black;}
 		margin-top: 3%;
 		font-size: 13px;
 		box-shadow: 10px 10px 5px #C0C0C0;
+		text-align: center;
 }
 
 .tab_fonti_dx {
@@ -186,6 +187,7 @@ td { border: 1px solid black;}
 		margin-top: 3%;
 		font-size: 13px;
 		box-shadow: 10px 10px 5px #C0C0C0;
+		text-align: center;
 }
 
 .nome_regione {
@@ -330,5 +332,5 @@ td {
 	height: 1500px;
 }
 .sezione_fonti {
-	height: 1850px;
+	height: 1880px;
 }
