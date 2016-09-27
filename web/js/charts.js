@@ -11,13 +11,13 @@ function Grafico() {
 				},
         },
         title: {
-            text: 'Historic World Population by Region'
+            text: 'Open Data vs. Booking.com'
         },
         subtitle: {
-            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+            text: 'Confronto tra i dati ricavati dagli open data delle Regioni e da Booking.com'
         },
         xAxis: {
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+			categories: ['Abruzzo', 'Calabria', 'Campania', 'Lazio', 'Molise', 'Valle dAosta', 'Basilicata', 'Friuli-Venezia Giulia', 'Sardegna', 'Liguria', 'Trentino-Alto Adige', 'Umbria', 'Marche', 'Sicilia', 'Puglia', 'Piemonte', 'Lombardia', 'Emilia-Romagna', 'Veneto', 'Toscana'],
             title: {
                 text: null
             }
@@ -25,7 +25,7 @@ function Grafico() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)',
+                text: 'Numero di strutture',
                 align: 'high'
             },
             labels: {
@@ -33,7 +33,7 @@ function Grafico() {
             }
         },
         tooltip: {
-            valueSuffix: ' millions'
+            valueSuffix: ' strutture'
         },
         plotOptions: {
             bar: {
@@ -57,14 +57,11 @@ function Grafico() {
             enabled: false
         },
         series: [{
-            name: 'Year 1800',
-            data: [107, 31, 635, 203, 2]
+            name: 'Open Data',
+            data: [0, 0, 0, 0, 0, 0, 240, 734, 1111, 1336, 1529, 3940, 5250, 5592, 5718, 6336, 8887, 9361, 9689, 15143]
         }, {
-            name: 'Year 1900',
-            data: [133, 156, 947, 408, 6]
-        }, {
-            name: 'Year 2012',
-            data: [1052, 954, 4250, 740, 38]
+            name: 'Booking.com',
+            data: [1540, 1903, 5869, 11578, 233, 895, 922, 1338, 5903, 4304, 5928, 3151, 2339, 13966, 8364, 4037, 9133, 4054, 7640, 16285]
         }]
     });
 }
