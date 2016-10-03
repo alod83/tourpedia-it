@@ -259,7 +259,6 @@ td {
 	border-style: solid;
 	border-radius: 20px;
 	box-shadow: 10px 10px 5px #C0C0C0;
-	margin-top:0%;
 	width: 50%;
 	float: left;
 }
@@ -332,5 +331,318 @@ td {
 	height: 1500px;
 }
 .sezione_fonti {
-	height: 1880px;
+	height: 1900px;
+}
+
+.sezione_mappa {
+	height: 680px;
+}
+/*@media screen and (min-width:351px) and (max-width:500px) {
+	.sezione_fonti {height:4500px;}
+	.foto {
+		width: 88%;
+		margin-top: 5%;
+		margin-bottom: 5%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+	.boxcontatti {
+		float:none;
+		width:100%;
+	}
+	.boxcontatti.contatto1 {
+		margin-top: 500px;
+	}
+	.img_iit_cnr{
+		height: 75px;
+	}
+	
+	.img_iit_cnr.wafi{
+		height:100px;
+	}
+	
+	.box_tab_sx {
+		float:none;
+	}
+
+	.box_tab_dx1 {
+		float:none;
+	}
+		
+	.box_tab_dx {
+		float:none;
+	}
+		
+	.tab_fonti_sx {
+		width: 220px;
+		font-size: 10px;
+		float: none;
+	}
+	
+	.tab_fonti_cx {
+		width: 220px;
+		font-size: 10px;
+		float: none;
+	}
+	
+	.tab_fonti_dx {
+		width: 220px;
+		font-size: 10px;
+		float: none;
+		margin-top: 180px;
+	}
+	.nome_regione {
+		height: 70px;
+		font-size: 20px;
+		background: #CEECF5;
+	}
+	.box_cnr_iit.disclaimer {
+		margin-top: 230px;
+	}
+}*/
+
+@media screen and (max-width:500px) {
+	.sezione_mappa, .sezione_info, .sezione_contatti {
+		height: 830px;
+	}
+	.sezione_fonti {
+		height:4500px;
+	}
+	.sezione_dati{
+		height: 1700px;
+	}
+	.sottotitolo {
+		font-size: 25px;
+	}
+	.foto {
+		width: 88%;
+		margin-top: 5%;
+		margin-bottom: 5%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+	.boxcontatti {
+		float:none;
+		width:100%;
+	}
+
+	.boxcontatti.contatto1 {
+		margin-top: 420px;
+	}
+	
+	.img_iit_cnr{
+		height: 60px;
+	}
+	
+	.img_iit_cnr.wafi{
+		height:75px;
+	}
+	
+	.img_unipi_infouma{
+		width: 150px;
+		height:50px;
+		float:none;
+	}
+	
+	.testoinfo.mail, .mail{
+		font-size:12px;
+		margin-left:0%;
+		text-align: left;
+	}
+	
+	.box_tab_sx {
+		margin-left: 15%;
+		float:none;
+	}
+
+	.box_tab_dx1 {
+		margin-left: 15%;
+		float:none;
+	}
+		
+	.box_tab_dx {
+		margin-left: 15%;
+		float:none;
+	}
+	
+	.tab_fonti_sx {
+		width: 220px;
+		font-size: 10px;
+		margin-right: 18px;
+	}
+	
+	.tab_fonti_cx {
+		width: 220px;
+		font-size: 10px;
+	}
+
+	.tab_fonti_dx {
+		width: 220px;
+		font-size: 10px;
+	}
+	.nome_regione {
+		height: 70px;
+		font-size: 20px;
+		background: #CEECF5;
+	}
+	.box_cnr_iit.disclaimer {
+		margin-top: 100px;
+	}
+	#heatmap, #gcontainer {
+		float: none;
+		width:100%;
+	}
+	
+	.commento {
+		width:100%;
+		margin-left: 0%;
+	}
+	.textcommento, .testoinfo {
+		font-size:12px;
+	}
+	.testo {
+		float: none; 
+		width:100%;
+	}
+	
+	.contfoto1 {
+		margin-left:0%;
+		width: 46%;
+		float:left;
+	}
+	.contfoto2 {
+		width: 46%;
+		margin-left:50%;
+	}
+}
+
+@media screen and (min-width:501px) and (max-width:768px) {
+	.sezione_mappa, .sezione_contatti{
+		height:820px;
+	}
+	
+	.sezione_info{
+		height:700px;
+	}
+	
+	.sezione_dati {
+		height:1600px;
+	}
+	
+	.sezione_fonti {
+		height:4750px;
+	}
+	
+	#heatmap, #gcontainer {
+		float: none;
+		width:100%;
+	}
+	
+	.commento {
+		width:100%;
+		margin-left: 0%;
+	}
+	
+	.textcommento, .testoinfo {
+		font-size:12px;
+	}
+	
+	.testo {
+		float: none; 
+		width:100%;
+	}
+	
+	.contfoto1 {
+		margin-left:0%;
+		width: 46%;
+		float:left;
+	}
+	.contfoto2 {
+		width: 46%;
+		margin-left:50%;
+	}
+	
+	.box_tab_sx {
+		margin-left: 15%;
+		float:none;
+	}
+
+	.box_tab_dx1 {
+		margin-left: 15%;
+		float:none;
+	}
+		
+	.box_tab_dx {
+		margin-left: 15%;
+		float:none;
+	}
+	
+	.tab_fonti_sx {
+		width: 400px;
+		font-size: 13px;
+		float: none;
+	}
+	
+	.tab_fonti_cx {
+		width: 400px;
+		font-size: 13px;
+		float: none;
+	}
+	
+	.tab_fonti_dx {
+		width: 400px;
+		font-size: 13px;
+		float: none;
+		margin-top: 220px;
+	}
+	.nome_regione {
+		height: 80px;
+		font-size: 25px;
+		background: #CEECF5;
+	}
+	.box_cnr_iit.disclaimer {
+		margin-top: 230px;
+	}
+	.img_unipi_infouma{
+		height: 50px;
+		float:none;
+	}
+	
+	.testoinfo.mail, .mail{
+		font-size:12px;
+		margin-left:0%;
+		text-align: left;
+	}
+}
+
+@media screen and (min-width:769px) and (max-width:1199px) {
+	.sezione_info, .sezione_contatti {
+		height:950px;
+	}
+		
+	.tab_fonti_sx {
+		width: 220px;
+		font-size: 10px;
+		margin-right: 18px;
+	}
+
+	.tab_fonti_cx {
+		width: 220px;
+		font-size: 10px;
+	}
+
+	.tab_fonti_dx {
+		width: 220px;
+		font-size: 10px;
+	}
+	
+	.box_tab_dx1 {
+			margin-top:8px;
+		}
+		
+	.nome_regione {
+		height: 70px;
+		font-size: 20px;
+		background: #CEECF5;
+	}
 }
