@@ -159,7 +159,7 @@ td { border: 1px solid black;}
 .tab_fonti_sx {
 		float:left;
 		background: white;
-		width: 350px;
+		/*width: 350px;*/
 		border: 1px solid black;
 		margin-top: 3%;
 		margin-right: 25px;
@@ -171,7 +171,7 @@ td { border: 1px solid black;}
 .tab_fonti_cx {
 		float:left;
 		background: white;
-		width: 350px;
+		/*width: 350px;*/
 		border: 1px solid black;
 		margin-top: 3%;
 		font-size: 13px;
@@ -182,7 +182,7 @@ td { border: 1px solid black;}
 .tab_fonti_dx {
 		float:left;
 		background: white;
-		width: 350px;
+		/*width: 350px;*/
 		border: 1px solid black;
 		margin-top: 3%;
 		font-size: 13px;
@@ -313,7 +313,7 @@ td {
 }
 
 .sezione_intro {
-	height: 100%;
+	height: 971px;
 	padding-top: 175px;
     text-align: center;
 	background: #E0F2F7;
@@ -334,8 +334,11 @@ td {
 	height: 1900px;
 }
 
-.sezione_mappa {
-	height: 680px;
+.sezione_mappa, .sezione_credits {
+	height: 720px;
+}
+.sezione_mappa, .sezione_credits, .sezione_contatti, .sezione_info {
+	height: 971px;
 }
 /*@media screen and (min-width:351px) and (max-width:500px) {
 	.sezione_fonti {height:4500px;}
@@ -451,33 +454,35 @@ td {
 	}
 	
 	.box_tab_sx {
-		margin-left: 15%;
+		/*margin-left: 15%;*/
 		float:none;
 	}
 
 	.box_tab_dx1 {
-		margin-left: 15%;
+		/*margin-left: 15%;*/
 		float:none;
 	}
 		
 	.box_tab_dx {
-		margin-left: 15%;
+		/*margin-left: 15%;*/
 		float:none;
 	}
 	
 	.tab_fonti_sx {
-		width: 220px;
+		/*width: 220px;*/
 		font-size: 10px;
 		margin-right: 18px;
 	}
 	
 	.tab_fonti_cx {
-		width: 220px;
+		/*width: 220px;*/
+		margin-top: 10px;
 		font-size: 10px;
 	}
 
 	.tab_fonti_dx {
-		width: 220px;
+		/*width: 220px;*/
+		margin-top: 10px;
 		font-size: 10px;
 	}
 	.nome_regione {
@@ -486,7 +491,10 @@ td {
 		background: #CEECF5;
 	}
 	.box_cnr_iit.disclaimer {
-		margin-top: 100px;
+		margin-top: 70px;
+	}
+	.testoinfo.disclaimer{
+		font-size:10px;
 	}
 	#heatmap, #gcontainer {
 		float: none;
@@ -530,7 +538,7 @@ td {
 	}
 	
 	.sezione_fonti {
-		height:4750px;
+		height:5400px;
 	}
 	
 	#heatmap, #gcontainer {
@@ -563,37 +571,43 @@ td {
 	}
 	
 	.box_tab_sx {
-		margin-left: 15%;
+		/*margin-left: 15%;*/
 		float:none;
 	}
 
 	.box_tab_dx1 {
-		margin-left: 15%;
+		/*margin-left: 15%;*/
+		margin-bottom: -17px;
 		float:none;
 	}
 		
 	.box_tab_dx {
-		margin-left: 15%;
+		/*margin-left: 15%;*/
+		margin-bottom: -18px;
 		float:none;
 	}
 	
 	.tab_fonti_sx {
-		width: 400px;
+		/*width: 400px;*/
 		font-size: 13px;
 		float: none;
+		height: 240px;
+		margin-top: 52px;
 	}
 	
 	.tab_fonti_cx {
-		width: 400px;
+		/*width: 400px;*/
 		font-size: 13px;
 		float: none;
+		margin-top: 10px;
+		height: 240px;
 	}
 	
 	.tab_fonti_dx {
-		width: 400px;
+		/*width: 400px;*/
 		font-size: 13px;
 		float: none;
-		margin-top: 220px;
+		height: 240px;
 	}
 	.nome_regione {
 		height: 80px;
@@ -601,7 +615,7 @@ td {
 		background: #CEECF5;
 	}
 	.box_cnr_iit.disclaimer {
-		margin-top: 230px;
+		margin-top: 320px;
 	}
 	.img_unipi_infouma{
 		height: 50px;
@@ -621,18 +635,18 @@ td {
 	}
 		
 	.tab_fonti_sx {
-		width: 220px;
+		/*width: 220px;*/
 		font-size: 10px;
 		margin-right: 18px;
 	}
 
 	.tab_fonti_cx {
-		width: 220px;
+		/*width: 220px;*/
 		font-size: 10px;
 	}
 
 	.tab_fonti_dx {
-		width: 220px;
+		/*width: 220px;*/
 		font-size: 10px;
 	}
 	
