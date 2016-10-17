@@ -1,23 +1,22 @@
 // Avvio della pagina
 $(document).ready(function() {
-	Mappa($('input[name="type"]:checked').val());
-	Grafico();
 	dimensionitabelle();
-	//alert($(window).height());
+	graficoajax();
+	mappaajax($('input[name="type"]:checked').val());
 	
 	// Radio Record
 	$("#record").bind('click', function() {
-		Mappa("record");
+		mappaajax("record");
 	});
 	
 // Radio Record/Popolazione
 	$("#popolazione").bind('click', function() {
-		Mappa("recpop");
+		mappaajax("recpop");
 	});
 	
 // Radio Record/Territorio
 	$("#territorio").bind('click', function() {
-		Mappa("recterr");
+		mappaajax("recterr");
 	});
 	
 // Ridimensionamento pagina
@@ -73,4 +72,18 @@ function dimensionitabelle() {
 				$(".tab_fonti_dx").css("margin-right",(($(".col-lg-12").width())-207)/2);
 			}
 	}
+}
+
+function graficoajax() {
+	// Chiamata AJAX a grafico.php che restituisce un JSON
+	$.getJSON("./api/grafico.php", function (data) {
+		Grafico(data);
+	});
+}
+
+function mappaajax(tipo) {
+	// Chiamata AJAX a mappa.php che restituisce un JSON
+	$.getJSON("./api/mappa.php?tipo_mappa="+tipo, function (data) {
+		Mappa(tipo, data);
+	});
 }

@@ -1,4 +1,4 @@
-function Grafico() {
+function Grafico(series) {
 
     			
     $('#gcontainer').highcharts({
@@ -56,12 +56,6 @@ function Grafico() {
         credits: {
             enabled: false
         },
-        series: [{
-            name: 'Open Data',
-            data: [0, 0, 0, 0, 0, 0, 240, 734, 1111, 1336, 1529, 3940, 5250, 5592, 5718, 6336, 8887, 9361, 9689, 15143]
-        }, {
-            name: 'Booking.com',
-            data: [1540, 1903, 5869, 11578, 233, 895, 922, 1338, 5903, 4304, 5928, 3151, 2339, 13966, 8364, 4037, 9133, 4054, 7640, 16285]
-        }]
+        series: series,
     });
 }
