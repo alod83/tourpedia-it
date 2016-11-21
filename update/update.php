@@ -7,7 +7,7 @@ Basilicata($date);
 EmiliaRomagna($date);
 Friuli($date);
 //Lazio				*NON DISPONIBILE*
-//Liguria($date);			//*NO CONNESSIONE*
+Liguria($date);			//*NO CONNESSIONE*
 Lombardia($date);
 Marche($date);
 //Molise 			*NON DISPONIBILE*
@@ -30,7 +30,6 @@ function Basilicata($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'BAS'.$row, 
 				'name' => $arr[1], 
 				'description' => $arr[0], 
 				'address' => $arr[3],
@@ -42,22 +41,27 @@ function Basilicata($date){
 		}
 		print "BASILICATA: ".$row."</br>";
 	}
+	else{
+		print "Problems to read url";
+	}
 }
 
 function EmiliaRomagna($date){
+	$zip = new ZipArchive;
+	$tmpZipFileName = "Tmpfile.zip";
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-	if(($handle=fopen("http://dati.emilia-romagna.it/dataset/29a34fd2-3068-47c7-89cd-2995e4fac20f/resource/fdb22cba-61fb-4410-90c8-d20045807ab2/download/strutturericettive-2016-09-28.zip", "r"))!==FALSE){
+	file_put_contents($tmpZipFileName, fopen("http://dati.emilia-romagna.it/dataset/29a34fd2-3068-47c7-89cd-2995e4fac20f/resource/fdb22cba-61fb-4410-90c8-d20045807ab2/download/strutturericettive-2016-09-28.zip", 'r'));
+	if($zip->open($tmpZipFileName)){
 		for ($i=0; $i<9; $i++){
-			$filename = $handle->getNameIndex($i);
-			$handle->extractTo('/temp/', $filename);
-			$file=fopen('/temp/'.$filename, "r");
+			$filename = $zip->getNameIndex($i);
+			$zip->extractTo('.', $filename);
+			$file=fopen($filename, "r");
 			$row=-1;
 			while(($arr=fgetcsv($file,10000,";"))!==FALSE){
 				$row++;
 				if($row==0)continue;
 				$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 				$bulk->insert([
-					'_id' => 'EMI'.$row, 
 					'name' => $arr[6], 
 					'description' => $arr[5], 
 					'address' => $arr[8],
@@ -69,7 +73,7 @@ function EmiliaRomagna($date){
 					'number of stars' => $arr[7], 
 					'email' => $arr[14], 
 					'web site' => $arr[13], 
-					'telephone' => intaval($arr[10]),
+					'telephone' => intval($arr[10]),
 					'telephone2' => intval($arr[11]),
 					'fax' => intval($arr[12]),
 					'latitude' => round(floatval($arr[16]),6),
@@ -80,6 +84,9 @@ function EmiliaRomagna($date){
 			print "EMILIA-ROMAGNA: ".$row."</br>";
 		}
 	}
+	// cancello i file temporanei
+	unlink($tmpZipFileName);
+	array_map('unlink', glob( "*.csv"));
 }
 
 function Friuli($date){
@@ -91,7 +98,6 @@ function Friuli($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'FRI'.$row, 
 				'name' => $arr[6], 
 				'description' => $arr[1], 
 				'address' => $arr[9].$arr[10], 
@@ -119,14 +125,29 @@ function Friuli($date){
 
 function Liguria($date){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-	if(($handle=fopen("http://www.regione.liguria.it/sep-servizi-online/catalogo-servizi-online/opendata/download/412/6883/48.html", "r"))!==FALSE){
+	$ch = curl_init(); 
+
+    curl_setopt($ch, CURLOPT_URL, "http://www.regione.liguria.it/sep-servizi-online/catalogo-servizi-online/opendata/download/416/6883/48.html"); 
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	// dico al server che sono un browser
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
+    $output = curl_exec($ch); 
+
+	$tmpFileName = 'tmpLiguria.csv';
+    // close curl resource to free up system resources 
+    curl_close($ch);
+    $handle = fopen($tmpFileName, 'w');
+	fwrite($handle, $output);
+	fclose($handle);
+	#if(($handle=fopen("http://www.regione.liguria.it/sep-servizi-online/catalogo-servizi-online/opendata/download/412/6883/48.html", "r"))!==FALSE){
+	if(($handle=fopen($tmpFileName, "r"))!==FALSE){
+	
 		$row=-1;
-		while(($arr=fgetcsv($handle,10000,","))!==FALSE){
+		while(($arr=fgetcsv($handle,10000,";"))!==FALSE){
 			$row++;
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'LIG'.$row, 
 				'name' => $arr[6], 
 				'description' => $arr[2], 
 				'address' => $arr[7],
@@ -148,6 +169,7 @@ function Liguria($date){
 		}
 		print "LIGURIA: ".$row."</br>";
 	}
+	unlink($tmpFileName);
 }
 
 function Lombardia($date){
@@ -159,7 +181,6 @@ function Lombardia($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'LOM'.$row, 
 				'name' => utf8_encode($arr[3]), 
 				'category' => utf8_encode($arr[4]),
 				'description' => utf8_encode($arr[5]), 
@@ -198,7 +219,6 @@ function Marche($date){
 			$row++;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'MAR'.$row, 
 				'name' => utf8_encode($arr_tot[$i+3]), 
 				'description' => utf8_encode($arr_tot[$i+1]), 
 				'address' => utf8_encode($arr_tot[$i+7]),
@@ -227,7 +247,6 @@ function Piemonte($date){
 	foreach($xml->item as $strut){
 		$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 		$bulk->insert([
-		'_id' => 'PIE'.$row, 
 		'name' => (string)($strut->name), 
 		'description' => (string)($strut->cat_it), 
 		'address' => (string)($strut->address),
@@ -256,7 +275,6 @@ function Puglia($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'PUG'.$row, 
 				'name' => $arr[2], 
 				'description' => $arr[3], 
 				'address' => $arr[8],
@@ -291,7 +309,6 @@ function Toscana($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'TOS'.$row, 
 				'name' => utf8_encode($arr[3]), 
 				'description' => utf8_encode($arr[2]), 
 				'address' => utf8_encode($arr[4]), 
@@ -320,7 +337,6 @@ function Trentino($date){
 		$row++;
 		$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 		$bulk->insert([
-				'_id' => 'TRE'.$row, 
 				'name' => (string)($strut[0]->attributes()->denominazione), 
 				'description' => (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'tipologia-alberghiera'}), 
 				'address' => (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->indirizzo), 
@@ -351,7 +367,6 @@ function Umbria($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'UMB'.$row, 
 				'name' => $arr[5], 
 				'description' => $arr[6], 
 				'address' => $arr[8],
@@ -387,7 +402,6 @@ function Veneto($date){
 			if($row==0)continue;
 			$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
-				'_id' => 'VEN'.$row, 
 				'name' => $arr[7], 
 				'description' => $arr[3], 
 				'address' => $arr[8]." ".$arr[9],
