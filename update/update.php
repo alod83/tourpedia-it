@@ -193,7 +193,7 @@ function Basilicata($date, $ini_array){
 					'email'				=> $email,
 					'beds'				=> $beds
 					]);
-				$manager->executeBulkWrite('Strutture.BASILICATA', $bulk);
+				$manager->executeBulkWrite('Strutture.NUOVO', $bulk);
 		}
 		print "BASILICATA: ".$row."</br>";
 		/*if(($handle=fopen($ini_array["Basilicata"]["url"], "r"))!==FALSE){
