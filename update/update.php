@@ -1,7 +1,7 @@
 <?php 
 ini_set('MAX_EXECUTION_TIME', -1);
-require_once 'Excel/reader.php';
-require 'simple_html_dom.php';
+require_once 'library/excel/reader.php';
+require 'library/simple_html_dom.php';
 ini_set('auto_detect_line_endings', TRUE);
 $date = date("d/m/y H:i:s");
 $ini_array = parse_ini_file("config.ini", true);
