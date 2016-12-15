@@ -20,25 +20,25 @@ CopiaCollezione($nuovo, $vecchio);
 $drop = $nuovo->drop();
 
 //Abruzzo 			*NON DISPONIBILE*
-Basilicata($date, $ini_array, $nuovo);
+Basilicata($date, $ini_array, $nuovo, $vecchio);
 //Calabria 			*NON DISPONIBILE*
 //Campania			*NON DISPONIBILE*
-EmiliaRomagna($date, $ini_array, $nuovo);
-Friuli($date, $ini_array, $nuovo);
+EmiliaRomagna($date, $ini_array, $nuovo, $vecchio);
+Friuli($date, $ini_array, $nuovo, $vecchio);
 //Lazio				*NON DISPONIBILE*
-Liguria($date, $ini_array, $nuovo);	
-Lombardia($date, $ini_array, $nuovo);
-Marche($date, $ini_array, $nuovo);
+Liguria($date, $ini_array, $nuovo, $vecchio);	
+Lombardia($date, $ini_array, $nuovo, $vecchio);
+Marche($date, $ini_array, $nuovo, $vecchio);
 //Molise 			*NON DISPONIBILE*
-Piemonte($date, $ini_array, $nuovo);
-Puglia($date, $ini_array, $nuovo);
+Piemonte($date, $ini_array, $nuovo, $vecchio);
+Puglia($date, $ini_array, $nuovo, $vecchio);
 //Sardegna			*FILE PDF*
 //Sicilia			*NON SCARICABILE*
-Toscana($date, $ini_array, $nuovo);
-Trentino($date, $ini_array, $nuovo);
-Umbria($date, $ini_array, $nuovo);
+Toscana($date, $ini_array, $nuovo, $vecchio);
+Trentino($date, $ini_array, $nuovo, $vecchio);
+Umbria($date, $ini_array, $nuovo, $vecchio);
 //VdAosta			*NON DISPONIBILE*
-Veneto($date, $ini_array, $nuovo);
+Veneto($date, $ini_array, $nuovo, $vecchio);
 	
 function geocoder($address){
 	$address = urlencode($address);
@@ -49,7 +49,7 @@ function geocoder($address){
     // decode the json
     $resp = json_decode($resp_json, true);
 	print_r($resp);
-	print "</br>";
+	print "\n";
  
     // response status will be 'OK', if able to geocode given address 
     if($resp['status']=='OK'){
@@ -175,7 +175,7 @@ function geocode($address){
     }
 }
 
-function Basilicata($date, $ini_array, $nuovo){
+function Basilicata($date, $ini_array, $nuovo, $vecchio){
 	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	$lastmodified = NULL;
 	$ch = curl_init(); 
@@ -222,10 +222,10 @@ function Basilicata($date, $ini_array, $nuovo){
 				}
 				$document['_id']='BAS'.$row;
 				/*$address=urlencode($address.", ".$city.", ".$prov);
-				print $address."</br>";
+				print $address."\n";
 				$loc = geocoder::getLocation($address);
 				print_r($loc);
-				print "</br>";*/
+				print "\n";*/
 				/*$document['name']=$name;
 				$document['description']=$description;
 				$document['address']=$address;
@@ -261,14 +261,11 @@ function Basilicata($date, $ini_array, $nuovo){
 					]);
 				$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "BASILICATA: ".$row."</br>";
+		print "BASILICATA: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Basilicata'){
@@ -286,13 +283,13 @@ function Basilicata($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "BASILICATA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "BASILICATA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog("Basilicata", $date, $row, $lastmodified);
 }
 
-function EmiliaRomagna($date, $ini_array, $nuovo){
+function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 	$zip = new ZipArchive;
 	$tmpZipFileName = "Tmpfile.zip";
 	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
@@ -349,15 +346,12 @@ function EmiliaRomagna($date, $ini_array, $nuovo){
 					$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 				}
 			}
-			print "EMILIA-ROMAGNA: ".$row."</br>";
+			print "EMILIA-ROMAGNA: ".$row."\n";
 		}
 	 }
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Emilia-Romagna'){
@@ -365,7 +359,7 @@ function EmiliaRomagna($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "EMILIA-ROMAGNA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "EMILIA-ROMAGNA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Emilia-Romagna', $date, $row, $lastmodified);
@@ -374,7 +368,7 @@ function EmiliaRomagna($date, $ini_array, $nuovo){
 	//array_map('unlink', glob( "*.csv"));
 }
 
-function Friuli($date, $ini_array, $nuovo){
+function Friuli($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	/*$ch = curl_init($ini_array["Friuli"]["url"]);
 	$filetime = curl_getinfo($ch, CURLINFO_FILETIME);
@@ -451,14 +445,11 @@ function Friuli($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "FRIULI-VENEZIA GIULIA: ".$row."</br>";
+		print "FRIULI-VENEZIA GIULIA: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Friuli-Venezia Giulia'){
@@ -466,13 +457,13 @@ function Friuli($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "FRIULI-VENEZIA GIULIA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "FRIULI-VENEZIA GIULIA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Friuli-Venezia Giulia', $date, $row, $lastmodified);
 }
 
-function Liguria($date, $ini_array, $nuovo){
+function Liguria($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Liguria"]["url"]); 
@@ -552,15 +543,12 @@ function Liguria($date, $ini_array, $nuovo){
 					]);
 				$manager->executeBulkWrite('Strutture.LIGURIA', $bulk);*/
 			}
-			print "LIGURIA: ".$row."</br>";
+			print "LIGURIA: ".$row."\n";
 		}
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Liguria'){
@@ -568,7 +556,7 @@ function Liguria($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "LIGURIA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "LIGURIA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	$ch = curl_init(); 
@@ -591,7 +579,7 @@ function Liguria($date, $ini_array, $nuovo){
 	//unlink($tmpFileName);
 }
 
-function Lombardia($date, $ini_array, $nuovo){
+function Lombardia($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Lombardia"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
@@ -645,14 +633,11 @@ function Lombardia($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "LOMBARDIA: ".$row."</br>";
+		print "LOMBARDIA: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Lombardia'){
@@ -660,13 +645,13 @@ function Lombardia($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "LOMBARDIA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "LOMBARDIA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Lombardia', $date, $row, $lastmodified);
 }
 
-function Marche($date, $ini_array, $nuovo){
+function Marche($date, $ini_array, $nuovo, $vecchio){
 	$arr_tot=array();
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Marche"]["url"], "r"))!==FALSE){
@@ -720,14 +705,11 @@ function Marche($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "MARCHE: ".$row."</br>";
+		print "MARCHE: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Marche'){
@@ -735,13 +717,13 @@ function Marche($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "MARCHE: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "MARCHE: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Marche', $date, $row, $lastmodified);
 }
 
-function Piemonte($date, $ini_array, $nuovo){
+function Piemonte($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Piemonte"]["url"]); 
@@ -794,14 +776,11 @@ function Piemonte($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "PIEMONTE: ".$row."</br>";
+		print "PIEMONTE: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Piemonte'){
@@ -809,12 +788,12 @@ function Piemonte($date, $ini_array, $nuovo){
 				$row++;
 			}	
 		}
-		print "PIEMONTE: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "PIEMONTE: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 }
 
-function Puglia($date, $ini_array, $nuovo){
+function Puglia($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Puglia"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
@@ -886,14 +865,11 @@ function Puglia($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "PUGLIA: ".$row."</br>";
+		print "PUGLIA: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Puglia'){
@@ -901,13 +877,13 @@ function Puglia($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "PUGLIA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "PUGLIA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Puglia', $date, $row, $lastmodified);
 }
 
-function Toscana($date, $ini_array, $nuovo){
+function Toscana($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Toscana"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
@@ -949,14 +925,11 @@ function Toscana($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "TOSCANA: ".$row."</br>";
+		print "TOSCANA: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Toscana'){
@@ -964,13 +937,13 @@ function Toscana($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "TOSCANA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "TOSCANA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Toscana', $date, $row, $lastmodified);
 }
 
-function Trentino($date, $ini_array, $nuovo){
+function Trentino($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if ($xml = simplexml_load_file($ini_array["Trentino"]["url"])){
 		$lastmodified = (string)($xml->attributes()->{'data-inizio-validita'});
@@ -1019,14 +992,11 @@ function Trentino($date, $ini_array, $nuovo){
 					]);
 					$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "TRENTINO: ".$row."</br>";
+		print "TRENTINO: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Trentino'){
@@ -1034,13 +1004,13 @@ function Trentino($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "TRENTINO: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "TRENTINO: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Trentino', $date, $row, $lastmodified);
 }
 
-function Umbria($date, $ini_array, $nuovo){
+function Umbria($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Umbria"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
@@ -1093,14 +1063,11 @@ function Umbria($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "UMBRIA: ".$row."</br>";
+		print "UMBRIA: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Umbria'){
@@ -1108,7 +1075,7 @@ function Umbria($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "UMBRIA: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "UMBRIA: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	$html = file_get_html('http://dati.umbria.it/dataset/strutture-ricettive/resource/062d7bd6-f9c6-424e-9003-0b7cb3744cab');
@@ -1117,7 +1084,7 @@ function Umbria($date, $ini_array, $nuovo){
 	UpdateLog('Umbria', $date, $row, $lastmodified);
 }
 
-function Veneto($date, $ini_array, $nuovo){
+function Veneto($date, $ini_array, $nuovo, $vecchio){
 	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Veneto"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
@@ -1157,17 +1124,17 @@ function Veneto($date, $ini_array, $nuovo){
 			//$counter_geo++;
 			//if($counter_geo==30){$counter_geo=0;
 			//sleep(1);
-			//print $row."</br>";
+			//print $row."\n";
 			//print "sleep";}
 			/*print $row.": ";
 			print_r($geo);
-			print "</br>";*/
+			print "\n";*/
 			
 			/*$address=urlencode($arr[8]." ".$arr[9].", ".$arr[1].", ".$prov);
 			print $row.": ";
 			$loc = geocoder::getLocation($address);
 			print_r($loc);
-			print "</br>";*/
+			print "\n";*/
 			$document['_id']=				"VEN".$row;
 			$document['name']=				$arr[7];
 			$document['description']=		$arr[3];
@@ -1205,14 +1172,11 @@ function Veneto($date, $ini_array, $nuovo){
 				]);
 			$manager->executeBulkWrite('Strutture.NUOVO', $bulk);*/
 		}
-		print "VENETO: ".$row."</br>";
+		print "VENETO: ".$row."\n";
 	}
 	else{
 		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$temp = $dbname->TEMP;
-		$nuovo = $dbname->NUOVO;
-		$cursor = $temp->find();
+		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Veneto'){
@@ -1220,7 +1184,7 @@ function Veneto($date, $ini_array, $nuovo){
 				$row++;
 			}
 		}
-		print "VENETO: Problems reading url. Recovered ".$row." records from the old database</br>";
+		print "VENETO: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
 	UpdateLog('Veneto', $date, $row, $lastmodified);
