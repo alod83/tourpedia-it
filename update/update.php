@@ -40,7 +40,7 @@ Umbria($date, $ini_array, $nuovo, $vecchio);
 //VdAosta			*NON DISPONIBILE*
 Veneto($date, $ini_array, $nuovo, $vecchio);
 	
-function geocoder($address){
+function geocode($address){
 	$address = urlencode($address);
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=AIzaSyD64knRCOQVHjMOkp86vuBO_njh_mhWHw0";
 	// get the json response
@@ -127,52 +127,6 @@ function UpdateLog($regione, $date, $row, $lastmodified){
 	}
 	$document[$regione." structures"] = $row;
 	$log->save($document);
-}
-
-function geocode($address){
- 
-    // url encode the address
-    $address = urlencode($address);
-     
-    // google map geocode api url
-    $url = "http://maps.google.com/maps/api/geocode/json?address={$address}";
- 
-    // get the json response
-    $resp_json = file_get_contents($url);
-     
-    // decode the json
-    $resp = json_decode($resp_json, true);
- 
-    // response status will be 'OK', if able to geocode given address 
-    if($resp['status']=='OK'){
- 
-        // get the important data
-        $lati = $resp['results'][0]['geometry']['location']['lat'];
-        $longi = $resp['results'][0]['geometry']['location']['lng'];
-        //$formatted_address = $resp['results'][0]['formatted_address'];
-         
-        // verify if data is complete
-        if($lati && $longi/* && $formatted_address*/){
-         
-            // put the data in the array
-            $data_arr = array();            
-             
-            array_push(
-                $data_arr, 
-                    $lati, 
-                    $longi 
-                    //$formatted_address
-                );
-             
-            return $data_arr;
-             
-        }else{
-            return false;
-        }
-         
-    }else{
-        return false;
-    }
 }
 
 function Basilicata($date, $ini_array, $nuovo, $vecchio){
@@ -369,7 +323,7 @@ function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Friuli($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	/*$ch = curl_init($ini_array["Friuli"]["url"]);
 	$filetime = curl_getinfo($ch, CURLINFO_FILETIME);
 	print $filetime;*/
@@ -464,7 +418,7 @@ function Friuli($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Liguria($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Liguria"]["url"]); 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
@@ -580,7 +534,7 @@ function Liguria($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Lombardia($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Lombardia"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][8];
@@ -653,7 +607,7 @@ function Lombardia($date, $ini_array, $nuovo, $vecchio){
 
 function Marche($date, $ini_array, $nuovo, $vecchio){
 	$arr_tot=array();
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Marche"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][10];
@@ -724,7 +678,7 @@ function Marche($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Piemonte($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Piemonte"]["url"]); 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
@@ -794,7 +748,7 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Puglia($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Puglia"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][11];
@@ -884,7 +838,7 @@ function Puglia($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Toscana($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Toscana"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][9];
@@ -944,7 +898,7 @@ function Toscana($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Trentino($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if ($xml = simplexml_load_file($ini_array["Trentino"]["url"])){
 		$lastmodified = (string)($xml->attributes()->{'data-inizio-validita'});
 		$row=0;
@@ -1011,7 +965,7 @@ function Trentino($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Umbria($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Umbria"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$row=-1;
@@ -1085,7 +1039,7 @@ function Umbria($date, $ini_array, $nuovo, $vecchio){
 }
 
 function Veneto($date, $ini_array, $nuovo, $vecchio){
-	$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+	//$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 	if(($handle=fopen($ini_array["Veneto"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][3];
