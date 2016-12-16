@@ -39,7 +39,7 @@ Trentino($date, $ini_array, $nuovo, $vecchio);
 Umbria($date, $ini_array, $nuovo, $vecchio);
 //VdAosta			*NON DISPONIBILE*
 Veneto($date, $ini_array, $nuovo, $vecchio);
-	
+
 function geocode($address){
 	$address = urlencode($address);
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=AIzaSyD64knRCOQVHjMOkp86vuBO_njh_mhWHw0";
@@ -175,6 +175,7 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 					$prov=NULL;
 				}
 				$document['_id']='BAS'.$row;
+				$nuovo->save($document);
 				/*$address=urlencode($address.", ".$city.", ".$prov);
 				print $address."\n";
 				$loc = geocoder::getLocation($address);
@@ -195,7 +196,7 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 				$document['web site']=$web;
 				$document['email']=$email;
 				$document['beds']=$beds;*/
-				$nuovo->save($document);
+				
 				/*$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 				$bulk->insert([
 					'name' 				=> $name, 
@@ -241,6 +242,7 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 		$row = NULL;
 	}
 	UpdateLog("Basilicata", $date, $row, $lastmodified);
+	unlink($tmpFileName);
 }
 
 function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
@@ -318,8 +320,8 @@ function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 	}
 	UpdateLog('Emilia-Romagna', $date, $row, $lastmodified);
 	// cancello i file temporanei
-	//unlink($tmpZipFileName);
-	//array_map('unlink', glob( "*.csv"));
+	unlink($tmpZipFileName);
+	array_map('unlink', glob( "*.csv"));
 }
 
 function Friuli($date, $ini_array, $nuovo, $vecchio){
@@ -530,7 +532,7 @@ function Liguria($date, $ini_array, $nuovo, $vecchio){
 		$lastmodified=substr($lastmodified,strlen("<div class='flexi value field_data_ultimo_aggiornamento'>"),-6);
 	}
 	UpdateLog('Liguria', $date, $row, $lastmodified);
-	//unlink($tmpFileName);
+	unlink($tmpFileName);
 }
 
 function Lombardia($date, $ini_array, $nuovo, $vecchio){
@@ -687,6 +689,8 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 	// dico al server che sono un browser
 	//curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
     $output = curl_exec($ch); 
+	//$metadata = stream_get_meta_data(fopen($ini_array["Piemonte"]["url"],"r"));
+	//print_r($metadata);
     // close curl resource to free up system resources 
     curl_close($ch);
 	if(!empty($output)){
@@ -710,7 +714,7 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 			$document['rooms']=				intval($arr[$i+13]);
 			$document['beds']=				intval($arr[$i+14]);
 			$document['toilets']=			intval($arr[$i+15]);
-			$nuovo->save($document);
+			//$nuovo->save($document);
 			/*$bulk = new MongoDB\Driver\BulkWrite(['ordered' => true]);
 			$bulk->insert([
 				'name' 				=> $arr[$i+2], 
@@ -745,6 +749,10 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 		print "PIEMONTE: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
+	$html = file_get_html('http://www.dati.piemonte.it/catalogodati/dato/100966-.html');
+	$lastmodified=$html->find('table[class=tabella_item]',1)->find('td',1);
+	$lastmodified=substr($lastmodified,80,-10);
+	UpdateLog('Piemonte', $date, $row, $lastmodified);
 }
 
 function Puglia($date, $ini_array, $nuovo, $vecchio){
