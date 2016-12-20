@@ -1,5 +1,4 @@
-<?php 
-ini_set('MAX_EXECUTION_TIME', -1);
+<?PHP
 require_once 'libraries/excel/reader.php';
 require 'libraries/simple_html_dom.php';
 ini_set('auto_detect_line_endings', TRUE);
@@ -8,111 +7,22 @@ $ini_array = parse_ini_file("config.ini", true);
 $connection = new MongoClient('mongodb://localhost:27017');
 $dbname = $connection->selectDB('Strutture');
 $nuovo = $dbname->NUOVO;
-$vecchio = $dbname->VECCHIO;
-$temp = $dbname->TEMP;
 $log = $dbname->LOG;
 $document["date"] = $date;
 $log->save($document);
-$drop = $temp->drop();
-CopiaCollezione($vecchio, $temp);
-$drop = $vecchio->drop();
-CopiaCollezione($nuovo, $vecchio);
 $drop = $nuovo->drop();
-
-//Abruzzo 			*NON DISPONIBILE*
-Basilicata($date, $ini_array, $nuovo, $vecchio);
-//Calabria 			*NON DISPONIBILE*
-//Campania			*NON DISPONIBILE*
-EmiliaRomagna($date, $ini_array, $nuovo, $vecchio);
-Friuli($date, $ini_array, $nuovo, $vecchio);
-//Lazio				*NON DISPONIBILE*
-Liguria($date, $ini_array, $nuovo, $vecchio);	
-Lombardia($date, $ini_array, $nuovo, $vecchio);
-Marche($date, $ini_array, $nuovo, $vecchio);
-//Molise 			*NON DISPONIBILE*
-Piemonte($date, $ini_array, $nuovo, $vecchio);
-Puglia($date, $ini_array, $nuovo, $vecchio);
-//Sardegna			*FILE PDF*
-//Sicilia			*NON SCARICABILE*
-Toscana($date, $ini_array, $nuovo, $vecchio);
-Trentino($date, $ini_array, $nuovo, $vecchio);
-Umbria($date, $ini_array, $nuovo, $vecchio);
-//VdAosta			*NON DISPONIBILE*
-Veneto($date, $ini_array, $nuovo, $vecchio);
-
-function geocode($address){
-	$address = urlencode($address);
-	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=AIzaSyD64knRCOQVHjMOkp86vuBO_njh_mhWHw0";
-	// get the json response
-    $resp_json = file_get_contents($url);
-     
-    // decode the json
-    $resp = json_decode($resp_json, true);
-	print_r($resp);
-	print "\n";
- 
-    // response status will be 'OK', if able to geocode given address 
-    if($resp['status']=='OK'){
- 
-        // get the important data
-        $lati = $resp['results'][0]['geometry']['location']['lat'];
-        $longi = $resp['results'][0]['geometry']['location']['lng'];
-         
-        // verify if data is complete
-        if($lati && $longi){
-         
-            // put the data in the array
-            $data_arr = array();            
-             
-            array_push(
-                $data_arr, 
-                    $lati, 
-                    $longi 
-                );
-             
-            return $data_arr;
-             
-        }else{
-            return false;
-        }
-         
-    }else{
-        return false;
-    }	
-}
-
-function TrovaCoordinate($document, $vecchio){
-	$product_array = array(
-		'address' => $document['address']
-		);
-	if($found = $vecchio->findOne($product_array)){
-		if($found['latitude']!==NULL){
-			$document['latitude']=$found['latitude'];
-			$document['longitude']=$found['longitude'];
-		}
-		else{
-			$document['latitude']=NULL;
-			$document['longitude']=NULL;
-		}
-	}
-	else{
-		if($document['region']=="Basilicata"){
-			$add=$document['address'].", ".$document['region'];
-		}
-		else {
-			$add=$document['address'].", ".$document['city'];
-		}
-		if($geo=geocode($add)){
-			$document['latitude']=round(floatval($geo[0]),6);
-			$document['longitude']=round(floatval($geo[1]),6);
-		}
-		else{
-			$document['latitude']=NULL;
-			$document['longitude']=NULL;
-		}
-	}
-	return $document;
-}
+Basilicata($date, $ini_array, $nuovo);
+EmiliaRomagna($date, $ini_array, $nuovo);
+Friuli($date, $ini_array, $nuovo);
+Liguria($date, $ini_array, $nuovo);	
+Lombardia($date, $ini_array, $nuovo);
+Marche($date, $ini_array, $nuovo);
+Piemonte($date, $ini_array, $nuovo);
+Puglia($date, $ini_array, $nuovo);
+Toscana($date, $ini_array, $nuovo);
+Trentino($date, $ini_array, $nuovo);
+Umbria($date, $ini_array, $nuovo);
+Veneto($date, $ini_array, $nuovo);
 
 function CopiaCollezione($collPartenza, $collArrivo) {
 	$cursor = $collPartenza->find();
@@ -159,7 +69,7 @@ function UpdateLog($regione, $date, $row, $lastmodified){
 	$log->save($document);
 }
 
-function Basilicata($date, $ini_array, $nuovo, $vecchio){
+function Basilicata($date, $ini_array, $nuovo){
 	$lastmodified = NULL;
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Basilicata"]["url"]); 
@@ -205,39 +115,20 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 				}
 				$document['_id']='BAS'.$row;
 				$document['region'] = 'Basilicata';
-				$document=TrovaCoordinate($document, $vecchio);
+				$document['latitude'] = NULL;
+				$document['longitude'] = NULL;
 				$nuovo->save($document);
 		}
 		print "BASILICATA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Basilicata'){
-				$arr = array(
-							'_id' 			=> $obj['_id'],
-							'name' 			=> $obj['name'],
-							'description' 	=> $obj['description'],
-							'address' 		=> $obj['address'],
-							'city' 			=> $obj['city'],
-							'region' 		=> $obj['region'],
-							'latitude' 		=> $obj['latitude'],
-							'longitude' 	=> $obj['longitude']
-							);
-				$nuovo->insert($arr);
-				$row++;
-			}
-		}
-		print "BASILICATA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "BASILICATA: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog("Basilicata", $date, $row, $lastmodified);
-	unlink($tmpFileName);
 }
 
-function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
+function EmiliaRomagna($date, $ini_array, $nuovo){
 	$zip = new ZipArchive;
 	$tmpZipFileName = "Tmpfile.zip";
 	$lastmodified = NULL;
@@ -253,7 +144,15 @@ function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 				while(($arr=fgetcsv($file,10000,";"))!==FALSE){
 					$row++;
 					if($row==0)continue;
-					if($arr[6]=='denominazione')continue;
+					if($arr[6]=="denominazione")continue;
+					if($arr[16]==NULL){
+						$lat=NULL;
+						$long=NULL;
+					}
+					else{
+						$lat=round(floatval($arr[16]),6);
+						$long=round(floatval($arr[15]),6);
+					}
 					$document['_id']="EMI".$row;
 					$document['name']=$arr[6];
 					$document['description']=$arr[5];
@@ -269,8 +168,8 @@ function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 					$document['telephone']=$arr[10];
 					$document['telephone2']=$arr[11];
 					$document['fax']=$arr[12];
-					$document['latitude']=round(floatval($arr[16]),6);
-					$document['longitude']=round(floatval($arr[15]),6);
+					$document['latitude']=$lat;
+					$document['longitude']=$long;
 					$nuovo->save($document);
 				}
 			}
@@ -278,16 +177,7 @@ function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 		}
 	 }
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Emilia-Romagna'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "EMILIA-ROMAGNA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "EMILIA-ROMAGNA: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Emilia-Romagna', $date, $row, $lastmodified);
@@ -296,7 +186,7 @@ function EmiliaRomagna($date, $ini_array, $nuovo, $vecchio){
 	array_map('unlink', glob( "*.csv"));
 }
 
-function Friuli($date, $ini_array, $nuovo, $vecchio){
+function Friuli($date, $ini_array, $nuovo){
 	if(($handle=fopen($ini_array["Friuli"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][8];
@@ -339,34 +229,27 @@ function Friuli($date, $ini_array, $nuovo, $vecchio){
 			$document['rooms']=				intval($arr[16]);
 			$document['beds']=				intval($arr[17]);
 			$document['toilets']=			intval($arr[18]);
-			$document=TrovaCoordinate($document, $vecchio);
+			$document['latitude']=			NULL;
+			$document['longitude']=			NULL;
 			$nuovo->save($document);
 		}
 		print "FRIULI-VENEZIA GIULIA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Friuli-Venezia Giulia'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "FRIULI-VENEZIA GIULIA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "FRIULI-VENEZIA GIULIA: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Friuli-Venezia Giulia', $date, $row, $lastmodified);
 }
 
-function Liguria($date, $ini_array, $nuovo, $vecchio){
+function Liguria($date, $ini_array, $nuovo){
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Liguria"]["url"]); 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	// dico al server che sono un browser
 	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
     if (($output = curl_exec($ch))!=FALSE){ 
+
 		$tmpFileName = 'tmpLiguria.csv';
 		// close curl resource to free up system resources 
 		curl_close($ch);
@@ -410,23 +293,15 @@ function Liguria($date, $ini_array, $nuovo, $vecchio){
 				$document['fax']=				$arr[12];
 				$document['rooms']=				intval($arr[15]);
 				$document['beds']=				intval($arr[16]);
-				$document=TrovaCoordinate($document, $vecchio);
+				$document['latitude']=			NULL;
+				$document['longitude']=			NULL;
 				$nuovo->save($document);
 			}
 			print "LIGURIA: ".$row."\n";
 		}
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Liguria'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "LIGURIA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "LIGURIA: Problems reading url.\n";
 		$row = NULL;
 	}
 	$ch = curl_init(); 
@@ -449,7 +324,7 @@ function Liguria($date, $ini_array, $nuovo, $vecchio){
 	unlink($tmpFileName);
 }
 
-function Lombardia($date, $ini_array, $nuovo, $vecchio){
+function Lombardia($date, $ini_array, $nuovo){
 	if(($handle=fopen($ini_array["Lombardia"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][8];
@@ -457,6 +332,14 @@ function Lombardia($date, $ini_array, $nuovo, $vecchio){
 		while(($arr=fgetcsv($handle,10000,","))!==FALSE){
 			$row++;
 			if($row==0)continue;
+			if($arr[32]==NULL){
+					$lat=NULL;
+					$long=NULL;
+				}
+				else{
+					$lat=round(floatval($arr[32]),6);
+					$long=round(floatval($arr[33]),6);
+				}
 			$document['_id']=				"LOM".$row;
 			$document['name']=				utf8_encode($arr[3]);
 			$document['category']=			utf8_encode($arr[4]);
@@ -475,29 +358,20 @@ function Lombardia($date, $ini_array, $nuovo, $vecchio){
 			$document['rooms']=				intval($arr[14]);
 			$document['suites']=			intval($arr[15]);
 			$document['beds']=				intval($arr[16]);
-			$document['latitude']=			round(floatval($arr[32]),6);
-			$document['longitude']=			round(floatval($arr[33]),6);
+			$document['latitude']=			$lat;
+			$document['longitude']=			$long;
 			$nuovo->save($document);
 		}
 		print "LOMBARDIA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Lombardia'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "LOMBARDIA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "LOMBARDIA: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Lombardia', $date, $row, $lastmodified);
 }
 
-function Marche($date, $ini_array, $nuovo, $vecchio){
+function Marche($date, $ini_array, $nuovo){
 	$arr_tot=array();
 	if(($handle=fopen($ini_array["Marche"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
@@ -509,6 +383,14 @@ function Marche($date, $ini_array, $nuovo, $vecchio){
 			if(isset($arr[3])==FALSE){
 				$row--;
 				continue;
+			}
+			if($arr[17]==NULL){
+				$lat=NULL;
+				$long=NULL;
+			}
+			else{
+				$lat=round(floatval($arr[17]),6);
+				$long=round(floatval($arr[16]),6);
 			}
 			$document['_id']=				"MAR".$row;
 			$document['name']=				utf8_encode($arr[3]);
@@ -523,34 +405,26 @@ function Marche($date, $ini_array, $nuovo, $vecchio){
 			$document['telephone']=			$arr[11];
 			$document['cellular phone']=	$arr[13];
 			$document['fax']=				$arr[12];
-			$document['latitude']=			round(floatval($arr[17]),6);
-			$document['longitude']=			round(floatval($arr[16]),6);
+			$document['latitude']=			$lat;
+			$document['longitude']=			$long;
 			$nuovo->save($document);
 		}
 		print "MARCHE: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Marche'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "MARCHE: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "MARCHE: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Marche', $date, $row, $lastmodified);
 }
 
-function Piemonte($date, $ini_array, $nuovo, $vecchio){
+function Piemonte($date, $ini_array, $nuovo){
 	$ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, $ini_array["Piemonte"]["url"]); 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	// dico al server che sono un browser
     $output = curl_exec($ch); 
     // close curl resource to free up system resources 
     curl_close($ch);
@@ -575,22 +449,14 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 			$document['rooms']=				intval($arr[$i+13]);
 			$document['beds']=				intval($arr[$i+14]);
 			$document['toilets']=			intval($arr[$i+15]);
-			$document=TrovaCoordinate($document, $vecchio);
+			$document['latitude']=			NULL;
+			$document['longitude']=			NULL;
 			$nuovo->save($document);
 		}
 		print "PIEMONTE: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Piemonte'){
-				$nuovo->save($obj);
-				$row++;
-			}	
-		}
-		print "PIEMONTE: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "PIEMONTE: Problems reading url.\n";
 		$row = NULL;
 	}
 	$html = file_get_html('http://www.dati.piemonte.it/catalogodati/dato/100966-.html');
@@ -598,8 +464,8 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 	$lastmodified=substr($lastmodified,80,-10);
 	UpdateLog('Piemonte', $date, $row, $lastmodified);
 }
-
-function Puglia($date, $ini_array, $nuovo, $vecchio){
+	
+function Puglia($date, $ini_array, $nuovo){
 	if(($handle=fopen($ini_array["Puglia"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][11];
@@ -627,6 +493,14 @@ function Puglia($date, $ini_array, $nuovo, $vecchio){
 					$prov = "TA";
 					break;
 			}
+			if($arr[14]==NULL){
+				$lat=NULL;
+				$long=NULL;
+			}
+			else{
+				$lat=round(floatval($arr[14]),6);
+				$long=round(floatval($arr[15]),6);
+			}
 			$document['_id']=				"PUG".$row;
 			$document['name']=				$arr[2];
 			$document['description']=		$arr[3];
@@ -644,29 +518,20 @@ function Puglia($date, $ini_array, $nuovo, $vecchio){
 			$document['rooms']=				intval($arr[5]);
 			$document['beds']=				intval($arr[7]);
 			$document['toilets']=			intval($arr[6]);
-			$document['latitude']=			round(floatval($arr[14]),6);
-			$document['longitude']=			round(floatval($arr[15]),6);
+			$document['latitude']=			$lat;
+			$document['longitude']=			$long;
 			$nuovo->save($document);
 		}
 		print "PUGLIA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Puglia'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "PUGLIA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "PUGLIA: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Puglia', $date, $row, $lastmodified);
 }
 
-function Toscana($date, $ini_array, $nuovo, $vecchio){
+function Toscana($date, $ini_array, $nuovo){
 	if(($handle=fopen($ini_array["Toscana"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][9];
@@ -674,6 +539,14 @@ function Toscana($date, $ini_array, $nuovo, $vecchio){
 		while(($arr=fgetcsv($handle,10000,"|"))!==FALSE){
 			$row++;
 			if($row==0)continue;
+			if($arr[11]==NULL){
+				$lat=NULL;
+				$long=NULL;
+			}
+			else{
+				$lat=round(floatval($arr[11]),6);
+				$long=round(floatval($arr[12]),6);
+			}
 			$document['_id']=				"TOS".$row;
 			$document['name']=				utf8_encode($arr[3]);
 			$document['description']=		utf8_encode($arr[2]);
@@ -686,29 +559,20 @@ function Toscana($date, $ini_array, $nuovo, $vecchio){
 			$document['email']=				utf8_encode($arr[9]);
 			$document['web site']=			utf8_encode($arr[10]);
 			$document['telephone']=			utf8_encode($arr[13]);
-			$document['latitude']=			round(floatval($arr[11]),6);
-			$document['longitude']=			round(floatval($arr[12]),6);
+			$document['latitude']=			$lat;
+			$document['longitude']=			$long;
 			$nuovo->save($document);
 		}
 		print "TOSCANA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Toscana'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "TOSCANA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "TOSCANA: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Toscana', $date, $row, $lastmodified);
 }
 
-function Trentino($date, $ini_array, $nuovo, $vecchio){
+function Trentino($date, $ini_array, $nuovo){
 	if ($xml = simplexml_load_file($ini_array["Trentino"]["url"])){
 		$lastmodified = (string)($xml->attributes()->{'data-inizio-validita'});
 		$row=0;
@@ -730,28 +594,20 @@ function Trentino($date, $ini_array, $nuovo, $vecchio){
 			$document['fax']             = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'recapito-fax'});
 			$document['rooms']           = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'numero-unita'});
 			$document['beds']            = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'numero-posti-letto'});
-			$document=TrovaCoordinate($document, $vecchio);
+			$document['latitude']		 = NULL;
+			$document['longitude']		 = NULL;
 			$nuovo->save($document);
 		}
 		print "TRENTINO: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Trentino'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "TRENTINO: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "TRENTINO: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Trentino', $date, $row, $lastmodified);
 }
 
-function Umbria($date, $ini_array, $nuovo, $vecchio){
+function Umbria($date, $ini_array, $nuovo){
 	if(($handle=fopen($ini_array["Umbria"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$row=-1;
@@ -776,22 +632,14 @@ function Umbria($date, $ini_array, $nuovo, $vecchio){
 			$document['rooms']=				intval($arr[19]);
 			$document['beds']=				intval($arr[20]);
 			$document['toilets']=			intval($arr[21]);
-			$document=TrovaCoordinate($document, $vecchio);
+			$document['latitude']=			NULL;
+			$document['longitude']=			NULL;
 			$nuovo->save($document);
 		}
 		print "UMBRIA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Umbria'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "UMBRIA: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "UMBRIA: Problems reading url.\n";
 		$row = NULL;
 	}
 	$html = file_get_html('http://dati.umbria.it/dataset/strutture-ricettive/resource/062d7bd6-f9c6-424e-9003-0b7cb3744cab');
@@ -800,7 +648,7 @@ function Umbria($date, $ini_array, $nuovo, $vecchio){
 	UpdateLog('Umbria', $date, $row, $lastmodified);
 }
 
-function Veneto($date, $ini_array, $nuovo, $vecchio){
+function Veneto($date, $ini_array, $nuovo){
 	if(($handle=fopen($ini_array["Veneto"]["url"], "r"))!==FALSE){
 		$metadata = stream_get_meta_data($handle);
 		$lastmodified = $metadata["wrapper_data"][3];
@@ -846,24 +694,16 @@ function Veneto($date, $ini_array, $nuovo, $vecchio){
 			$document['web site']=			$arr[15];
 			$document['telephone']=			$arr[12];
 			$document['fax']=				$arr[13];
-			$document=TrovaCoordinate($document, $vecchio);
+			$document['latitude']=			NULL;
+			$document['longitude']=			NULL;
 			$nuovo->save($document);
 		}
 		print "VENETO: ".$row."\n";
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			if($obj['region']=='Veneto'){
-				$nuovo->save($obj);
-				$row++;
-			}
-		}
-		print "VENETO: Problems reading url. Recovered ".$row." records from the old database\n";
+		print "VENETO: Problems reading url.\n";
 		$row = NULL;
 	}
 	UpdateLog('Veneto', $date, $row, $lastmodified);
 }
-?> 
+?>
