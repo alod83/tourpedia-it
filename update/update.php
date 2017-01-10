@@ -96,12 +96,7 @@ function TrovaCoordinate($document, $vecchio){
 		}
 	}
 	else{
-		if($document['region']=="Basilicata"){
-			$add=$document['address'].", ".$document['region'];
-		}
-		else {
-			$add=$document['address'].", ".$document['city'];
-		}
+		$add=$document['address'].", ".$document['city'];
 		if($geo=geocode($add)){
 			$document['latitude']=round(floatval($geo[0]),6);
 			$document['longitude']=round(floatval($geo[1]),6);
@@ -204,6 +199,9 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 					$city=NULL;
 					$prov=NULL;
 				}
+				$document['postal-code']=$postal;
+				$document['city']=$city;
+				$document['province']=$prov;
 				$document['_id']='BAS'.$row;
 				$document['region'] = 'Basilicata';
 				$document=TrovaCoordinate($document, $vecchio);

@@ -113,6 +113,9 @@ function Basilicata($date, $ini_array, $nuovo){
 					$city=NULL;
 					$prov=NULL;
 				}
+				$document['postal-code']=$postal;
+				$document['city']=$city;
+				$document['province']=$prov;
 				$document['_id']='BAS'.$row;
 				$document['region'] = 'Basilicata';
 				$document['latitude'] = NULL;

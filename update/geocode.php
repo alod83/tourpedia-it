@@ -13,12 +13,7 @@ while($document = $nuovo->findOne($product_array)){
 	$counter++;
 	$countot++;
 	file_put_contents("counter.txt", $countot);
-	if($document['region']=='Basilicata'){
-		$address=$document['address'].", ".$document['region'];
-	}
-	else{
-		$address=$document['address'].", ".$document['city'];
-	}
+	$address=$document['address'].", ".$document['city'];
 	if($geo = geocode($address)){
 		print $countot."\n";
 		print $geo[0].", ".$geo[1];
