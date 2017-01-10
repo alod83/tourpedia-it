@@ -26,6 +26,7 @@ while($document = $nuovo->findOne($product_array)){
 	}
 	$document['latitude']=round(floatval($geo[0]),6);
 	$document['longitude']=round(floatval($geo[1]),6);
+	$document['enrichment']="latitude, longitude";
 	$nuovo->save($document);
 	if ($counter==40){
 		sleep(1);

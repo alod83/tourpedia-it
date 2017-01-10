@@ -105,6 +105,7 @@ function TrovaCoordinate($document, $vecchio){
 		if($geo=geocode($add)){
 			$document['latitude']=round(floatval($geo[0]),6);
 			$document['longitude']=round(floatval($geo[1]),6);
+			$document['enrichment']="latitude, longitude";
 		}
 		else{
 			$document['latitude']=NULL;
