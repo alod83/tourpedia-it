@@ -8,20 +8,23 @@ $product_array = array(
 $counter = 0;
 $countot = intval(file_get_contents("counter.txt"));
 while($document = $nuovo->findOne($product_array)){
-	if($countot>2500)exit("Limite giornaliero raggiunto");
-	print_r($document);
+	if($countot>2500){
+		file_put_contents("counter.txt", "0");
+		exit("Limite giornaliero raggiunto");
+	}
+	//print_r($document);
 	$counter++;
 	$countot++;
 	file_put_contents("counter.txt", $countot);
 	$address=$document['address'].", ".$document['city'];
 	if($geo = geocode($address)){
-		print $countot."\n";
+		/*print $countot."\n";
 		print $geo[0].", ".$geo[1];
-		print "\n";
+		print "\n";*/
+		$document['latitude']=round(floatval($geo[0]),6);
+		$document['longitude']=round(floatval($geo[1]),6);
+		$document['enrichment']="latitude, longitude";
 	}
-	$document['latitude']=round(floatval($geo[0]),6);
-	$document['longitude']=round(floatval($geo[1]),6);
-	$document['enrichment']="latitude, longitude";
 	$nuovo->save($document);
 	if ($counter==40){
 		sleep(1);
