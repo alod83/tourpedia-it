@@ -17,14 +17,15 @@ while($document = $nuovo->findOne($product_array)){
 	$countot++;
 	file_put_contents("counter.txt", $countot);
 	$address=$document['address'].", ".$document['city'];
-	if($geo = geocode($address)){
-		/*print $countot."\n";
-		print $geo[0].", ".$geo[1];
-		print "\n";*/
-		$document['latitude']=round(floatval($geo[0]),6);
-		$document['longitude']=round(floatval($geo[1]),6);
-		$document['enrichment']="latitude, longitude";
-	}
+	$geo = geocode($address);
+	print $countot."\n";
+	print $geo[0].", ".$geo[1];
+	print "\n";
+	$document['latitude']=round(floatval($geo[0]),6);
+	$document['longitude']=round(floatval($geo[1]),6);
+	$document['enrichment']="latitude, longitude";
+	//print_r($document);
+	print "\n";
 	$nuovo->save($document);
 	if ($counter==40){
 		sleep(1);
