@@ -90,7 +90,7 @@ $(document).ready(function() {
 		$.getJSON("./api/tags.php", function (data) {
 			availableTags = data;
 		});
-		console.log(availableTags)
+		console.log(availableTags);
 		$( "#ricerca_luogo" ).autocomplete({
 			source: availableTags
 		});
