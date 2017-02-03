@@ -179,11 +179,11 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 				if(isset($data->sheets[0]['cells'][$i][2])) {$document['name']=utf8_encode($data->sheets[0]['cells'][$i][2]);} else {$document['name']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][3])) {$document['description']=utf8_encode($data->sheets[0]['cells'][$i][3]);} else {$document['description']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][5])) {$document['address']=utf8_encode($data->sheets[0]['cells'][$i][5]);} else {continue;}
-				if(isset($data->sheets[0]['cells'][$i][4])) {$document['stars']=utf8_encode($data->sheets[0]['cells'][$i][4]);} else {$document['stars']=NULL;}
+				if(isset($data->sheets[0]['cells'][$i][4])) {$document['number of stars']=utf8_encode($data->sheets[0]['cells'][$i][4]);} else {$document['number of stars']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][7])) {$document['telephone']=utf8_encode($data->sheets[0]['cells'][$i][7]);} else {$document['telephone']=NULL;}
-				if(isset($data->sheets[0]['cells'][$i][8])) {$document['cellular']=utf8_encode($data->sheets[0]['cells'][$i][8]);} else {$document['cellular']=NULL;}
+				if(isset($data->sheets[0]['cells'][$i][8])) {$document['cellular phone']=utf8_encode($data->sheets[0]['cells'][$i][8]);} else {$document['cellular phone']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][9])) {$document['fax']=utf8_encode($data->sheets[0]['cells'][$i][9]);} else {$document['fax']=NULL;}
-				if(isset($data->sheets[0]['cells'][$i][10])) {$document['web']=utf8_encode($data->sheets[0]['cells'][$i][10]);} else {$document['web']=NULL;}
+				if(isset($data->sheets[0]['cells'][$i][10])) {$document['web site']=utf8_encode($data->sheets[0]['cells'][$i][10]);} else {$document['web site']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][11])) {$document['email']=utf8_encode($data->sheets[0]['cells'][$i][11]);} else {$document['email']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][13])) {$document['beds']=intval($data->sheets[0]['cells'][$i][13]);} else {$document['beds']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][6])) {
@@ -215,17 +215,7 @@ function Basilicata($date, $ini_array, $nuovo, $vecchio){
 		$row = 0;
 		foreach ($cursor as $obj){
 			if($obj['region']=='Basilicata'){
-				$arr = array(
-							'_id' 			=> $obj['_id'],
-							'name' 			=> $obj['name'],
-							'description' 	=> $obj['description'],
-							'address' 		=> $obj['address'],
-							'city' 			=> $obj['city'],
-							'region' 		=> $obj['region'],
-							'latitude' 		=> $obj['latitude'],
-							'longitude' 	=> $obj['longitude']
-							);
-				$nuovo->insert($arr);
+				$nuovo->save($obj);
 				$row++;
 			}
 		}
@@ -559,12 +549,35 @@ function Piemonte($date, $ini_array, $nuovo, $vecchio){
 		for($i=18; $i<count($arr)-1; $i=$i+18){
 			$row++;
 			if($row==0)continue;
+			switch($arr[$i+1]){
+				case "ALESSANDRIA":
+					$prov = "AL";
+					break;
+				case "ASTI":
+					$prov = "AT";
+					break;
+				case "BIELLA":
+					$prov = "BI";
+					break;
+				case "CUNEO":
+					$prov = "CN";
+					break;
+				case "TORINO":
+					$prov = "TO";
+					break;
+				case "VERBANO-CUSIO-OSSOLA":
+					$prov = "VB";
+					break;
+				case "VERCELLI":
+					$prov = "VC";
+					break;
+			}
 			$document['_id']=				"PIE".$row;
 			$document['name']=				$arr[$i+2];
 			$document['description']=		$arr[$i+7];
 			$document['address']=			$arr[$i+3];
 			$document['city']=				$arr[$i+5];
-			$document['province']=			$arr[$i+1];;
+			$document['province']=			$prov;
 			$document['region']=			'Piemonte';
 			$document['postal-code']=		intval($arr[$i+4]);
 			$document['number of stars']=	$arr[$i+8];
@@ -836,7 +849,7 @@ function Veneto($date, $ini_array, $nuovo, $vecchio){
 			$document['description']=		$arr[3];
 			$document['address']=			$arr[8]." ".$arr[9];
 			$document['city']=				$arr[1];
-			$document['province']=			$arr[0];
+			$document['province']=			$prov;
 			$document['locality']=			$arr[2];
 			$document['region']=			'Veneto';
 			$document['postal-code']=		intval($arr[11]);

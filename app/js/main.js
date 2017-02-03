@@ -92,7 +92,14 @@ $(document).ready(function() {
 		});
 		console.log(availableTags);
 		$( "#ricerca_luogo" ).autocomplete({
-			source: availableTags
+			source: function(req, responseFn) {
+				var re = $.ui.autocomplete.escapeRegex(req.term);
+				var matcher = new RegExp( "^" + re, "i" );
+				var a = $.grep( availableTags, function(item,index){
+					return matcher.test(item);
+				});
+				responseFn( a );
+			}
 		});
 	});
 });

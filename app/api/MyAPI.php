@@ -44,7 +44,13 @@
 		);
 		$document = $nuovo->find($product_array);
 		foreach ($document as $doc) {
-			array_push($tags, ucfirst(strtolower($doc['city'])));
+			if($doc['region']=="Marche"){
+				array_push($tags, ucfirst(strtolower($doc['city'])));
+			}
+			else{
+				array_push($tags, ucfirst(strtolower($doc['city']))." (".$doc['province'].")");
+			}
+			//array_push($tags, ucfirst(strtolower($doc['city'])));
 		}
 		$tags = array_unique($tags);
 		$tagsok = array();
