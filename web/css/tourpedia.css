@@ -305,7 +305,7 @@ td {
 	}
 }
 
-.sezione_dati, .sezione_fonti, .sezione_credits {
+.sezione_dati, .sezione_fonti, .sezione_contatti {
     height: 100%;
     padding-top: 100px;
     text-align: center;
@@ -320,7 +320,7 @@ td {
 	/*background-image: url('images/nuvole.jpg');*/
 }
 
-.sezione_mappa, .sezione_info, .sezione_contatti {
+.sezione_mappa, .sezione_info, .sezione_licenza, .sezione_credits {
     height: 100%;
     padding-top: 100px;
     text-align: center;
