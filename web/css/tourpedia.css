@@ -57,7 +57,7 @@ li { color: black;}
 	margin-top: 5%;
 }
 
-.textcommento {
+.textcommento, .textlicenza {
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 15px;
@@ -90,6 +90,13 @@ td { border: 1px solid black;}
 		
 .testoinfo	{
 	font-size: 23px;
+	text-align: justify;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.testolicenza {
+	font-size: 16px;
 	text-align: justify;
 	margin-left: 8px;
 	margin-right: 8px;
@@ -327,13 +334,16 @@ td {
     background: #CEECF5;
 }
 
+.sezione_licenza{
+	height: 1100px;
+}
+
 .sezione_dati {
 	height: 1500px;
 }
 .sezione_fonti {
 	height: 1900px;
 }
-
 .sezione_mappa, .sezione_credits {
 	height: 720px;
 }
@@ -413,6 +423,9 @@ td {
 	}
 	.sezione_dati{
 		height: 1700px;
+	}
+	.sezione_licenza{
+		height: 1450px;
 	}
 	.sottotitolo {
 		font-size: 25px;
@@ -505,7 +518,7 @@ td {
 		width:100%;
 		margin-left: 0%;
 	}
-	.textcommento, .testoinfo {
+	.textcommento, .textlicenza, .testoinfo, .testolicenza {
 		font-size:12px;
 	}
 	.testo {
@@ -541,6 +554,10 @@ td {
 		height:5400px;
 	}
 	
+	.sezione_licenza {
+		height: 1000px;
+	}
+	
 	#heatmap, #gcontainer {
 		float: none;
 		width:100%;
@@ -551,7 +568,7 @@ td {
 		margin-left: 0%;
 	}
 	
-	.textcommento, .testoinfo {
+	.textcommento, .textlicenza, .testoinfo, .testolicenza {
 		font-size:12px;
 	}
 	
@@ -633,7 +650,11 @@ td {
 	.sezione_info, .sezione_contatti {
 		height:950px;
 	}
-		
+	
+	.sezione_licenza {
+		height: 1150px;	
+	}
+	
 	.tab_fonti_sx {
 		/*width: 220px;*/
 		font-size: 10px;
@@ -651,8 +672,8 @@ td {
 	}
 	
 	.box_tab_dx1 {
-			margin-top:8px;
-		}
+		margin-top:8px;
+	}
 		
 	.nome_regione {
 		height: 70px;
