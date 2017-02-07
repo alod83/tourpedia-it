@@ -13,12 +13,8 @@ function clearMarkers(markers) {
 }
 
 function createMarker(map, markers){
-	console.log( "cerca!" );
 	var place = document.form_ricerca.ricerca_luogo.value;
-	console.log(place);
 	$.getJSON("./api/query.php?place="+place, function (data) {
-		console.log( "query eseguita!" );
-		console.log(data);
 		for (i=0; i<data.length; i++){
 			coordinate = {lat: data[i].latitude, lng: data[i].longitude};
 			nome = data[i].name;
@@ -46,7 +42,6 @@ function createMarker(map, markers){
 $(document).ready(function() {
 	$("#x").hide();
 	var markers = new Array();
-	console.log( "ready!" );
 	var map = new google.maps.Map(document.getElementById('map'), {
 	  center: {lat: 42.0, lng: 13.0},
 	  zoom: 6
@@ -90,7 +85,6 @@ $(document).ready(function() {
 		$.getJSON("./api/tags.php", function (data) {
 			availableTags = data;
 		});
-		console.log(availableTags);
 		$( "#ricerca_luogo" ).autocomplete({
 			source: function(req, responseFn) {
 				var re = $.ui.autocomplete.escapeRegex(req.term);
