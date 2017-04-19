@@ -98,6 +98,9 @@ function get_record(&$document,$mapping,$arr)
 				case 'province': 
 					$value = get_province($arr[$value]);
 					break;
+				case 'utf8':
+					$value = utf8_encode($arr[$value]);
+					break;
 			}
 		}
 		else
