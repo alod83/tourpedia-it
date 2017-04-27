@@ -35,8 +35,16 @@ for($i = 0; $i < count($ra); $i++)
 {
 	$source = $ra[$i];
 	$config = $ini_array[$source];
-	include('sources/accommodation/'.$source.'.php');
-	$source($date, $config, $nuovo, $vecchio);
+	$format = $ini_array[$source]['dataset_accommodation']['format'];
+	if($format === 'CSV')
+	{
+		CSV($source,$date, $config, $nuovo, $vecchio);
+	}
+	else
+	{
+		include('sources/accommodation/'.$source.'.php');
+		$source($date, $config, $nuovo, $vecchio);
+	}
 }
 
 ?> 
