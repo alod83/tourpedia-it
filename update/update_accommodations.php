@@ -34,8 +34,12 @@ $ra = $ini_array["Sources"]["accommodation_list"];
 for($i = 0; $i < count($ra); $i++)
 {
 	$source = $ra[$i];
+	echo "$source\n";
 	$config = $ini_array[$source];
-	$format = $ini_array[$source]['dataset_accommodation']['format'];
+	$format = "";
+	if(isset($ini_array[$source]['dataset_accommodation']) &&
+	   isset($ini_array[$source]['dataset_accommodation']['format']))
+		$format = $ini_array[$source]['dataset_accommodation']['format'];
 	if($format === 'CSV')
 	{
 		CSV($source,$date, $config, $nuovo, $vecchio);
