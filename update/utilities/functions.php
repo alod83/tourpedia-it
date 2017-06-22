@@ -1,4 +1,76 @@
 <?php
+function latlon_explode($point){
+	preg_match('/\([0-9]+\.[0-9]+/',$point,$matches);
+	$lon=str_replace("(", "", $matches[0]);
+	$arr_point[]=$lon;
+	preg_match('/[0-9]+\.[0-9]+\)/',$point,$matches);
+	$lat=str_replace(")", "", $matches[0]);
+	$arr_point[]=$lat;
+
+	return $arr_point;
+
+}
+function get_op_hours($va,$arr){
+	$count=0;
+	$subdocument=array();
+	for ($i=intval($va[0]);$i<=intval($va[1]);$i++){
+		$count++;
+		$string="";
+		if ($count%2==0){
+				if($arr[$i-1]!=="00:00" && $arr[$i]!=="00:00"){
+					$string=$arr[$i-1]."-".$arr[$i];
+					$hours[]=$string;
+				}
+			}
+
+		switch ($count){
+			case 6:
+				$g="Lun";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+			case 12:
+				$g="Mar";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+			case 18:
+				$g="Mer";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+			case 24:
+				$g="Gio";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+			case 30:
+				$g="Ven";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+			case 36:
+				$g="Sab";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+			case 42:
+				$g="Dom";
+				if(!empty($hours)){
+					$subdocument[$g]=$hours;
+					$hours=array();
+				}
+		}
+		
+	}
+	return $subdocument;
+}
 
 function get_province($province)
 {
@@ -14,6 +86,17 @@ function get_province($province)
 			return "PN";
 		case "TRIESTE":
 			return "TS";
+		//Lazio
+		case "LATINA":
+			return "LT";
+		case "ROMA":
+			return "RM";
+		case "VITERBO":
+			return "VT";
+		case "FROSINONE":
+			return "FR";
+		case "RIETI":
+			return "RI";
 		// Liguria
 		case "GENOVA":
 			return "GE";
@@ -51,6 +134,32 @@ function get_province($province)
 			return "LE";
 		case "TARANTO":
 			return "TA";
+		//Toscana
+		case "AREZZO":
+			return "AR";
+		case "FIRENZE":
+			return "FI";
+		case "GROSSETO":
+			return "GR";
+		case "LIVORNO":
+			return "LI";
+		case "LUCCA":
+			return "LU";
+		case "MASSA-CARRARA":
+			return "MS";
+		case "PISA":
+			return "PI";
+		case "PISTOIA":
+			return "PT";
+		case "PRATO":
+			return "PO";
+		case "SIENA":
+			return "SI";
+		//Umbria
+		case "PERUGIA":
+			return "PG";
+		case "TERNI":
+			return "TR";
 		// Veneto
 		case "BELLUNO":
 			return "BL";
@@ -66,23 +175,37 @@ function get_province($province)
 			return "VE";
 		case "VICENZA":
 			return "VI";
+		default:
+			return $province;
+		
 	}
 
+
 }
-function get_record(&$document,$mapping,$arr)
+function get_record($document,$mapping,$arr)
 {
 	foreach($mapping as $k => $v)
 	{
 		$value = "";
+		$subdocument=array();
 		// check if the string contains numbers
 		if(1 === preg_match('~[0-9]~', $v))
 		{	
 			if(strpos($v, ',') !== false)
-			{
+			{	
 				$va = explode(',',$v);
 				foreach($va as $kva)
 					$value .= " ".$arr[intval($kva)];
 				$value = trim($value);
+
+			}
+			else if(strpos($v, 'or') !== false){
+				$va = explode("or",$v);
+				foreach($va as $kva){
+					$subdocument[]=$arr[intval($kva)];
+
+				}
+				$value = $subdocument;
 			}
 			else if(strpos($v, '/') !== false)
 			{
@@ -93,7 +216,7 @@ function get_record(&$document,$mapping,$arr)
 				$value = floatval($value)/$div;
 			}
 			else if(strpos($v, '<') !== false)
-			{
+			{	
 				$va = explode('<', $v);
 				$value = intval($va[0]);
 				switch($va[1])
@@ -104,10 +227,27 @@ function get_record(&$document,$mapping,$arr)
 					case 'utf8':
 						$value = utf8_encode($arr[$value]);
 						break;
+					case 'lon':
+						$value = latlon_explode($arr[$value]);
+						break;
+					case 'url':
+						if((strpos($arr[$value], 'https://www.youtube.com/watch?v='))!== false){
+							$value = "https://www.youtube.com/watch?v=".$arr[$value];
+						}else{
+							$value=$arr[$value];
+						}
+						break;
+					default:
+						 $value = $arr[$value]; //in attesa di risolvere altri campi
 				}
+			}
+			else if(strpos($v, '-') !== false){
+				$va = explode('-', $v);	
+				$value=get_op_hours($va,$arr);
 			}
 			else
 				$value = $arr[intval($v)];
+				
 			
 			switch($k)
 			{
@@ -116,9 +256,17 @@ function get_record(&$document,$mapping,$arr)
 				case 'beds'			: 
 				case 'toilets'		:
 				case 'suites'		:
+				case 'codistat'		:
 					$document[$k] = intval($value);
 					break;
 				case 'latitude'		: 
+					if (!array_key_exists('longitude', $mapping)){
+						$document['latitude']=round(floatval($value[1]),6);
+						$document['longitude']=round(floatval($value[0]),6);
+					}else{
+						$document[$k]=round(floatval($value),6);
+					}
+					break;
 				case 'longitude'	:
 					$document[$k]=round(floatval($value),6);
 					break;
@@ -131,26 +279,44 @@ function get_record(&$document,$mapping,$arr)
 			$document[$k] = $v;
 		}
 	}
+	return $document;
+	
 }
 
-function CSV($region,$date, $config, $nuovo, $vecchio){
-	$url = $config['url_accommodation'];
+function CSV($region,$date,$config, $nuovo, $vecchio){
+	$lastmodified=null;
+	if(strpos($region, '_') !== false){
+		preg_match('/[0-9]+$/',$region,$matches);
+		$reg_acr=strtoupper(substr($region, 0,3).$matches[0]."_");
+	}else{
+		$reg_acr=strtoupper(substr($region, 0,3));
+	}
+	if(isset($config['url_attraction'])){
+		$url = $config['url_attraction'];
+		$mapping = $config['attraction'];
+		$dataset_feature = $config['dataset_attraction'];
+		$collect = "Attrazioni";
+	} 
+	else if (isset($config['url_accomodation'])) {
+		$url = $config['url_accomodation'];
+		$mapping = $config['accommodation'];
+		$dataset_feature = $config['dataset_accomodation'];
+		$collect = "Strutture";
+	} 
 	echo $url;
-	$mapping = $config['accommodation'];
-	
 	$coord = false;
 	$encoding = false;
 	$separator = false;
 	$lastmodified_number = false;
-	foreach($config['dataset_accommodation'] as $k => $v)
+	foreach($dataset_feature as $k => $v)
 	{
 		switch($k)
 		{
 			case 'separator':
 				$separator = $v;
 				break;
-			case 'coordinates':
-				$coord = $v === 'True' ? true : false;
+			case 'coord':
+				$coord = ($v === 'True') ? true : false;
 				break;
 			case 'encoding':
 				$encoding = $v;
@@ -160,54 +326,65 @@ function CSV($region,$date, $config, $nuovo, $vecchio){
 				break;
 		}
 	}
-	/*$separator = $config['sep_accommodation'];
-	$coord = false;
-	if(isset($config['coord_accommodation']))
-		$coord = $config['coord_accommodation'] === 'True' ? true : false;
-	$encoding = false;
-	if(isset($config['encoding_accommodation']))
-		$encoding = $config['encoding_accommodation'];
-	$lastmodified_number = false;
-	if(isset($config['lastmodified_accommodation']))
-		$lastmodified_number = $config['lastmodified_accommodation'];*/
-	
-	$acronym = strtoupper(substr($region, 0,3));
+	//$acronym = $acr;
+	//if($acronym!==$acr){
+	//	$global_rows=-1;
+	//}
 	if(($handle=fopen($url, "r"))!==FALSE){
-		$lastmodified = null;
+		//$lastmodified = null;
 		if($lastmodified_number)
 		{
 			$metadata = stream_get_meta_data($handle);
 			$lastmodified = $metadata["wrapper_data"][$lastmodified_number];
 		}
 		$row=-1;
-		$prov=NULL;
+		//$prov=NULL;
 		while(($arr=fgetcsv($handle,10000,$separator))!==FALSE){
+			//$global_rows++;
 			$row++;
-			if($row==0)continue;
-			$document['_id'] = $acronym.$row;
+			if($row==0){
+				/*if($global_rows>0){
+				$global_rows-=1;
+				}*/
+				continue;
+			}
+			//$id=$acr.$global_rows;
+			$id=$reg_acr.$row;
+			$document['_id'] = $id;
 				
-			if($encoding && $encoding == 'utf8')
+			if($encoding && $encoding == 'utf8'){
 				$arr = array_map("utf8_encode", $arr);
-			get_record($document, $mapping,$arr);
-			if($coord)
+			}
+			$document=get_record($document,$mapping,$arr);
+
+			if($coord){
 				$document=TrovaCoordinate($document, $vecchio);
-			
-			$nuovo->save($document);
+			}
+ 
+			$nuovo->insertOne($document);
 		}
 	}
 	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
+		$connection = new MongoDB\Client('mongodb://localhost:27017');
 		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
-			if($obj['region']==$region){
-				$nuovo->save($obj);
+			$vecchio_id=$obj['_id'];
+			//se regione è tutto maiuscolo (caso umbria)
+			/*if(ctype_upper($obj['region'])){
+				$vecchia_reg=ucfirst(strtolower($obj['region']));
+			}else{
+				$vecchia_reg=$obj['region'];
+			}*/
+			if(strpos($vecchio_id, $reg_acr)!==false){
+
+				$nuovo->insertOne($obj);
 				$row++;
 			}
 		}
 		print "Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
-	UpdateLog($region, $date, $row, $lastmodified);
+	UpdateLog($region, $date, $row, $lastmodified, $collect);
 }
 ?>

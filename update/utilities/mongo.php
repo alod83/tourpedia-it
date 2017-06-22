@@ -2,18 +2,18 @@
 
 function CopiaCollezione($collPartenza, $collArrivo) {
 	$cursor = $collPartenza->find();
-	$num_docs = $cursor->count();
-	if ($num_docs>0) {
+	//$num_docs = $cursor->count();
+	//if ($num_docs>0) {
 		foreach ($cursor as $obj)
 		{
-			$collArrivo->save($obj);
+			$collArrivo->insertOne($obj);
 		}
-	}
+	//}
 }
 
-function UpdateLog($regione, $date, $row, $lastmodified){
-	$connection = new MongoClient('mongodb://localhost:27017');
-	$dbname = $connection->selectDB('Strutture');
+/*function UpdateLog($regione, $date, $row, $lastmodified, $collect){
+	$connection = new MongoDB\Client('mongodb://localhost:27017');
+	$dbname = $connection->$collect;
 	$log = $dbname->LOG;
 	$product_array = array(
 		'date' => $date
@@ -41,34 +41,82 @@ function UpdateLog($regione, $date, $row, $lastmodified){
 		}
 		$document[$regione." last modify"] = $lastmodified;
 	}
-	$document[$regione." structures"] = $row;
-	$log->save($document);
-}
+	if($collect=="Strutture"){
+		$document[$regione." structures"] = $row;
+	}else if ($collect=="Attrazioni"){
+		$document[$regione." attractions"] = $row;
+	}
 
-function TrovaCoordinate($document, $vecchio){
-	$product_array = array(
-		'address' => $document['address']
+	$log->insertOne($document);
+}*/
+
+function UpdateLog($region, $date, $row, $lastmodified, $collect){
+	$connection = new MongoDB\Client('mongodb://localhost:27017');
+	$dbname = $connection->$collect; 
+	$log = $dbname->LOG;
+	/*$product_array = array(
+		'date' => $date
 		);
-	if($found = $vecchio->findOne($product_array)){
-		if($found['latitude']!==NULL){
-			$document['latitude']=$found['latitude'];
-			$document['longitude']=$found['longitude'];
+	$document_date = $log->findOne($product_array);
+	$date=$document_date['date'];*/
+	$document["date"]=$date;
+	if($row==NULL){
+		$giorno = date("d");
+		$giorno = $giorno-1;
+		if ($giorno<10){
+			$giorno = "0".$giorno;
 		}
-		else{
-			$document['latitude']=NULL;
-			$document['longitude']=NULL;
+		$ieri = date("/m/y");
+		// INSERIRE ORARIO DI ESECUZIONE DEL FILE
+		$ieri = $giorno.$ieri." 03:00:00";
+		$array_ieri = array(
+		'date' => $ieri
+		);
+		if($vecchiolog = $log->findOne($array_ieri)){
+			$vecchiadata = $vecchiolog[$region." last modify"];
+			$document[$region." last modify"] = $vecchiadata;
+		}else{
+			$document[$region." last modify"] = null;
 		}
 	}
 	else{
-		$add=$document['address'].", ".$document['city'];
-		if($geo=geocode($add)){
-			$document['latitude']=round(floatval($geo[0]),6);
-			$document['longitude']=round(floatval($geo[1]),6);
-			$document['enrichment']="latitude, longitude";
+		if($lastmodified!==null){
+			if($region!=="Trentino" AND  $region!=="Trentino_4" AND $region!=="Liguria" AND $region!=="Umbria"){
+				$lastmodified = substr($lastmodified, strlen("Last-Modified: "));
+			}
+		}
+		$document[$region." last modify"] = $lastmodified;
+	}
+	if($collect=="Strutture"){
+		$document[$region." structures"] = $row;
+	}else if ($collect=="Attrazioni"){
+		$document[$region." attractions"] = $row;
+	}
+
+	$log->insertOne($document);
+}
+
+function TrovaCoordinate($document, $vecchio){
+	$document['latitude']=NULL;
+	$document['longitude']=NULL;
+	if((array_key_exists('city', $document))&& (array_key_exists('address', $document))){
+		$product_array = array(
+			'address' => $document['address'],
+			'city' => $document['city']
+			);
+		if(($found = $vecchio->findOne($product_array)) && (array_key_exists('latitude', $found))){
+			if($found['latitude']!==NULL){
+				$document['latitude']=$found['latitude'];
+				$document['longitude']=$found['longitude'];
+			}
 		}
 		else{
-			$document['latitude']=NULL;
-			$document['longitude']=NULL;
+			$add=$document['address'].", ".$document['city'];
+			if($geo=geocode($add)){
+				$document['latitude']=round(floatval($geo[0]),6);
+				$document['longitude']=round(floatval($geo[1]),6);
+				$document['enrichment']="latitude, longitude";
+			}
 		}
 	}
 	return $document;

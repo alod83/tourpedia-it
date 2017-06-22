@@ -3,11 +3,14 @@
 function geocode($address){
 	$address = urlencode($address);
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=AIzaSyD64knRCOQVHjMOkp86vuBO_njh_mhWHw0";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+    $exec=curl_exec($ch);
 	// get the json response
-    $resp_json = file_get_contents($url);
      
     // decode the json
-    $resp = json_decode($resp_json, true);
+    $resp = json_decode($exec, true);
 	//print_r($resp);
 	//print "\n";
  
@@ -15,8 +18,8 @@ function geocode($address){
     if($resp['status']=='OK'){
  
         // get the important data
-        $lati = $resp['results'][0]['geometry']['location']['lat'];
-        $longi = $resp['results'][0]['geometry']['location']['lng'];
+        	$lati = $resp['results'][0]['geometry']['location']['lat'];
+        	$longi = $resp['results'][0]['geometry']['location']['lng'];
          
         // verify if data is complete
         if($lati && $longi){
