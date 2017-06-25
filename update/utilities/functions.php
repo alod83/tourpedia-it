@@ -195,7 +195,9 @@ function get_record($document,$mapping,$arr)
 			{	
 				$va = explode(',',$v);
 				foreach($va as $kva)
-					$value .= " ".$arr[intval($kva)];
+					if(array_key_exists($kva, $arr)){
+						$value .= " ".$arr[intval($kva)];
+					}
 				$value = trim($value);
 
 			}
@@ -245,8 +247,12 @@ function get_record($document,$mapping,$arr)
 				$va = explode('-', $v);	
 				$value=get_op_hours($va,$arr);
 			}
-			else
-				$value = $arr[intval($v)];
+			else{
+				//esclude i casi in cui il record non è ben formato o vuoto (Trentino_2 Toscana_18, Toscana_19)
+				if (array_key_exists(intval($v), $arr)){
+					$value = $arr[intval($v)];
+				}
+			}
 				
 			
 			switch($k)
@@ -308,6 +314,7 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 	$encoding = false;
 	$separator = false;
 	$lastmodified_number = false;
+	$first_data_row = false;
 	foreach($dataset_feature as $k => $v)
 	{
 		switch($k)
@@ -324,12 +331,11 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 			case 'lastmodified':
 				$lastmodified_number = $v;
 				break;
+			case 'first_data_row':
+				$first_data_row = $v;
+				break;
 		}
 	}
-	//$acronym = $acr;
-	//if($acronym!==$acr){
-	//	$global_rows=-1;
-	//}
 	if(($handle=fopen($url, "r"))!==FALSE){
 		//$lastmodified = null;
 		if($lastmodified_number)
@@ -338,17 +344,18 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 			$lastmodified = $metadata["wrapper_data"][$lastmodified_number];
 		}
 		$row=-1;
-		//$prov=NULL;
 		while(($arr=fgetcsv($handle,10000,$separator))!==FALSE){
-			//$global_rows++;
 			$row++;
-			if($row==0){
-				/*if($global_rows>0){
-				$global_rows-=1;
-				}*/
-				continue;
+			//caso in cui il file inizia con righe vuote prima dei dati
+			if($first_data_row){
+				if ($row<$first_data_row){
+					continue;
+				}
+			}else{
+				if($row==0){
+					continue;
+				}
 			}
-			//$id=$acr.$global_rows;
 			$id=$reg_acr.$row;
 			$document['_id'] = $id;
 				
@@ -370,12 +377,6 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 		$row = 0;
 		foreach ($cursor as $obj){
 			$vecchio_id=$obj['_id'];
-			//se regione è tutto maiuscolo (caso umbria)
-			/*if(ctype_upper($obj['region'])){
-				$vecchia_reg=ucfirst(strtolower($obj['region']));
-			}else{
-				$vecchia_reg=$obj['region'];
-			}*/
 			if(strpos($vecchio_id, $reg_acr)!==false){
 
 				$nuovo->insertOne($obj);
