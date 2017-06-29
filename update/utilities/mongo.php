@@ -51,8 +51,10 @@ function CopiaCollezione($collPartenza, $collArrivo) {
 }*/
 
 function UpdateLog($region, $date, $row, $lastmodified, $collect){
-	$connection = new MongoDB\Client('mongodb://localhost:27017');
-	$dbname = $connection->$collect; 
+	//$connection = new MongoDB\Client('mongodb://localhost:27017');
+	$connection = new MongoClient('mongodb://localhost:27017');
+	$dbname = $connection->selectDB($collect);
+	//$dbname = $connection->$collect; 
 	$log = $dbname->LOG;
 	/*$product_array = array(
 		'date' => $date

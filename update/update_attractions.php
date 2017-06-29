@@ -14,8 +14,10 @@ $date = date("d/m/y H:i:s");
 //$global_rows=-1;
 
 // update databases: drop TEMP, move VECCHIO to TEMP, move NUOVO to VECCHIO
-$connection = new MongoDB\Client('mongodb://localhost:27017');
-$dbname = $connection->Attrazioni;
+//$connection = new MongoDB\Client('mongodb://localhost:27017');
+//$dbname = $connection->Attrazioni;
+$connection = new MongoClient('mongodb://localhost:27017');
+$dbname = $connection->selectDB('Attrazioni');
 $nuovo = $dbname->NUOVO;
 $vecchio = $dbname->VECCHIO;
 $temp = $dbname->TEMP;
