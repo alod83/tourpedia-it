@@ -23,24 +23,25 @@ function EmiliaRomagna_7($date, $config, $nuovo, $vecchio){
 				$document['longitude']= $lon;
 			}
 			foreach ($biblio->{'ExtendedData'}->{'Data'} as $field) {
-				if(isset($field[0]->attributes()['name']) and $field[0]->attributes()['name']=='Indirizzo'){$document['name']=(string)($field[0]->{'value'});}
-				if(isset($field[0]->attributes()['name']) and $field[0]->attributes()['name']=='Telefono'){$document['telephone']=(string)($field[0]->{'value'});}
-				if(isset($field[0]->attributes()['name']) and $field[0]->attributes()['name']=='Cap'){$document['postal-code']=intval((string)($field[0]->{'value'}));}
-				if(isset($field[0]->attributes()['name']) and $field[0]->attributes()['name']=='Tipologia'){$document['category']=(string)($field[0]->{'value'});}
-				if(isset($field[0]->attributes()['name']) and $field[0]->attributes()['name']=='Immagine Url'){$document['image']=(string)($field[0]->{'value'});}
-				if(isset($field[0]->attributes()['name']) and $field[0]->attributes()['name']=='Url Scheda'){$document['url']=(string)($field[0]->{'value'});}
+				$field_a = $field[0]->attributes();
+				if(isset($field_a['name']) && $field_a['name']=='Indirizzo'){$document['name']=(string)($field[0]->{'value'});}
+				if(isset($field_a['name']) && $field_a['name']=='Telefono'){$document['telephone']=(string)($field[0]->{'value'});}
+				if(isset($field_a['name']) && $field_a['name']=='Cap'){$document['postal-code']=intval((string)($field[0]->{'value'}));}
+				if(isset($field_a['name']) && $field_a['name']=='Tipologia'){$document['category']=(string)($field[0]->{'value'});}
+				if(isset($field_a['name']) && $field_a['name']=='Immagine Url'){$document['image']=(string)($field[0]->{'value'});}
+				if(isset($field_a['name']) && $field_a['name']=='Url Scheda'){$document['url']=(string)($field[0]->{'value'});}
 			}
-			$nuovo->insertOne($document);
+			$nuovo->insert($document);
 		}
 
 	}else{
-		$connection = new MongoDB\Client('mongodb://localhost:27017');
+		$connection = new MongoClient('mongodb://localhost:27017');
 		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			$vecchio_id=$obj['_id'];
 			if(strpos($vecchio_id, 'EMI7_')!==false){
-				$nuovo->insertOne($obj);
+				$nuovo->insert($obj);
 				$row++;
 			}
 		}

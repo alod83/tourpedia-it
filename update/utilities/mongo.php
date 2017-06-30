@@ -6,7 +6,7 @@ function CopiaCollezione($collPartenza, $collArrivo) {
 	//if ($num_docs>0) {
 		foreach ($cursor as $obj)
 		{
-			$collArrivo->insertOne($obj);
+			$collArrivo->insert($obj);
 		}
 	//}
 }
@@ -95,7 +95,7 @@ function UpdateLog($region, $date, $row, $lastmodified, $collect){
 		$document[$region." attractions"] = $row;
 	}
 
-	$log->insertOne($document);
+	$log->insert($document);
 }
 
 function TrovaCoordinate($document, $vecchio){

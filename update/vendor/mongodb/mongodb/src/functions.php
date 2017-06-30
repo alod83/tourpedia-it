@@ -162,7 +162,7 @@ function is_last_pipeline_operator_out(array $pipeline)
  */
 function read_concern_as_document(ReadConcern $readConcern)
 {
-    $document = [];
+    $document = array();
 
     if ($readConcern->getLevel() !== null) {
         $document['level'] = $readConcern->getLevel();

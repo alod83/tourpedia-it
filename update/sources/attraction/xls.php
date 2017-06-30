@@ -106,18 +106,18 @@ function xls_parse($region, $date, $config, $nuovo, $vecchio){
 				$document=TrovaCoordinate($document, $vecchio);
 				}
 				
-				$nuovo->insertOne($document);
+				$nuovo->insert($document);
 		}
 		//print "BASILICATA: ".$row."\n";
 	}
 	else{
-		$connection = new MongoDB\Client('mongodb://localhost:27017');
+		$connection = new MongoClient('mongodb://localhost:27017');
 		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			$vecchio_id=$obj['_id'];
 			if(strpos($vecchio_id, $reg_acr)!==false){
-				$nuovo->insertOne($obj);
+				$nuovo->insert($obj);
 				$row++;
 			}
 		}

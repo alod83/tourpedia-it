@@ -368,11 +368,11 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 				$document=TrovaCoordinate($document, $vecchio);
 			}
  
-			$nuovo->insertOne($document);
+			$nuovo->insert($document);
 		}
 	}
 	else{
-		$connection = new MongoDB\Client('mongodb://localhost:27017');
+		$connection = new MongoClient('mongodb://localhost:27017');
 		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){

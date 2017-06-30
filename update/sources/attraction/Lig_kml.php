@@ -28,17 +28,18 @@ function Lig_kml($region,$date, $config, $nuovo, $vecchio){
 					$document['description'] = $mapping['description'];
 					$document['region'] = $mapping['region'];
 					foreach($attr[0]->{'ExtendedData'}->{'SchemaData'}->{'SimpleData'} as $field){
-						if ((isset($field[0]->attributes()['name']))and (($field[0]->attributes()['name']=="SITO") or ($field[0]->attributes()['name']=="SITO_INTERNET"))){$document['url']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="EMAIL"){$document['email']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="FAX"){$document['fax']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="TELEFONO"){$document['telephone']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="INDIRIZZO"){$document['address']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and ($field[0]->attributes()['name']=="DENOMINAZIONE" or $field[0]->attributes()['name']=="NOME") ){$document['name']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="COMUNE"){$document['city']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and (($field[0]->attributes()['name']=="COD_ISTAT_COM") or ($field[0]->attributes()['name']=="COD_COMUNE"))){$document['codistat']=intval((string)($field[0]));}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="ORARIO"){$document['opening hours']=(string)($field[0]);}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="CAP"){$document['postal-code']=intval((string)($field[0]));}
-						if ((isset($field[0]->attributes()['name'])) and $field[0]->attributes()['name']=="TIPO_MUSEO"){$document['category']=(string)($field[0]);}
+						$field_a = $field[0]->attributes();
+						if ((isset($field_a['name'])) && (($field_a['name']=="SITO") || ($field_a['name']=="SITO_INTERNET"))){$document['url']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="EMAIL"){$document['email']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="FAX"){$document['fax']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="TELEFONO"){$document['telephone']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="INDIRIZZO"){$document['address']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && ($field_a['name']=="DENOMINAZIONE" || $field_a['name']=="NOME") ){$document['name']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="COMUNE"){$document['city']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && (($field_a['name']=="COD_ISTAT_COM") || ($field_a['name']=="COD_COMUNE"))){$document['codistat']=intval((string)($field[0]));}
+						if ((isset($field_a['name'])) && $field_a['name']=="ORARIO"){$document['opening hours']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="CAP"){$document['postal-code']=intval((string)($field[0]));}
+						if ((isset($field_a['name'])) && $field_a['name']=="TIPO_MUSEO"){$document['category']=(string)($field[0]);}
 					}
 					if (isset($attr[0]->{'Point'}->{'coordinates'})){
 						preg_match('/[0-9]+\.[0-9]+,[1-9]/', (string)($attr[0]->{'Point'}->{'coordinates'}),$matches);
@@ -51,18 +52,18 @@ function Lig_kml($region,$date, $config, $nuovo, $vecchio){
 						$document['latitude']=NULL;
 						$document['longitude']=NULL;
 					}
-					$nuovo->insertOne($document);
+					$nuovo->insert($document);
 				}
 			}
 		}
 	}else{
-		$connection = new MongoDB\Client('mongodb://localhost:27017');
+		$connection = new MongoClient('mongodb://localhost:27017');
 		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
 			$vecchio_id=$obj['_id'];
 			if(strpos($vecchio_id, $reg_acr)!==false){
-				$nuovo->insertOne($obj);
+				$nuovo->insert($obj);
 				$row++;
 			}
 		}

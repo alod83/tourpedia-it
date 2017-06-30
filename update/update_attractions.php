@@ -1,5 +1,5 @@
 <?php 
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 require_once 'libraries/excel/reader.php';
 //require 'libraries/SevenZipArchive.php';
 include('utilities/mongo.php');
