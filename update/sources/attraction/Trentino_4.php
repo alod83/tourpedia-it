@@ -17,21 +17,24 @@ function Trentino_4($date, $config, $nuovo, $vecchio){
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'cap'})){$document['postal-code'] = intval((string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'cap'}));}
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'comune'})){$document['city'] = (string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'comune'});}
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'provincia'})){$document['province'] = (string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'provincia'});}
-			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'})){$document['latitude'] = round(floatval((string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'}->attributes()["latitudine"])),6);}
-			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'})){$document['longitude'] = round(floatval((string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'}->attributes()["longitudine"])),6);}
+			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'})){
+				$biblio_a = $biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'}->attributes();
+				$document['latitude'] = round(floatval((string)$biblio_a["latitudine"]),6);}
+			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'})){$document['longitude'] = round(floatval((string)($biblio_a)),6);}
 			if(isset($biblio[0]->{'anagrafica'}->{'contatti'}->{'altri'}->{'altro'}->{'valore'})){$document['url'] = (string)($biblio[0]->{'anagrafica'}->{'contatti'}->{'altri'}->{'altro'}->{'valore'});}
 			if(isset($biblio[0]->{'servizi'}->{'orario'}->{'ufficiale'})){
 				$string="";
 				foreach($biblio[0]->{'servizi'}->{'orario'}->{'ufficiale'}->{'orario'} as $or){
-					$g=(string)($or[0]->attributes()["giorno"]);
-					$da=(string)($or[0]->attributes()["dalle"]);
-					$a=(string)($or[0]->attributes()["alle"]);
+					$or_a = $or[0]->attributes();
+					$g=(string)($or_a["giorno"]);
+					$da=(string)($or_a["dalle"]);
+					$a=(string)($or_a["alle"]);
 					$substring=" ".$g.": ".$da."-".$a;
 					$string.=$substring;
 				}
 				$document['opening hours'] = trim($string);
 			}
-			$nuovo->insertOne($document);
+			$nuovo->insert($document);
 		}
 		//print "TRENTINO: ".$row."\n";
 	}
