@@ -2,6 +2,8 @@
 
 header('Content-Type: application/json');
 
+require('../vendor/autoload.php');
+
 $ini_array = parse_ini_file("../update/config.ini", true);
 
 function exists_field($field)
@@ -20,15 +22,18 @@ function min_max_field($field, &$query)
 
 $mongo_url = $ini_array['Mongo']['url'];
 
-$connection = new MongoClient($mongo_url);
+//$connection = new MongoClient($mongo_url);
+$connection = new MongoDB\Client($mongo_url);
 if(isset($_REQUEST['category']))
 {
 	$category = $_REQUEST['category'];
 	if(isset($ini_array['Mongo']['db_'.$category]))
 	{
-		$dbname = $connection->selectDB($ini_array['Mongo']['db_'.$category]);
-		$collection = $dbname->$ini_array['Mongo']['collection'];
-		
+		//$dbname = $connection->selectDB($ini_array['Mongo']['db_'.$category]);
+		$db_name = $ini_array['Mongo']['db_'.$category];
+		$collection_name = $ini_array['Mongo']['collection'];
+		//$collection = $dbname->$ini_array['Mongo']['collection'];
+		$collection = $connection->$db_name->$collection_name;
 		$query = array();
 		if(isset($_REQUEST['region']))
 			$query['region'] = $_REQUEST['region'];
