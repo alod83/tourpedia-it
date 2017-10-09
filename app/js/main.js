@@ -17,7 +17,7 @@ function createMarker(map, markers){
 	if (place.substr(place.length-1, 1) == ")"){
 		place = place.substr(0, place.length-5);
 	}
-	$.getJSON("./api/query.php?place="+place, function (data) {
+	$.getJSON("../api/query.php?category="+place, function (data) {
 		for (i=0; i<data.length; i++){
 			coordinate = {lat: data[i].latitude, lng: data[i].longitude};
 			nome = data[i].name;

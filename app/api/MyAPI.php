@@ -1,8 +1,9 @@
 <?php
 	function basicAPI(){
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$nuovo = $dbname->NUOVO;
+		/*$connection = new MongoClient('mongodb://localhost:27017');*/
+		$connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+		/*$dbname = $connection->selectDB('Strutture');
+		$nuovo = $dbname->NUOVO;*/
 		$risultati = array();
 		/*
 		$product_array = array(
@@ -35,14 +36,15 @@
 		return json_encode($risultati);
 	}
 	function tags(){
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$dbname = $connection->selectDB('Strutture');
-		$nuovo = $dbname->NUOVO;
+		/*$connection = new MongoClient('mongodb://localhost:27017');*/
+		$connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+		/*$dbname = $connection->selectDB('Strutture');
+		$nuovo = $dbname->NUOVO;*/
 		$tags = array();
 		$product_array = array(
 			
 		);
-		$document = $nuovo->find($product_array);
+		/*$document = $nuovo->find($product_array);*/
 		foreach ($document as $doc) {
 			if($doc['region']=="Marche"){
 				array_push($tags, ucfirst(strtolower($doc['city'])));
