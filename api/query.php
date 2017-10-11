@@ -39,12 +39,14 @@ if(isset($_REQUEST['category']))
 			$query['region'] = $_REQUEST['region'];
 		if(isset($_REQUEST['province']))
 			$query['province'] = $_REQUEST['province'];
+		if(isset($_REQUEST['city']))
+			$query['city'] = new MongoDB\BSON\Regex($_REQUEST['city'], 'mi');
 		min_max_field('beds', $query);
 		min_max_field('latitude', $query);
 		min_max_field('longitude', $query);
 		
 		$fields_list = $ini_array['Sources'][$category."_field"];
-		$excluded_fields = array('province', 'region','beds');
+		$excluded_fields = array('province', 'region','beds','city');
 		for($i = 0; $i < count($fields_list); $i++)
 			if(isset($_REQUEST[$fields_list[$i]]) && ! in_array($fields_list[$i], $excluded_fields))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
