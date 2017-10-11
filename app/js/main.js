@@ -1,7 +1,3 @@
-function initMap() {
-
-}
-
 function clearMarkers(markers) {
     // Clear all markers
     for (var i = 0; i < markers.length; i++) {
@@ -17,7 +13,7 @@ function createMarker(map, markers){
 	if (place.substr(place.length-1, 1) == ")"){
 		place = place.substr(0, place.length-5);
 	}
-	$.getJSON("../api/query.php?category="+place, function (data) {
+	$.getJSON("../api/query.php?category=accommodation&region="+place, function (data) {
 		for (i=0; i<data.length; i++){
 			coordinate = {lat: data[i].latitude, lng: data[i].longitude};
 			nome = data[i].name;
@@ -25,6 +21,29 @@ function createMarker(map, markers){
 				position: coordinate,
 				map: map,
 				icon: 'images/bed_b.png',
+				title: data[i].name,
+				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i]._id+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
+			});
+			var infowindow = new google.maps.InfoWindow({ 
+				position: coordinate,
+				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
+				size: new google.maps.Size(50,50)
+			});
+			google.maps.event.addListener(marker, 'click', function(event) {
+				infowindow.setContent(this.content);
+				infowindow.open(map, this);
+			});
+			markers.push(marker);
+		}
+	});
+	/*$.getJSON("../api/query.php?category=attraction&region="+place, function (data) {
+		for (i=0; i<data.length; i++){
+			coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+			nome = data[i].name;
+			var marker = new google.maps.Marker({
+				position: coordinate,
+				map: map,
+				icon: 'images/attraction.png',
 				title: data[i].name,
 				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
 			});
@@ -39,7 +58,7 @@ function createMarker(map, markers){
 			});
 			markers.push(marker);
 		}
-	});
+	});*/
 }
 
 $(document).ready(function() {
@@ -80,7 +99,7 @@ $(document).ready(function() {
 			$(this).hide();
 		}
 	);
-	$( function() {
+	/*$( function() {
 		$.ajaxSetup({
 			async: false
 		});
@@ -98,5 +117,5 @@ $(document).ready(function() {
 				responseFn( a );
 			}
 		});
-	});
+	});*/
 });
