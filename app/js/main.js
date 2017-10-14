@@ -1,3 +1,4 @@
+/*TOGLIE I SEGNALINI, CANCELLA L'ARRAY markers SE ESISTENTE E LO RICREA VUOTO PER UNA NUOVA RICERCA*/
 function clearMarkers(markers) {
     // Clear all markers
     for (var i = 0; i < markers.length; i++) {
@@ -7,7 +8,7 @@ function clearMarkers(markers) {
     delete markers;
     markers = new Array();
 }
-
+/*CREA I SEGNALINI SULLA MAPPA, STRUTTURE E ATTRAZIONI, IN BASE AL PARAMETRO PASSATO NEL CAMPO DI RICERCA*/
 function createMarker(map, markers){
 	var place = document.form_ricerca.ricerca_luogo.value;
 	if (place.substr(place.length-1, 1) == ")"){
@@ -15,57 +16,65 @@ function createMarker(map, markers){
 	}
 	$.getJSON("../api/query.php?category=accommodation&region="+place, function (data) {
 		for (i=0; i<data.length; i++){
-			coordinate = {lat: data[i].latitude, lng: data[i].longitude};
-			nome = data[i].name;
-			var marker = new google.maps.Marker({
-				position: coordinate,
-				map: map,
-				icon: 'images/bed_b.png',
-				title: data[i].name,
-				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i]._id+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
-			});
-			var infowindow = new google.maps.InfoWindow({ 
-				position: coordinate,
-				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
-				size: new google.maps.Size(50,50)
-			});
-			google.maps.event.addListener(marker, 'click', function(event) {
-				infowindow.setContent(this.content);
-				infowindow.open(map, this);
-			});
-			markers.push(marker);
+			if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
+				if(place == "Lombardia"){
+					coordinate = {lat: data[i].longitude, lng: data[i].latitude};
+				}else{
+					coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+				}
+				nome = data[i].name;
+				var marker = new google.maps.Marker({
+					position: coordinate,
+					map: map,
+					icon: 'images/bed_b.png',
+					title: data[i].name,
+					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i]._id+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
+				});
+				var infowindow = new google.maps.InfoWindow({ 
+					position: coordinate,
+					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
+					size: new google.maps.Size(50,50)
+				});
+				google.maps.event.addListener(marker, 'click', function(event) {
+					infowindow.setContent(this.content);
+					infowindow.open(map, this);
+				});
+				markers.push(marker);
+			}
 		}
 	});
-	/*$.getJSON("../api/query.php?category=attraction&region="+place, function (data) {
+	$.getJSON("../api/query.php?category=attraction&region="+place, function (data) {
 		for (i=0; i<data.length; i++){
-			coordinate = {lat: data[i].latitude, lng: data[i].longitude};
-			nome = data[i].name;
-			var marker = new google.maps.Marker({
-				position: coordinate,
-				map: map,
-				icon: 'images/attraction.png',
-				title: data[i].name,
-				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
-			});
-			var infowindow = new google.maps.InfoWindow({ 
-				position: coordinate,
-				content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
-				size: new google.maps.Size(50,50)
-			});
-			google.maps.event.addListener(marker, 'click', function(event) {
-				infowindow.setContent(this.content);
-				infowindow.open(map, this);
-			});
-			markers.push(marker);
+			if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
+				coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+				nome = data[i].name;
+				var marker = new google.maps.Marker({
+					position: coordinate,
+					map: map,
+					icon: 'images/attraction.png',
+					title: data[i].name,
+					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i]._id+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
+				});
+				var infowindow = new google.maps.InfoWindow({ 
+					position: coordinate,
+					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
+					size: new google.maps.Size(50,50)
+				});
+				google.maps.event.addListener(marker, 'click', function(event) {
+					infowindow.setContent(this.content);
+					infowindow.open(map, this);
+				});
+				markers.push(marker);
+			}
 		}
-	});*/
+	});
 }
-
+/*AL CARICAMENTO DELLA PAGINA, CREA LA MAPPA, ,CREA L'EVENTO CLICK DEL TASTO CERCA,E QUELLI RELATIVI AL TASTO X*/
 $(document).ready(function() {
 	$("#x").hide();
 	var markers = new Array();
 	var map = new google.maps.Map(document.getElementById('map'), {
-	  center: {lat: 42.0, lng: 13.0},
+	  center: {lat: 42.0, lng: 12.0},
 	  zoom: 6
 	});
 	$("#ricerca_luogo").keypress(function(e) {
@@ -104,7 +113,7 @@ $(document).ready(function() {
 			async: false
 		});
 		var availableTags;
-		$.getJSON("./api/tags.php", function (data) {
+		$.getJSON("./api/query.php", function (data) {
 			availableTags = data;
 		});
 		$( "#ricerca_luogo" ).autocomplete({

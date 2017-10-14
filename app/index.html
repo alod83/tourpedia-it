@@ -9,19 +9,21 @@
 	</head>
 	<body>
 		<div id="container">
-			<div id="ricerca">
-				<form name="form_ricerca">
-					<input id="ricerca_luogo" type="text" placeholder="Cerca una città">
-					<input id="x" type="image" src="images/x.png">
-					<input id="cerca" type="image" src="images/lente.png">
-				</form>
-			</div>
-			<a href="../web/index.html">
-				<div id="indietro">
-					<input id="back" type="image" src="images/back.png">
+			<div id="navigation">
+				<div id="ricerca">
+					<form name="form_ricerca">
+						<a href="../web/index.html">
+							<div id="indietro">
+								<input id="back" type="image" src="images/back.png">
+							</div>
+						</a>
+						<input id="ricerca_luogo" type="text" placeholder="Cerca una città">
+						<input id="x" type="image" src="images/x.png">
+						<input id="cerca" type="image" src="images/lente.png">
+					</form>
 				</div>
-			</a>
-			<div id="filtro">
+				<div id="strutture"></div>
+				<div id="attrazioni"></div>
 			</div>
 			<div id="main">
 				<div id="map"></div>
@@ -38,8 +40,8 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		
 		<!-- Scrolling Nav JavaScript -->
-		<script src="js/jquery.easing.min.js"></script>
-		<script src="js/scrolling-nav.js"></script>
+		<!--<script src="js/jquery.easing.min.js"></script>
+		<script src="js/scrolling-nav.js"></script>-->
 		
 		<!-- Main -->
 		<script src="js/main.js"></script>
