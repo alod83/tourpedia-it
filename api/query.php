@@ -35,12 +35,19 @@ if(isset($_REQUEST['category']))
 		//$collection = $dbname->$ini_array['Mongo']['collection'];
 		$collection = $connection->$db_name->$collection_name;
 		$query = array();
+		
 		if(isset($_REQUEST['region']))
 			$query['region'] = $_REQUEST['region'];
 		if(isset($_REQUEST['province']))
 			$query['province'] = $_REQUEST['province'];
 		if(isset($_REQUEST['city']))
 			$query['city'] = new MongoDB\BSON\Regex($_REQUEST['city'], 'mi');
+			
+		if(!isset($_REQUEST['region']) && !isset($_REQUEST['city']) && !isset($_REQUEST['province']) && isset($_REQUEST['place']))
+		{
+			$place = new MongoDB\BSON\Regex($_REQUEST['place'], 'mi');
+			$query['$or'] = array(array('region' => $place), array('city' => $place));
+		}
 		min_max_field('beds', $query);
 		min_max_field('latitude', $query);
 		min_max_field('longitude', $query);
