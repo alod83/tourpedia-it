@@ -36,7 +36,7 @@ function createMarker(map, markers){
 	$.getJSON("../api/query.php?category=accommodation&place="+place, function (data) {
 		for (i=0; i<data.length; i++){
 			if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
-				if(place == "Lombardia"){
+				if(data[i].region == "Lombardia"){
 					coordinate = {lat: data[i].longitude, lng: data[i].latitude};
 				}else{
 					coordinate = {lat: data[i].latitude, lng: data[i].longitude};
