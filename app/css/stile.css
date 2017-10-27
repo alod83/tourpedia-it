@@ -1,3 +1,4 @@
+/*GENERALI*/
 *{
 	margin: 0;
     padding: 0;
@@ -5,6 +6,24 @@
 
 html, body {
     height: 100%;
+}
+
+input:focus{
+	outline:0;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
 #container{
@@ -21,6 +40,7 @@ html, body {
 	width:30%;
 	height:100%;
 	float:left;
+	overflow: auto;
 }
 
 #ricerca{
@@ -84,6 +104,58 @@ html, body {
 	margin-top: 5px;
 	width: 30px;
 	height: 30px;
+}
+
+/*STRUTTURE*/
+.box_ricerca{
+	width: 100%;
+}
+
+.argument{
+	width: calc(90%-2px);
+	border: 1px solid grey;
+	padding: 5%;
+}
+
+#strutture .argument{
+	border-bottom: 2px solid blue;
+}
+
+#attrazioni .argument{
+	border-bottom: 2px solid red;
+}
+
+.argument p{
+	width: 40%;
+	display: inline-block;
+}
+
+.campi_ricerca{
+	height: 0;
+	background-color: white;
+	overflow: hidden;
+	-webkit-transition: height 1s;
+    transition: height 1s;
+}
+
+.open{
+	height: 300px;
+}
+
+.expand{
+	width: 30px;
+	height: 30px;
+	position: relative;
+	float: right;
+	display: inline-block;
+}
+
+.expand:hover{
+	border-width: 0 4px 4px 0;
+}
+
+.ed{
+	border-width: 3px 0px 0px 3px;
 }
 
 

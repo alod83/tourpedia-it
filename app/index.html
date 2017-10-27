@@ -6,6 +6,11 @@
 		<meta name="viewport" content="intial-scale=1.0">
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/stile.css" />
+		<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script><!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyaghxEJX9D8HfaH6-EKJIVvvokNNhX5Q&callback=inizializza" async defer></script><!-- Google Maps -->
+		<script src="js/main.js"></script><!-- Main -->
 	</head>
 	<body>
 		<div id="container">
@@ -22,29 +27,30 @@
 						<input id="cerca" type="image" src="images/lente.png">
 					</form>
 				</div>
-				<div id="strutture"></div>
-				<div id="attrazioni"></div>
+				<div id="strutture" class="box_ricerca">
+					<div class="argument">
+						<p>STRUTTURE <span id="ns"></span></p>
+						<input class="expand" value="0" type="image" src="images/down.png">
+					</div>
+					<div id="ricercaS" class="campi_ricerca">
+					</div>
+				</div>
+				<div id="attrazioni" class="box_ricerca">
+					<div class="argument">
+						<p>ATTRAZIONI <span id="na"></span></p>
+						<input class="expand" value="1" type="image" src="images/down.png">
+					</div>
+					<div id="ricercaA" class="campi_ricerca">
+					</div>
+				</div>
 			</div>
 			<div id="main">
 				<div id="map"></div>
 			</div>
 		</div>
 		
-		<!-- Google Maps -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyaghxEJX9D8HfaH6-EKJIVvvokNNhX5Q" async defer></script>
-		
-		<!-- jQuery -->
-		<!--<script src="js/jquery.js"></script>-->
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		
 		<!-- Scrolling Nav JavaScript -->
 		<!--<script src="js/jquery.easing.min.js"></script>
 		<script src="js/scrolling-nav.js"></script>-->
-		
-		<!-- Main -->
-		<script src="js/main.js"></script>
-		
 	</body>
 </html>

@@ -45,7 +45,7 @@ if(isset($_REQUEST['category']))
 			
 		if(!isset($_REQUEST['region']) && !isset($_REQUEST['city']) && !isset($_REQUEST['province']) && isset($_REQUEST['place']))
 		{
-			$place = new MongoDB\BSON\Regex($_REQUEST['place'], 'mi');
+			$place = new MongoDB\BSON\Regex($_REQUEST['place'].'( )*$', 'mi');
 			$query['$or'] = array(array('region' => $place), array('city' => $place));
 		}
 		min_max_field('beds', $query);
