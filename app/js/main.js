@@ -5,7 +5,7 @@ function inizializza(){
 	  zoom: 6
 	});
 }
-
+//Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
 function Unique(inputArray){
     var temporaryArray = {};
 	var outputArray = [];
@@ -146,19 +146,30 @@ $(document).ready(function() {
 			contatori[this.value]=0;
 		}
 	});
-	/*$( function() {
+	$( function() {
 		$.ajaxSetup({
 			async: false
 		});
 		var Tags=[];
 		$.getJSON("../api/query.php?category=accommodation", function (data) {
 			for(var i=0; i<data.length; i++){
-				Tags.push(data[i].region);
-				Tags.push(data[i].city);
+				if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
+				}
+			}
+		});
+		$.getJSON("../api/query.php?category=attraction", function (data) {
+			for(var i=0; i<data.length; i++){
+				if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
+				}
 			}
 		});
 		var availableTags = Unique(Tags);
 		$( "#ricerca_luogo" ).autocomplete({
+			minLength: 2,
 			source: function(req, responseFn) {
 				var re = $.ui.autocomplete.escapeRegex(req.term);
 				var matcher = new RegExp( "^" + re, "i" );
@@ -168,5 +179,5 @@ $(document).ready(function() {
 				responseFn( a );
 			}
 		});
-	});*/
+	});
 });

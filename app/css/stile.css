@@ -6,6 +6,7 @@
 
 html, body {
     height: 100%;
+	overflow: hidden;
 }
 
 input:focus{
@@ -106,6 +107,30 @@ input:focus{
 	height: 30px;
 }
 
+#ui-id-1{
+	max-height: 500px;
+	width: 225px;
+	max-width: 500px;
+	overflow: auto;
+	background-color: white;
+}
+
+#ui-id-1 li{
+	text-transform: lowercase;
+}
+
+#ui-id-1 li div::first-letter{
+	text-transform: uppercase;
+}
+
+#ui-id-1 li:hover{
+	background-color: grey;
+}
+
+.ui-helper-hidden-accessible{
+	display: none;
+}
+
 /*STRUTTURE*/
 .box_ricerca{
 	width: 100%;
@@ -157,7 +182,6 @@ input:focus{
 .ed{
 	border-width: 3px 0px 0px 3px;
 }
-
 
 /*MAPPA*/
 #main{
