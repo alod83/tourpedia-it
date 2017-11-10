@@ -58,8 +58,25 @@ if(isset($_REQUEST['category']))
 			if(isset($_REQUEST[$fields_list[$i]]) && ! in_array($fields_list[$i], $excluded_fields))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
 		//var_dump($query);
-			
-		echo json_encode(iterator_to_array($collection->find($query)));
+		$result=iterator_to_array($collection->find($query));
+		for($i=0; $i<count($result); $i++){
+			foreach($result[$i] as $k=>$v){
+				if($k=="number of stars"){
+					$result[$i]["stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
+					unset($result[$i][$k]);
+				}
+				if($k=="region"){
+					if($v=="Trentino"){
+						$result[$i]["region"]="Trentino-alto adige";
+					}
+				}/*else{
+					if($k!="latitude" && $k!="longitude"){
+						$result[$i][$k]=trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$v));
+					}
+				}*/
+			}
+		}
+		echo json_encode($result);
 	}
 	else 
 	{
