@@ -1,3 +1,4 @@
+//Creo la mappa e la inizializzo
 var map;
 function inizializza(){
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -17,6 +18,36 @@ function Unique(inputArray){
 	}
     return outputArray;
 }
+//inserisco la lista dei risultati
+function insertResult(){
+	var place = document.form_ricerca.ricerca_luogo.value;
+	var ResultsS="<ul>";
+	var ResultsA="<ul>";
+	var url= "../api/query.php?category=accommodation&place=";
+	if (place=="Trentino-alto adige"){
+		url+="Trentino";
+	}else{
+		url+=place;
+	}
+	$.getJSON(url, function (data) {
+		for (i=0; i<data.length; i++){
+			if(data[i].latitude && data[i].longitude){
+				ResultsS += "<li>"+data[i].name+"</li>";
+			}
+		}
+	});
+	ResultsS += "</ul>";
+	$("#ricercaS").html(ResultsS);
+	$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
+		for (i=0; i<data.length; i++){
+			if(data[i].latitude && data[i].longitude){
+				ResultsA += "<li>"+data[i].name+"</li>";
+			}
+		}
+	});
+	ResultsA += "</ul>";
+	$("#ricercaA").html(ResultsA);
+}
 /*TOGLIE I SEGNALINI, CANCELLA L'ARRAY markers SE ESISTENTE E LO RICREA VUOTO PER UNA NUOVA RICERCA*/
 function clearMarkers(markers) {
     // Clear all markers
@@ -30,65 +61,137 @@ function clearMarkers(markers) {
 /*CREA I SEGNALINI SULLA MAPPA, STRUTTURE E ATTRAZIONI, IN BASE AL PARAMETRO PASSATO NEL CAMPO DI RICERCA*/
 function createMarker(map, markers){
 	var place = document.form_ricerca.ricerca_luogo.value;
-	if (place.substr(place.length-1, 1) == ")"){
-		place = place.substr(0, place.length-5);
-	}
-	$.getJSON("../api/query.php?category=accommodation&place="+place, function (data) {
-		for (i=0; i<data.length; i++){
-			if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
-				if(data[i].region == "Lombardia"){
-					coordinate = {lat: data[i].longitude, lng: data[i].latitude};
-				}else{
-					coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+	if (place){
+		map.setZoom(8);
+		var url= "../api/query.php?category=accommodation&place=";
+		if (place=="Trentino-alto adige"){
+			url+="Trentino";
+		}else{
+			url+=place;
+		}
+		$.getJSON(url, function (data) {
+			var correctData=0;
+			for (i=0; i<data.length; i++){
+				if(data[i].latitude && data[i].longitude){
+					correctData+=1;
+					if(data[i].region == "Lombardia"){
+						coordinate = {lat: data[i].longitude, lng: data[i].latitude};
+					}else{
+						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+					}
+					map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
+					var string="";
+					if(data[i].name){
+						string+="<p>"+data[i].name+"</p>";
+					}
+					if(data[i].description){
+						string+="<p>"+data[i].description+"</p>";
+					}
+					if(data[i].address){
+						string+=data[i].address+", ";
+					}
+					if(data[i].city){
+						string+=data[i].city;
+					}
+					if(data[i].province){
+						string+="("+data[i].province+")<br/>";
+					}
+					if(data[i].stars){
+						for(var y=0; y<data[i].stars; y++){
+							string+="<img class='star' src='images/star.svg'>";
+						}
+						string+="<br/>";
+					}
+					if(data[i].telephone){
+						string+="<p><img class='icons' src='images/telephone.svg' alt='telephone'> Tel: "+data[i].telephone+"</p>";
+					}
+					if(data[i].email){
+						string+="<p><img class='icons' src='images/mail.svg' alt='email'> Email: "+data[i].email+"</p>";
+					}
+					if(data[i]['web site']){
+						string+="<p><img class='icons' src='images/internet.svg' alt='internet'> "+data[i]['web site']+"</p>";
+					}
+					var marker = new google.maps.Marker({
+						position: coordinate,
+						map: map,
+						icon: 'images/bed_b.png',
+						title: data[i].name,
+						content: string
+					});
+					/*var infowindow = new google.maps.InfoWindow({ 
+						position: coordinate,
+						content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
+						size: new google.maps.Size(50,50)
+					});*/
+					google.maps.event.addListener(marker, 'click', function(event) {
+						/*infowindow.setContent(this.content);
+						infowindow.open(map, this);*/
+						$("#ricercaS").html(this.content);
+					});
+					markers.push(marker);
 				}
-				nome = data[i].name;
-				var marker = new google.maps.Marker({
-					position: coordinate,
-					map: map,
-					icon: 'images/bed_b.png',
-					title: data[i].name,
-					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
-				});
-				var infowindow = new google.maps.InfoWindow({ 
-					position: coordinate,
-					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
-					size: new google.maps.Size(50,50)
-				});
-				google.maps.event.addListener(marker, 'click', function(event) {
-					infowindow.setContent(this.content);
-					infowindow.open(map, this);
-				});
-				markers.push(marker);
 			}
-		}
-		$("#ns").html("("+data.length+")");
-	});
-	$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
-		for (i=0; i<data.length; i++){
-			if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
-				coordinate = {lat: data[i].latitude, lng: data[i].longitude};
-				nome = data[i].name;
-				var marker = new google.maps.Marker({
-					position: coordinate,
-					map: map,
-					icon: 'images/attraction.png',
-					title: data[i].name,
-					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+", "+data[i].city+" ("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email
-				});
-				var infowindow = new google.maps.InfoWindow({ 
-					position: coordinate,
-					content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
-					size: new google.maps.Size(50,50)
-				});
-				google.maps.event.addListener(marker, 'click', function(event) {
-					infowindow.setContent(this.content);
-					infowindow.open(map, this);
-				});
-				markers.push(marker);
+			if(correctData != 0){
+				$("#ns").html("("+correctData+")");
+			}else{
+				$("#ns").html("(Nessun risultato trovato)");
 			}
-		}
-		$("#na").html("("+data.length+")");
-	});
+		});
+		$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
+			var correctData=0;
+			for (i=0; i<data.length; i++){
+				if(data[i].latitude && data[i].longitude){
+					coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+					correctData+=1;
+					var string="";
+					if(data[i].name){
+						string+=data[i].name+"<br/>";
+					}
+					if(data[i].description){
+						string+=data[i].description+"<br/>";
+					}
+					if(data[i].address){
+						string+=data[i].address+", ";
+					}
+					if(data[i].city){
+						string+=data[i].city;
+					}
+					if(data[i].province){
+						string+="("+data[i].province+")<br/>";
+					}
+					if(data[i].telephone){
+						string+="Tel: "+data[i].telephone+"<br/>";
+					}
+					if(data[i].email){
+						string+="email: "+data[i].email;
+					}
+					var marker = new google.maps.Marker({
+						position: coordinate,
+						map: map,
+						icon: 'images/attraction.png',
+						title: data[i].name,
+						content: string
+					});
+					/*var infowindow = new google.maps.InfoWindow({ 
+						position: coordinate,
+						content: data[i].name+"<br/>"+data[i].description+"<br/>"+data[i].address+data[i].city+"("+data[i].province+")"+"<br/>"+data[i].telephone+"<br/>"+data[i].email,
+						size: new google.maps.Size(50,50)
+					});*/
+					google.maps.event.addListener(marker, 'click', function(event) {
+						//infowindow.setContent(this.content);
+						//infowindow.open(map, this);
+						$("#ricercaA").html(this.content);
+					});
+					markers.push(marker);
+				}
+			}
+			if(correctData != 0){
+				$("#na").html("("+correctData+")");
+			}else{
+				$("#na").html("(Nessun risultato trovato)");
+			}
+		});
+	}
 }
 /*AL CARICAMENTO DELLA PAGINA, CREA LA MAPPA, ,CREA L'EVENTO CLICK DEL TASTO CERCA,E QUELLI RELATIVI AL TASTO X*/
 $(document).ready(function() {
@@ -114,6 +217,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		clearMarkers(markers);
 		createMarker(map, markers);
+		insertResult();
 	});
 	// if text input field value is not empty show the "X" button
 	$("#ricerca_luogo").keyup(
@@ -132,6 +236,9 @@ $(document).ready(function() {
 			event.preventDefault();
 			$("#ricerca_luogo").val("");
 			$(this).hide();
+			clearMarkers(markers);
+			$("#ns").html("");
+			$("#na").html("");
 		}
 	);
 	/* al click del TASTO DI ESPANSIONE, APRO IL CORRISPONDENTE BOX DI RICERCA*/
@@ -153,17 +260,17 @@ $(document).ready(function() {
 		var Tags=[];
 		$.getJSON("../api/query.php?category=accommodation", function (data) {
 			for(var i=0; i<data.length; i++){
-				if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
-					Tags.push(data[i].region);
-					Tags.push(data[i].city);
+				if(data[i].latitude && data[i].longitude){
+					Tags.push(data[i].region.substr(0,1).toUpperCase()+data[i].region.substr(1).toLowerCase());
+					Tags.push(data[i].city.substr(0,1).toUpperCase()+data[i].city.substr(1).toLowerCase());
 				}
 			}
 		});
 		$.getJSON("../api/query.php?category=attraction", function (data) {
 			for(var i=0; i<data.length; i++){
-				if(((data[i].latitude != 0)&&(data[i].longitude != 0))&&((data[i].latitude != null)&&(data[i].longitude != null))){
-					Tags.push(data[i].region);
-					Tags.push(data[i].city);
+				if(data[i].latitude && data[i].longitude){
+					Tags.push(data[i].region.substr(0,1).toUpperCase()+data[i].region.substr(1).toLowerCase());
+					Tags.push(data[i].city.substr(0,1).toUpperCase()+data[i].city.substr(1).toLowerCase());
 				}
 			}
 		});
