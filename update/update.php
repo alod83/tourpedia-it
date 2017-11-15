@@ -20,25 +20,26 @@ CopiaCollezione($nuovo, $vecchio);
 $drop = $nuovo->drop();
 
 //Abruzzo 			*NON DISPONIBILE*
-Basilicata($date, $ini_array, $nuovo, $vecchio);
+//Basilicata($date, $ini_array, $nuovo, $vecchio);
 //Calabria 			*NON DISPONIBILE*
 //Campania			*NON DISPONIBILE*
-EmiliaRomagna($date, $ini_array, $nuovo, $vecchio);
-Friuli($date, $ini_array, $nuovo, $vecchio);
+//EmiliaRomagna($date, $ini_array, $nuovo, $vecchio);
+//Friuli($date, $ini_array, $nuovo, $vecchio);
 //Lazio				*NON DISPONIBILE*
-Liguria($date, $ini_array, $nuovo, $vecchio);	
-Lombardia($date, $ini_array, $nuovo, $vecchio);
-Marche($date, $ini_array, $nuovo, $vecchio);
+//Liguria($date, $ini_array, $nuovo, $vecchio);	
+//Lombardia($date, $ini_array, $nuovo, $vecchio);
+//Marche($date, $ini_array, $nuovo, $vecchio);
 //Molise 			*NON DISPONIBILE*
-Piemonte($date, $ini_array, $nuovo, $vecchio);
-Puglia($date, $ini_array, $nuovo, $vecchio);
+//Piemonte($date, $ini_array, $nuovo, $vecchio);
+//Puglia($date, $ini_array, $nuovo, $vecchio);
 //Sardegna			*FILE PDF*
 //Sicilia			*NON SCARICABILE*
-Toscana($date, $ini_array, $nuovo, $vecchio);
-Trentino($date, $ini_array, $nuovo, $vecchio);
-Umbria($date, $ini_array, $nuovo, $vecchio);
+//Toscana($date, $ini_array, $nuovo, $vecchio);
+//Trentino($date, $ini_array, $nuovo, $vecchio);
+//Umbria($date, $ini_array, $nuovo, $vecchio);
 //VdAosta			*NON DISPONIBILE*
-Veneto($date, $ini_array, $nuovo, $vecchio);
+//Veneto($date, $ini_array, $nuovo, $vecchio);
+Roma($date, $ini_array, $nuovo, $vecchio);
 
 function geocode($address){
 	$address = urlencode($address);
@@ -877,5 +878,53 @@ function Veneto($date, $ini_array, $nuovo, $vecchio){
 		$row = NULL;
 	}
 	UpdateLog('Veneto', $date, $row, $lastmodified);
+}
+
+function Roma($date, $ini_array, $nuovo, $vecchio){
+	if(($handle=fopen($ini_array["Roma"]["url"], "r"))!==FALSE){
+		$metadata = stream_get_meta_data($handle);
+		$lastmodified = $metadata["wrapper_data"][3];
+		$row=-1;
+		$counter_geo=0;
+		while(($arr=fgetcsv($handle,10000,";"))!==FALSE){
+			$row++;
+			if($row==0)continue;
+			$document['_id']=				"LAZ".$row;
+			$document['name']=				utf8_encode($arr[0]);
+			$document['description']=		"";
+			$document['address']=			utf8_encode($arr[2]);
+			$document['city']=				"";
+			$document['province']=			"Roma";
+			$document['locality']=			"";
+			$document['region']=			'Lazio';
+			$document['postal-code']=		"";
+			$document['number of stars']=	"";
+			$document['email']=				"";
+			$document['web site']=			"";
+			$document['telephone']=			"";
+			$document['fax']=				"";
+			//$document=TrovaCoordinate($document, $vecchio);
+			//$nuovo->save($document);
+			var_dump($document);
+			exit(1);
+			
+		}
+		print "Roma: ".$row."\n";
+		
+	}
+	else{
+		$connection = new MongoClient('mongodb://localhost:27017');
+		$cursor = $vecchio->find();
+		$row = 0;
+		foreach ($cursor as $obj){
+			if($obj['region']=='Veneto'){
+				$nuovo->save($obj);
+				$row++;
+			}
+		}
+		print "Roma Problems reading url. Recovered ".$row." records from the old database\n";
+		$row = NULL;
+	}
+	UpdateLog('Roma', $date, $row, $lastmodified);
 }
 ?> 

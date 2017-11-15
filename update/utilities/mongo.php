@@ -50,7 +50,7 @@ function CopiaCollezione($collPartenza, $collArrivo) {
 	$log->insertOne($document);
 }*/
 
-function UpdateLog($region, $date, $row, $lastmodified, $collect){
+function UpdateLog($region, $date, $row, $lastmodified, $collect="Strutture"){
 	//$connection = new MongoDB\Client('mongodb://localhost:27017');
 	$connection = new MongoClient('mongodb://localhost:27017');
 	$dbname = $connection->selectDB($collect);
