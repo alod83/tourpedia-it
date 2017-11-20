@@ -3,7 +3,9 @@ var map;
 function inizializza(){
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: {lat: 42.0, lng: 12.0},
-	  zoom: 6
+	  zoom: 6,
+	  mapTypeControl: false,
+	  fullscreenControl: false
 	});
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
@@ -202,6 +204,7 @@ $(document).ready(function() {
 	for (var i=0; i<$(".expand").length; i++){
 		contatori[i]=0;
 	}
+	contatori.push(0);
 	/*INIZIALIZZO LA MAPPA*/
 	var markers = new Array();
 	/*??????*/
@@ -210,6 +213,10 @@ $(document).ready(function() {
 			e.preventDefault();
 			clearMarkers(markers);
 			createMarker(map, markers);
+			$('#navigation').css('left','0');
+			contatori[contatori.length-1]=1;
+			$('#arrow').attr("src","images/left arrow.svg");
+			insertResult();
 		}
 	});
 	/*CREO L'EVENTO DELLA RICERCA TESTUALE*/
@@ -217,6 +224,9 @@ $(document).ready(function() {
 		event.preventDefault();
 		clearMarkers(markers);
 		createMarker(map, markers);
+		$('#navigation').css('left','0');
+		contatori[contatori.length-1]=1;
+		$('#arrow').attr("src","images/left arrow.svg");
 		insertResult();
 	});
 	// if text input field value is not empty show the "X" button
@@ -241,6 +251,17 @@ $(document).ready(function() {
 			$("#na").html("");
 		}
 	);
+	$("#tasto").click(function(){
+		if(contatori[contatori.length-1]==0){
+			$('#navigation').css('left','0');
+			$('#arrow').attr("src","images/left arrow.svg");
+			contatori[contatori.length-1]=1;
+		}else if(contatori[contatori.length-1]==1){
+			$('#navigation').css('left','-30%');
+			$('#arrow').attr("src","images/right arrow.svg");
+			contatori[contatori.length-1]=0;
+		}
+	});
 	/* al click del TASTO DI ESPANSIONE, APRO IL CORRISPONDENTE BOX DI RICERCA*/
 	$(".expand").click(function(){
 		if(contatori[this.value]==0){
