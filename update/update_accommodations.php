@@ -42,8 +42,13 @@ for($i = 0; $i < count($ra); $i++)
 		$format = $ini_array[$source]['dataset_accommodation']['format'];
 	if($format === 'CSV')
 	{
+		echo "CSV\n";
 		CSV($source,$date, $config, $nuovo, $vecchio);
 	}
+	else if($format === 'GeoJson')
+	{
+		GeoJson($source,$date,$config,$nuovo,$vecchio);
+    }
 	else
 	{
 		include('sources/accommodation/'.$source.'.php');

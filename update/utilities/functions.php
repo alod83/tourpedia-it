@@ -213,9 +213,13 @@ function get_record($document,$mapping,$arr)
 			{
 				$va = explode('/',$v);
 				
-				$value = str_replace('.', ',',$arr[intval($va[0])]);
-				$div = $va[1];
-				$value = floatval($value)/$div;
+				if(isset($arr[intval($va[0])]))
+				{
+					$value = str_replace('.', ',',$arr[intval($va[0])]);
+					$div = $va[1];
+					$value = floatval($value)/$div;
+					
+				}
 			}
 			else if(strpos($v, '<') !== false)
 			{	
@@ -253,7 +257,7 @@ function get_record($document,$mapping,$arr)
 					$value = $arr[intval($v)];
 				}
 			}
-				
+			
 			
 			switch($k)
 			{
@@ -271,6 +275,7 @@ function get_record($document,$mapping,$arr)
 						$document['longitude']=round(floatval($value[0]),6);
 					}else{
 						$document[$k]=round(floatval($value),6);
+						
 					}
 					break;
 				case 'longitude'	:
@@ -291,6 +296,11 @@ function get_record($document,$mapping,$arr)
 
 function CSV($region,$date,$config, $nuovo, $vecchio){
 	$lastmodified=null;
+	$collect=null;
+	$url = null;
+	$mapping = null;
+	$collect = null;
+	$dataset_feature = null;
 	if(strpos($region, '_') !== false){
 		preg_match('/[0-9]+$/',$region,$matches);
 		$reg_acr=strtoupper(substr($region, 0,3).$matches[0]."_");
@@ -303,14 +313,15 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 		$dataset_feature = $config['dataset_attraction'];
 		$collect = "Attrazioni";
 	} 
-	else if (isset($config['url_accomodation'])) {
-		$url = $config['url_accomodation'];
+	else if (isset($config['url_accommodation'])) {
+		$url = $config['url_accommodation'];
 		$mapping = $config['accommodation'];
-		$dataset_feature = $config['dataset_accomodation'];
+		$dataset_feature = $config['dataset_accommodation'];
 		$collect = "Strutture";
 	} 
 	echo $url;
 	$coord = false;
+	$curl = false;
 	$encoding = false;
 	$separator = false;
 	$lastmodified_number = false;
@@ -334,8 +345,24 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 			case 'first_data_row':
 				$first_data_row = $v;
 				break;
+			case 'curl':
+				$curl = ($v === 'True') ? true : false;
 		}
 	}
+	if($curl)
+	{
+		echo "curl\n";
+		$ch = curl_init(); 
+    	curl_setopt($ch, CURLOPT_URL, $url); 
+    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		// dico al server che sono un browser
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
+    	$handle = curl_exec($ch);
+    	file_put_contents($region, $handle);
+    	$url = $region;
+    	
+	}
+	
 	if(($handle=fopen($url, "r"))!==FALSE){
 		//$lastmodified = null;
 		if($lastmodified_number)
@@ -346,6 +373,7 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 		$row=-1;
 		while(($arr=fgetcsv($handle,10000,$separator))!==FALSE){
 			$row++;
+			
 			//caso in cui il file inizia con righe vuote prima dei dati
 			if($first_data_row){
 				if ($row<$first_data_row){
@@ -356,6 +384,8 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 					continue;
 				}
 			}
+			
+			
 			$id=$reg_acr.$row;
 			$document['_id'] = $id;
 				
@@ -387,5 +417,9 @@ function CSV($region,$date,$config, $nuovo, $vecchio){
 		$row = NULL;
 	}
 	UpdateLog($region, $date, $row, $lastmodified, $collect);
+	if($curl)
+		unlink($region);
 }
+
+
 ?>

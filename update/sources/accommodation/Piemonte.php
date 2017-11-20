@@ -72,7 +72,7 @@ function Piemonte($date, $config, $nuovo, $vecchio){
 		print "PIEMONTE: Problems reading url. Recovered ".$row." records from the old database\n";
 		$row = NULL;
 	}
-	$html = file_get_html('http://www.dati.piemonte.it/catalogodati/dato/100966-.html');
+	$html = file_get_html('http://www.dati.piemonte.it/catalogodati/dato/100995-.html');
 	$lastmodified=$html->find('table[class=tabella_item]',1)->find('td',1);
 	$lastmodified=substr($lastmodified,80,-10);
 	UpdateLog('Piemonte', $date, $row, $lastmodified);
