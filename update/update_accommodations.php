@@ -54,6 +54,7 @@ for($i = 0; $i < count($ra); $i++)
 		echo "ZIP\n";
 		ZIP($source,$date, $config, $nuovo, $vecchio);
 	}
+	else
 	{
 		include('sources/accommodation/'.$source.'.php');
 		$source($date, $config, $nuovo, $vecchio);
