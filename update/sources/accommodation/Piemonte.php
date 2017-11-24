@@ -73,8 +73,12 @@ function Piemonte($date, $config, $nuovo, $vecchio){
 		$row = NULL;
 	}
 	$html = file_get_html('http://www.dati.piemonte.it/catalogodati/dato/100995-.html');
-	$lastmodified=$html->find('table[class=tabella_item]',1)->find('td',1);
-	$lastmodified=substr($lastmodified,80,-10);
-	UpdateLog('Piemonte', $date, $row, $lastmodified);
+	if(!empty($html))
+	{
+		$lastmodified=$html->find('table[class=tabella_item]',1)->find('td',1);
+		$lastmodified=substr($lastmodified,80,-10);
+		
+		UpdateLog('Piemonte', $date, $row, $lastmodified);
+	}
 }
 ?>

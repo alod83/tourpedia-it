@@ -49,7 +49,11 @@ for($i = 0; $i < count($ra); $i++)
 	{
 		GeoJson($source,$date,$config,$nuovo,$vecchio);
     }
-	else
+	else if(strpos($format,'ZIP') !== FALSE)
+	{
+		echo "ZIP\n";
+		ZIP($source,$date, $config, $nuovo, $vecchio);
+	}
 	{
 		include('sources/accommodation/'.$source.'.php');
 		$source($date, $config, $nuovo, $vecchio);
