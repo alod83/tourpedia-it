@@ -69,11 +69,11 @@ if(isset($_REQUEST['category']))
 					if($v=="Trentino"){
 						$result[$i]["region"]="Trentino-alto adige";
 					}
-				}/*else{
-					if($k!="latitude" && $k!="longitude"){
+				}else{
+					if($k=="province" or $k=="city"){
 						$result[$i][$k]=trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$v));
 					}
-				}*/
+				}
 			}
 		}
 		echo json_encode($result);

@@ -34,7 +34,7 @@ function insertResult(){
 	$.getJSON(url, function (data) {
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
-				ResultsS += "<li>"+data[i].name+"</li>";
+				ResultsS += "<li id="+data[i].name.replace(/ /g,"_")+">"+data[i].name+"</li>";
 			}
 		}
 	});
@@ -43,7 +43,7 @@ function insertResult(){
 	$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
-				ResultsA += "<li>"+data[i].name+"</li>";
+				ResultsA += "<li id="+data[i].name.replace(/ /g,"_")+">"+data[i].name+"</li>";
 			}
 		}
 	});
@@ -78,10 +78,11 @@ function createMarker(map, markers){
 					correctData+=1;
 					if(data[i].region == "Lombardia"){
 						coordinate = {lat: data[i].longitude, lng: data[i].latitude};
+						map.setCenter({ lat : data[0].longitude , lng : data[0].latitude });
 					}else{
 						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+						map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
 					}
-					map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
 					var string="";
 					if(data[i].name){
 						string+="<p>"+data[i].name+"</p>";
@@ -105,13 +106,13 @@ function createMarker(map, markers){
 						string+="<br/>";
 					}
 					if(data[i].telephone){
-						string+="<p><img class='icons' src='images/telephone.svg' alt='telephone'> Tel: "+data[i].telephone+"</p>";
+						string+="<img class='icons' src='images/telephone.svg' alt='telephone'><p class='info'> Tel: "+data[i].telephone+"</p></br>";
 					}
 					if(data[i].email){
-						string+="<p><img class='icons' src='images/mail.svg' alt='email'> Email: "+data[i].email+"</p>";
+						string+="<img class='icons' src='images/mail.svg' alt='email'><p class='info'> Email: "+data[i].email+"</p></br>";
 					}
 					if(data[i]['web site']){
-						string+="<p><img class='icons' src='images/internet.svg' alt='internet'> "+data[i]['web site']+"</p>";
+						string+="<img class='icons' src='images/internet.svg' alt='internet'><p class='info'> "+data[i]['web site']+"</p></br>";
 					}
 					var marker = new google.maps.Marker({
 						position: coordinate,
