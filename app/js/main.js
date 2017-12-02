@@ -34,7 +34,18 @@ function insertResult(){
 	$.getJSON(url, function (data) {
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
-				ResultsS += "<li id="+data[i].name.replace(/ /g,"_")+">"+data[i].name+"</li>";
+				var stringa="";
+				if(data[i].name){
+					stringa+="<p>"+data[i].name+"</p>";
+				}
+				if(data[i].address){
+					stringa+="<p>"+data[i].address+"</p>";
+				}
+				if(data[i].region=="Lombardia"){
+					ResultsS += "<li id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].longitude+","+data[i].latitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
+				}else{
+					ResultsS += "<li id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
+				}
 			}
 		}
 	});
@@ -43,7 +54,18 @@ function insertResult(){
 	$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
-				ResultsA += "<li id="+data[i].name.replace(/ /g,"_")+">"+data[i].name+"</li>";
+				var stringa="";
+				if(data[i].name){
+					stringa+="<p>"+data[i].name+"</p>";
+				}
+				if(data[i].description){
+					stringa+="<p>"+data[i].description+"</p>";
+				}
+				if(data[i].region=="Lombardia"){
+					ResultsA += "<li id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].longitude+","+data[i].latitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
+				}else{
+					ResultsA += "<li id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
+				}			
 			}
 		}
 	});
@@ -106,13 +128,13 @@ function createMarker(map, markers){
 						string+="<br/>";
 					}
 					if(data[i].telephone){
-						string+="<img class='icons' src='images/telephone.svg' alt='telephone'><p class='info'> Tel: "+data[i].telephone+"</p></br>";
+						string+="<img class='icons' src='images/telephone.svg' alt='telephone'><p class='infoscheda'> Tel: "+data[i].telephone+"</p></br>";
 					}
 					if(data[i].email){
-						string+="<img class='icons' src='images/mail.svg' alt='email'><p class='info'> Email: "+data[i].email+"</p></br>";
+						string+="<img class='icons' src='images/mail.svg' alt='email'><p class='infoscheda'> Email: "+data[i].email+"</p></br>";
 					}
 					if(data[i]['web site']){
-						string+="<img class='icons' src='images/internet.svg' alt='internet'><p class='info'> "+data[i]['web site']+"</p></br>";
+						string+="<img class='icons' src='images/internet.svg' alt='internet'><p class='infoscheda'> "+data[i]['web site']+"</p></br>";
 					}
 					var marker = new google.maps.Marker({
 						position: coordinate,
@@ -266,9 +288,11 @@ $(document).ready(function() {
 	/* al click del TASTO DI ESPANSIONE, APRO IL CORRISPONDENTE BOX DI RICERCA*/
 	$(".expand").click(function(){
 		if(contatori[this.value]==0){
-			$(".expand:eq("+this.value+")").attr("src","images/up.png");
-			$(".campi_ricerca:eq("+this.value+")").addClass("campi_ricerca open");
-			contatori[this.value]=1;
+			if($(".campi_ricerca:eq("+this.value+")").html() !== "<ul></ul>"){
+				$(".expand:eq("+this.value+")").attr("src","images/up.png");
+				$(".campi_ricerca:eq("+this.value+")").addClass("campi_ricerca open");
+				contatori[this.value]=1;
+			}
 		}else if(contatori[this.value]==1){
 			$(".expand:eq("+this.value+")").attr("src","images/down.png");
 			$(".campi_ricerca:eq("+this.value+")").removeClass("open");

@@ -69,9 +69,14 @@ if(isset($_REQUEST['category']))
 					if($v=="Trentino"){
 						$result[$i]["region"]="Trentino-alto adige";
 					}
+				}
+				if($k=="name"){
+					$result[$i]["name"]= ucwords(strtolower(str_replace("Ä__","'",$v)));
 				}else{
 					if($k=="province" or $k=="city"){
 						$result[$i][$k]=trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$v));
+					}else if ($k=="web site"){
+						$result[$i][$k]=trim(str_replace('<p>',"",str_replace('<a target="_blank">',"",str_replace("</a>","",str_replace("</p>","",$v)))));
 					}
 				}
 			}
