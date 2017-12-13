@@ -71,7 +71,11 @@ if(isset($_REQUEST['category']))
 					}
 				}
 				if($k=="name"){
-					$result[$i]["name"]= ucwords(strtolower(str_replace("Ä__","'",$v)));
+					if($v =="Biblioteca Comunale"){
+						$result[$i]["name"] = "Biblioteca Comunale di ".$result[$i]["city"];
+					}else{
+						$result[$i]["name"]= ucwords(strtolower(str_replace("Ä__","'",$v)));
+					}
 				}else{
 					if($k=="province" or $k=="city"){
 						$result[$i][$k]=trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$v));
