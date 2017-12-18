@@ -65,6 +65,20 @@ if(isset($_REQUEST['category']))
 					$result[$i]["stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
 					unset($result[$i][$k]);
 				}
+				if($k=="lat"){
+					if (strpos($v, '.') !== false) {
+						$result[$i]["latitude"] = (float)$v;
+					}else{
+						$result[$i]["latitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
+					}
+				}
+				if($k=="lon" or $k=="lng"){
+					if (strpos($v, '.') !== false) {
+						$result[$i]["longitude"] = (float)$v;
+					}else{
+						$result[$i]["longitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
+					}
+				}
 				if($k=="region"){
 					if($v=="Trentino"){
 						$result[$i]["region"]="Trentino-alto adige";

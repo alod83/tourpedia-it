@@ -3,7 +3,8 @@ var map;
 var ResultsS="";
 var ResultsA="";
 /*INIZIALIZZO LA MAPPA*/
-var markers = new Array();
+var markers = [];
+var markerCluster = null;
 function inizializza(){
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: {lat: 42.0, lng: 12.0},
@@ -20,6 +21,7 @@ function inizializza(){
 			$("#main").css('z-index','0');
 		}
 	});
+	markerCluster = new MarkerClusterer(map);
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
 function Unique(inputArray){
@@ -155,8 +157,8 @@ function clearMarkers(markers) {
         markers[i].setMap(null);
     }
     // Recreate the Markers array
-    delete markers;
-    markers = new Array();
+    markers = [];
+	markerCluster.clearMarkers();
 }
 /*CREA I SEGNALINI SULLA MAPPA, STRUTTURE E ATTRAZIONI, IN BASE AL PARAMETRO PASSATO NEL CAMPO DI RICERCA*/
 function createMarker(map, markers){
@@ -339,6 +341,9 @@ $(document).ready(function() {
 			insertResult();
 			clearMarkers(markers);
 			createMarker(map, markers);
+			markerCluster = new MarkerClusterer(map, markers,
+				{imagePath: 'images/m'}
+			);
 			$('#ui-id-1').hide();
 			$('#navigation').css('left','0');
 			contatori[contatori.length-1]=1;
@@ -368,6 +373,9 @@ $(document).ready(function() {
 		insertResult();
 		clearMarkers(markers);
 		createMarker(map, markers);
+		markerCluster = new MarkerClusterer(map, markers,
+			{imagePath: 'images/m'}
+		);
 		$('#navigation').css('left','0');
 		contatori[contatori.length-1]=1;
 		$('#arrow').attr("src","images/left arrow.svg");
