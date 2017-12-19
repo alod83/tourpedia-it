@@ -3,8 +3,10 @@ var map;
 var ResultsS="";
 var ResultsA="";
 /*INIZIALIZZO LA MAPPA*/
-var markers = [];
-var markerCluster = null;
+var markersS = new Array();
+var markersA = new Array();
+var markerClusterS = null;
+var markerClusterA = null;
 function inizializza(){
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: {lat: 42.0, lng: 12.0},
@@ -21,7 +23,8 @@ function inizializza(){
 			$("#main").css('z-index','0');
 		}
 	});
-	markerCluster = new MarkerClusterer(map);
+	markerClusterS = new MarkerClusterer(map);
+	markerClusterA = new MarkerClusterer(map);
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
 function Unique(inputArray){
@@ -37,9 +40,9 @@ function Unique(inputArray){
 }
 function ChiudiS(){
 	$("#ricercaS").html(ResultsS);
-	for(var i = 0; i<markers.length; i++){
-		if(markers[i].icon == 'images/structMar.png'){
-			markers[i].setIcon('images/bed_b.png');
+	for(var i = 0; i<markersS.length; i++){
+		if(markersS[i].icon == 'images/structMar.png'){
+			markersS[i].setIcon('images/bed_b.png');
 		}
 	}
 	Hover();
@@ -47,9 +50,9 @@ function ChiudiS(){
 };
 function ChiudiA(){
 	$("#ricercaA").html(ResultsA);
-	for(var i = 0; i<markers.length; i++){
-		if(markers[i].icon == 'images/attrMar.png'){
-			markers[i].setIcon('images/attraction.png');
+	for(var i = 0; i<markersA.length; i++){
+		if(markersA[i].icon == 'images/attrMar.png'){
+			markersA[i].setIcon('images/attraction.png');
 		}
 	}
 	Hover();
@@ -111,23 +114,33 @@ function insertResult(){
 function Hover(){
 	$(".result").hover(
 		function(){
-			for(var i = 0; i<markers.length; i++){
-				if(this.id==markers[i].title.replace(/ /g,"_")){
-					if(markers[i].icon == 'images/attraction.png'){
-						markers[i].setIcon('images/attrMar.png');
-					}else{
-						markers[i].setIcon('images/structMar.png');
+			for(var i = 0; i<markersA.length; i++){
+				if(this.id==markersA[i].title.replace(/ /g,"_")){
+					if(markersA[i].icon == 'images/attraction.png'){
+						markersA[i].setIcon('images/attrMar.png');
+					}
+				}
+			}
+			for(var j = 0; j<markersS.length; j++){
+				if(this.id==markersS[j].title.replace(/ /g,"_")){
+					if(markersS[j].icon == 'images/bed_b.png'){
+						markersS[j].setIcon('images/structMar.png');
 					}
 				}
 			}
 		},
 		function(){
-			for(var i = 0; i<markers.length; i++){
-				if(this.id==markers[i].title.replace(/ /g,"_")){
-					if(markers[i].icon == 'images/attrMar.png'){
-						markers[i].setIcon('images/attraction.png');
-					}else{
-						markers[i].setIcon('images/bed_b.png');
+			for(var i = 0; i<markersA.length; i++){
+				if(this.id==markersA[i].title.replace(/ /g,"_")){
+					if(markersA[i].icon == 'images/attrMar.png'){
+						markersA[i].setIcon('images/attraction.png');
+					}
+				}
+			}
+			for(var j = 0; j<markersS.length; j++){
+				if(this.id==markersS[j].title.replace(/ /g,"_")){
+					if(markersS[j].icon == 'images/structMar.png'){
+						markersS[j].setIcon('images/bed_b.png');
 					}
 				}
 			}
@@ -138,12 +151,17 @@ function Hover(){
 function Click(){
 	$(".result").click(
 		function(){
-			for(var i = 0; i<markers.length; i++){
-				if(this.id==markers[i].title.replace(/ /g,"_")){
-					if(markers[i].icon == 'images/attrMar.png'){
-						$("#ricercaA").html(markers[i].content);
-					}else{
-						$("#ricercaS").html(markers[i].content);
+			for(var i = 0; i<markersA.length; i++){
+				if(this.id==markersA[i].title.replace(/ /g,"_")){
+					if(markersA[i].icon == 'images/attrMar.png'){
+						$("#ricercaA").html(markersA[i].content);
+					}
+				}
+			}
+			for(var j = 0; j<markersS.length; j++){
+				if(this.id==markersS[j].title.replace(/ /g,"_")){
+					if(markersS[j].icon == 'images/structMar.png'){
+						$("#ricercaA").html(markersS[j].content);
 					}
 				}
 			}
@@ -151,17 +169,22 @@ function Click(){
 	)
 }
 /*TOGLIE I SEGNALINI, CANCELLA L'ARRAY markers SE ESISTENTE E LO RICREA VUOTO PER UNA NUOVA RICERCA*/
-function clearMarkers(markers) {
+function clearMarkers() {
     // Clear all markers
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+    for (var i = 0; i < markersS.length; i++) {
+        markersS[i].setMap(null);
     }
+	for (var j = 0; j < markersA.length; j++) {
+		markersA[j].setMap(null);
+	}		
+	markersS.length = 0;
+	markersA.length = 0;
     // Recreate the Markers array
-    markers = [];
-	markerCluster.clearMarkers();
+	markerClusterS.clearMarkers();
+	markerClusterA.clearMarkers();
 }
 /*CREA I SEGNALINI SULLA MAPPA, STRUTTURE E ATTRAZIONI, IN BASE AL PARAMETRO PASSATO NEL CAMPO DI RICERCA*/
-function createMarker(map, markers){
+function createMarker(map){
 	var place = document.form_ricerca.ricerca_luogo.value;
 	if (place){
 		var url= "../api/query.php?category=accommodation&place=";
@@ -240,7 +263,7 @@ function createMarker(map, markers){
 							infowindow.open(map, this);*/
 							$("#ricercaS").html(this.content);
 						});
-						markers.push(marker);
+						markersS.push(marker);
 					}
 				}
 				if(correctData != 0){
@@ -311,7 +334,7 @@ function createMarker(map, markers){
 							//infowindow.open(map, this);
 							$("#ricercaA").html(this.content);
 						});
-						markers.push(marker);
+						markersA.push(marker);
 					}
 				}
 				if(correctData != 0){
@@ -339,10 +362,13 @@ $(document).ready(function() {
 		if (e.keyCode == 13){
 			e.preventDefault();
 			insertResult();
-			clearMarkers(markers);
-			createMarker(map, markers);
-			markerCluster = new MarkerClusterer(map, markers,
+			clearMarkers();
+			createMarker(map);
+			markerClusterS = new MarkerClusterer(map, markersS,
 				{imagePath: 'images/m'}
+			);
+			markerClusterA = new MarkerClusterer(map, markersA,
+				{imagePath: 'images/g'}
 			);
 			$('#ui-id-1').hide();
 			$('#navigation').css('left','0');
@@ -371,10 +397,13 @@ $(document).ready(function() {
 	$("#cerca").click(function(event) {
 		event.preventDefault();
 		insertResult();
-		clearMarkers(markers);
-		createMarker(map, markers);
-		markerCluster = new MarkerClusterer(map, markers,
+		clearMarkers();
+		createMarker(map);
+		markerClusterS = new MarkerClusterer(map, markersS,
 			{imagePath: 'images/m'}
+		);
+		markerClusterA = new MarkerClusterer(map, markersA,
+			{imagePath: 'images/g'}
 		);
 		$('#navigation').css('left','0');
 		contatori[contatori.length-1]=1;
@@ -414,7 +443,7 @@ $(document).ready(function() {
 			event.preventDefault();
 			$("#ricerca_luogo").val("");
 			$(this).hide();
-			clearMarkers(markers);
+			clearMarkers();
 		}
 	);
 	/*AL CLICK DEL TASTO INDICATO DALLA FRECCIA, APRO E CHIUDO IL DIV DI NAVIGAZIONE*/
