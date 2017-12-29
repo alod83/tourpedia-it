@@ -65,15 +65,38 @@ if(isset($_REQUEST['category']))
 					$result[$i]["stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
 					unset($result[$i][$k]);
 				}
+				if($k=="lat"){
+					if (strpos($v, '.') !== false) {
+						$result[$i]["latitude"] = (float)$v;
+					}else{
+						$result[$i]["latitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
+					}
+				}
+				if($k=="lon" or $k=="lng"){
+					if (strpos($v, '.') !== false) {
+						$result[$i]["longitude"] = (float)$v;
+					}else{
+						$result[$i]["longitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
+					}
+				}
 				if($k=="region"){
 					if($v=="Trentino"){
 						$result[$i]["region"]="Trentino-alto adige";
 					}
-				}/*else{
-					if($k!="latitude" && $k!="longitude"){
-						$result[$i][$k]=trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$v));
+				}
+				if($k=="name"){
+					if($v =="Biblioteca Comunale"){
+						$result[$i]["name"] = "Biblioteca Comunale di ".$result[$i]["city"];
+					}else{
+						$result[$i]["name"]= ucwords(strtolower(str_replace("Ä__","'",$v)));
 					}
-				}*/
+				}else{
+					if($k=="province" or $k=="city"){
+						$result[$i][$k]=trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$v));
+					}else if ($k=="web site"){
+						$result[$i][$k]=trim(str_replace('<p>',"",str_replace('<a target="_blank">',"",str_replace("</a>","",str_replace("</p>","",$v)))));
+					}
+				}
 			}
 		}
 		echo json_encode($result);

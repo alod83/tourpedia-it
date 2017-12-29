@@ -2,6 +2,8 @@
 *{
 	margin: 0;
     padding: 0;
+	font-family: Arial;
+	font-size: 14px;
 }
 
 html, body {
@@ -54,7 +56,7 @@ input:focus{
 	position: absolute;
 	width:30%;
 	height:100%;
-	z-index: 1;
+	z-index: 2;
 	left: -32%;
 	transition: left 0.5s;
 	-webkit-transition: left 0.5s;
@@ -67,8 +69,8 @@ input:focus{
 	width: 25%;
 	min-width: 315px;
 	margin: 8px;
-	height: 40px;
-	z-index: 2;
+	height: 48px;
+	z-index: 3;
 }
 
 [name="form_ricerca"]{
@@ -81,6 +83,7 @@ input:focus{
 #indietro{
 	position:relative;
 	float: left;
+	margin: 4px;
 	width: 40px;
 	height: 40px;
 }
@@ -99,19 +102,18 @@ input:focus{
 #ricerca_luogo{
 	position: relative;
 	float:left;
-	height: 30px;
-	width: 225px;
+	height: 34px;
+	width: 245px;
 	padding-left: 5px;
-	margin-top: 5px;
-	margin-left: 20px;
+	margin-top: 6px;
 }
 
 #x{
 	float:right;
 	position: absolute;
 	display: block;
-	margin-left: 250px;
-	margin-top: 7px;
+	margin-left: 260px;
+	margin-top: 11px;
 	width: 26px;
 	height: 26px;
 }
@@ -119,17 +121,20 @@ input:focus{
 #cerca{
 	position: relative;
 	float:right;
-	margin-top: 5px;
+	margin: 4px;
+	margin-top: 10px;
 	width: 30px;
 	height: 30px;
 }
 
 #ui-id-1{
+	z-index: 4;
 	max-height: 500px;
 	width: 225px;
 	max-width: 500px;
 	overflow: auto;
 	background-color: white;
+	cursor: pointer;
 }
 
 #ui-id-1 li:hover{
@@ -186,20 +191,16 @@ input:focus{
 }
 
 .argument p{
-	width: 50%;
+	width: 70%;
 	display: inline-block;
 }
 
 .campi_ricerca{
-	height: 0;
+	max-height: 0;
 	background-color: white;
 	overflow: auto;
-	-webkit-transition: height 1s;
-    transition: height 1s;
-}
-
-.open{
-	height: 300px;
+	-webkit-transition: max-height 1s;
+    transition: max-height 1s;
 }
 
 .expand{
@@ -210,6 +211,51 @@ input:focus{
 	display: inline-block;
 }
 
+#ricercaA, #ricercaS {
+	position: relative;
+}
+
+#ricercaA ul, #ricercaS ul {
+	list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#ricercaS ul li, #ricercaA ul li {
+	padding: 3%;
+	border: 1px solid grey;
+	cursor: pointer;
+}
+
+#ricercaS ul li:hover, #ricercaA ul li:hover{
+	background-color: #fafafa;
+}
+
+.lista{
+	z-index:1;
+}
+.i{
+	display: table;
+	width: 100%;
+}
+
+.i img{
+	position: relative;
+	top:0;
+	float: right;
+}
+
+.info{
+	position: relative;
+	top:0;
+	float: left;
+	width: 75%;
+}
+
+.info p{
+	text-transform: capitalize;
+}
+
 .star{
 	height: 15px;
 	width: 15px;
@@ -217,9 +263,34 @@ input:focus{
 }
 
 .icons{
+	margin-top: 5px;
 	height: 26px;
 	width: 26px;
 	display: inline;
+}
+
+.infoscheda{
+	width: 90%;
+	display: inline;
+}
+
+#schedaS,#schedaA{
+	background-color: white;
+	width: 100%;
+	min-height: 453px;
+	z-index:2;
+}
+
+.chiudi{
+	cursor: pointer;
+	height: 6%;
+	width: 6%;
+}
+
+.foto{
+	display:block;
+	position: relative;
+	margin: auto;
 }
 
 /*MAPPA*/
