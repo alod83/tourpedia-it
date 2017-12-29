@@ -3,7 +3,9 @@
 require_once 'libraries/excel/reader.php';
 require 'libraries/simple_html_dom.php';
 include('utilities/mongo.php');
-include('utilities/functions.php');
+include('utilities/csv.php');
+include('utilities/zip.php');
+include('utilities/convert_to_csv.php');
 include('enrichment/geocoding.php');
 
 ini_set('MAX_EXECUTION_TIME', -1);
@@ -53,6 +55,11 @@ for($i = 0; $i < count($ra); $i++)
 	{
 		echo "ZIP\n";
 		ZIP($source,$date, $config, $nuovo, $vecchio);
+	}
+	else if(strpos($format,'XLS') !== FALSE)
+	{
+		echo "XLS\n";
+		convertToCSV($source,$date, $config, $nuovo, $vecchio);
 	}
 	else
 	{

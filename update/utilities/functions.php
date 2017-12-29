@@ -1,4 +1,95 @@
 <?php
+
+function get_database($config)
+{
+	$return = array();
+	if(isset($config['url_attraction'])){
+		$db = 'attraction';
+		$return['collect'] = "Attrazioni";
+	} 
+	else if (isset($config['url_accommodation'])) {
+		$db = 'accommodation';
+		$return['collect'] = "Strutture";
+	} 
+	$return['db'] = $db;
+	$return['url'] = $config['url_'.$db];
+	$return['mapping'] = $config[$db];
+	$return['dataset_feature'] = $config['dataset_'.$db];
+	$return['fformat'] = $config['dataset_'.$db]['format'];
+	return $return;
+}
+
+function parse_dataset_features($dataset_feature)
+{
+	$return = array();
+	$return['separator'] = null;
+	$return['coord'] = false;
+	$return['encoding'] = false;
+	$return['lastmodified_number'] = null;
+	$return['first_data_row'] = 0;
+	$return['curl'] = false;
+	$return['ssl'] = false;
+	$return['nonewline'] = false;
+	$return['linesize'] = 100000;
+	foreach($dataset_feature as $k => $v)
+	{
+		switch($k)
+		{
+			case 'separator':
+				$return['separator'] = $v;
+				break;
+			case 'coord':
+				$return['coord'] = ($v === 'True') ? true : false;
+				break;
+			case 'encoding':
+				$return['encoding'] = $v;
+				break;
+			case 'lastmodified':
+				$return['lastmodified_number'] = $v;
+				break;
+			case 'first_data_row':
+				$return['first_data_row'] = $v;
+				break;
+			case 'curl':
+				$return['curl'] = ($v === 'True') ? true : false;
+				break;
+			case 'ssl':
+				$return['ssl']= ($v === 'True') ? true : false;
+				break;
+			case 'nonewline':
+				$return['nonewline']= ($v === 'True') ? true : false;
+				break;
+			case 'linesize':
+				$return['linesize'] = intval($v);
+				break;
+		}
+	}
+	return $return;
+}
+
+// metto il file scaricato in un file che si chiama region
+function download_file($url, $region, $fformat, $ssl=null)
+{
+	$ch = curl_init(); 
+    curl_setopt($ch, CURLOPT_URL, $url); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    if($ssl)
+    {
+    	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    } 
+    else
+    {
+		// dico al server che sono un browser
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
+    }
+    $handle = curl_exec($ch);
+    
+    $url = str_replace(' ', '', $region).".".strtolower($fformat);
+    file_put_contents($url, $handle);
+    return $url;	
+}
+
 function latlon_explode($point){
 	preg_match('/\([0-9]+\.[0-9]+/',$point,$matches);
 	$lon=str_replace("(", "", $matches[0]);
@@ -368,190 +459,5 @@ function get_record($document,$mapping,$arr,$title=null)
 	return $document;
 	
 }
-
-function CSV($region,$date,$config, $nuovo, $vecchio, $url=null,$reg_acr_index=0){
-	$lastmodified=null;
-	$collect=null;
-	$mapping = null;
-	$collect = null;
-	$dataset_feature = null;
-	if(strpos($region, '_') !== false){
-		preg_match('/[0-9]+$/',$region,$matches);
-		$reg_acr=strtoupper(substr($region, 0,3).$matches[0]."_");
-	}else{
-		$reg_acr=strtoupper(substr($region, 0,3));
-	}
-	if(isset($config['url_attraction'])){
-		$url = $url != null ? $url : $config['url_attraction'];
-		$mapping = $config['attraction'];
-		$dataset_feature = $config['dataset_attraction'];
-		$collect = "Attrazioni";
-	} 
-	else if (isset($config['url_accommodation'])) {
-		$url = $url != null ? $url : $config['url_accommodation'];
-		$mapping = $config['accommodation'];
-		$dataset_feature = $config['dataset_accommodation'];
-		$collect = "Strutture";
-	} 
-	echo $url."\n";
-	$coord = false;
-	$curl = false;
-	$ssl = false;
-	$nonewline = false;
-	$linesize = 0;
-	$encoding = false;
-	$separator = false;
-	$lastmodified_number = false;
-	$first_data_row = false;
-	foreach($dataset_feature as $k => $v)
-	{
-		switch($k)
-		{
-			case 'separator':
-				$separator = $v;
-				break;
-			case 'coord':
-				$coord = ($v === 'True') ? true : false;
-				break;
-			case 'encoding':
-				$encoding = $v;
-				break;
-			case 'lastmodified':
-				$lastmodified_number = $v;
-				break;
-			case 'first_data_row':
-				$first_data_row = $v;
-				break;
-			case 'curl':
-				$curl = ($v === 'True') ? true : false;
-				break;
-			case 'ssl':
-				$ssl= ($v === 'True') ? true : false;
-				break;
-			case 'nonewline':
-				$nonewline= ($v === 'True') ? true : false;
-				break;
-			case 'linesize':
-				$linesize = intval($v);
-				break;
-			
-		}
-	}
-	if($curl)
-	{
-		echo "curl\n";
-		$ch = curl_init(); 
-    	curl_setopt($ch, CURLOPT_URL, $url); 
-    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    	if($ssl)
-    	{
-    		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    	} 
-    	else
-    	{
-			// dico al server che sono un browser
-			curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)');
-    	}
-    	$handle = curl_exec($ch);
-    	
-    	file_put_contents($region, $handle);
-    	$url = $region;
-    	
-	}
-	
-	if(($handle=fopen($url, "r"))!==FALSE){
-		//$lastmodified = null;
-		if($lastmodified_number)
-		{
-			$metadata = stream_get_meta_data($handle);
-			$lastmodified = $metadata["wrapper_data"][$lastmodified_number];
-		}
-		$row=-1;
-		$title = null;
-		
-		// if the file does not contain new line use alternative method
-		
-		
-		$burst = 10000;
-		if($nonewline)
-			$burst = $linesize;
-    	
-		while(($arr=fgetcsv($handle,$burst,$separator))!==FALSE){
-			$row++;
-			
-			//caso in cui il file inizia con righe vuote prima dei dati
-			if($first_data_row){
-				if ($row<$first_data_row)continue;
-				
-			}else{
-				if($row==0){
-					$title = $arr;
-					continue;
-				}
-			}
-			
-			$id_index = $row+$reg_acr_index;
-			$id=$reg_acr.$id_index;
-			$document['_id'] = $id;
-				
-			if($encoding && $encoding == 'utf8'){
-				$arr = array_map("utf8_encode", $arr);
-			}
-			$document=get_record($document,$mapping,$arr,$title);
-
-			if($coord){
-				$document=TrovaCoordinate($document, $vecchio);
-			}
-			
-			$nuovo->insert($document);
-		}
-	}
-	else{
-		$connection = new MongoClient('mongodb://localhost:27017');
-		$cursor = $vecchio->find();
-		$row = 0;
-		foreach ($cursor as $obj){
-			$vecchio_id=$obj['_id'];
-			if(strpos($vecchio_id, $reg_acr)!==false){
-
-				$nuovo->insertOne($obj);
-				$row++;
-			}
-		}
-		print "Problems reading url. Recovered ".$row." records from the old database\n";
-		$row = NULL;
-	}
-	UpdateLog($region, $date, $row, $lastmodified, $collect);
-	if($curl)
-		unlink($region);
-	return $row;
-}
-
-function ZIP($source,$date, $config, $nuovo, $vecchio)
-{
-	$zip = new ZipArchive;
-	$url = $config['url_accommodation'];
-	$nfiles = intval($config['dataset_accommodation']['number of files']);
-	$fformat = $config['dataset_accommodation']['file format'];
-	$tmpZipFileName = "Tmpfile.zip";
-	if(file_put_contents($tmpZipFileName, fopen($url, 'r')))
-	{
-		if($zip->open($tmpZipFileName)!==FALSE)
-		{
-			$nrows = 0;
-			for ($i=0; $i<$nfiles; $i++)
-			{
-				$filename = $zip->getNameIndex($i);
-				$zip->extractTo('.', $filename);
-				if($fformat === 'CSV')
-					$nrows += CSV($source,$date, $config, $nuovo, $vecchio,$filename,$nrows);
-			}	
-		}
-	 }
-	 unlink($tmpZipFileName);
-	 array_map('unlink', glob( "*.csv"));
-}
-
 
 ?>
