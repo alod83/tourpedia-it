@@ -221,19 +221,40 @@ input:focus{
     padding: 0;
 }
 
-#ricercaS ul li, #ricercaA ul li {
+.list{
+	z-index:1;
+}
+
+.list li {
 	padding: 3%;
 	border: 1px solid grey;
 	cursor: pointer;
 }
 
-#ricercaS ul li:hover, #ricercaA ul li:hover{
+.list li:hover{
 	background-color: #fafafa;
 }
 
-.lista{
-	z-index:1;
+.pagination{
+	text-align: center;
 }
+
+.pagination li{
+	display:inline-block;
+	padding:5px;
+	border: 0px;
+}
+
+.pagination a{
+	text-decoration: none;
+	color: grey;
+}
+
+.active a{
+	color: black;
+	font-weight: bold;
+}
+
 .i{
 	display: table;
 	width: 100%;

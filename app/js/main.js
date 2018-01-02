@@ -52,6 +52,16 @@ function ChiudiS(){
 	}
 	Hover();
 	Click();
+	var options = {
+				valueNames: [ 'i' ],
+				page: 6,
+				innerWindow: 3,
+				outerWindow: 3,
+				left:3,
+				right:3,
+				pagination: true
+			 };
+	listObj = new List('ricercaS', options);
 };
 //Al click del tasto X della scheda delle ATTRAZIONI, la scheda si chiude e ricompare la lista di attrazioni ricercata
 function ChiudiA(){
@@ -63,6 +73,16 @@ function ChiudiA(){
 	}
 	Hover();
 	Click();
+	var options = {
+				valueNames: [ 'i' ],
+				page: 6,
+				innerWindow: 3,
+				outerWindow: 3,
+				left:3,
+				right:3,
+				pagination: true
+			 };
+	listObj2 = new List('ricercaA', options);
 };
 //inserisco la lista dei risultati
 function insertResult(){
@@ -73,7 +93,7 @@ function insertResult(){
 	}else{
 		url+=place;
 	}
-	ResultsS = "<ul class='lista'>";
+	ResultsS = "<ul class='list'>";
 	$.getJSON(url, function (data) {
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
@@ -92,9 +112,9 @@ function insertResult(){
 			}
 		}
 	});
-	ResultsS += "</ul>";
+	ResultsS += "</ul><ul class='pagination'></ul>";
 	$("#ricercaS").html(ResultsS);
-	ResultsA = "<ul class='lista'>";
+	ResultsA = "<ul class='list'>";
 	$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
@@ -113,7 +133,7 @@ function insertResult(){
 			}
 		}
 	});
-	ResultsA += "</ul>";
+	ResultsA += "</ul><ul class='pagination'></ul>";
 	$("#ricercaA").html(ResultsA);
 }
 /*FUNZIONE HOVER SULLA LISTA*/
@@ -378,11 +398,23 @@ $(document).ready(function() {
 			markerClusterA = new MarkerClusterer(map, markersA,
 				{imagePath: 'images/g'}
 			);
+			var options = {
+				valueNames: [ 'i' ],
+				page: 6,
+				innerWindow: 3,
+				outerWindow: 3,
+				left:3,
+				right:3,
+				pagination: true
+			 };
+			 
+			var listObj = new List('ricercaS', options);
+			var listObj2 = new List('ricercaA', options);
 			$('#ui-id-1').hide();
 			$('#navigation').css('left','0');
 			contatori[contatori.length-1]=1;
 			$('#arrow').attr("src","images/left arrow.svg");
-			if($(".lista:eq("+0+")").html() !== ""){
+			if($(".list:eq("+0+")").html() !== ""){
 				$(".expand:eq("+0+")").attr("src","images/up.png");
 				$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
 				$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");
@@ -391,7 +423,7 @@ $(document).ready(function() {
 				$(".campi_ricerca:eq("+1+")").removeClass("open");
 				$(".campi_ricerca:eq("+1+")").css("max-height", "0");
 				contatori[1]=0;
-			}else if($(".lista:eq("+1+")").html() !== ""){
+			}else if($(".list:eq("+1+")").html() !== ""){
 				$(".expand:eq("+1+")").attr("src","images/up.png");
 				$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
 				$(".campi_ricerca:eq("+1+")").css("max-height", ($(window).height()-184)+"px");
@@ -417,10 +449,22 @@ $(document).ready(function() {
 		markerClusterA = new MarkerClusterer(map, markersA,
 			{imagePath: 'images/g'}
 		);
+		var options = {
+				valueNames: [ 'i' ],
+				page: 6,
+				innerWindow: 3,
+				outerWindow: 3,
+				left:3,
+				right:3,
+				pagination: true
+			 };
+
+		var listObj = new List('ricercaS', options);
+		var listObj2 = new List('ricercaA', options);
 		$('#navigation').css('left','0');
 		contatori[contatori.length-1]=1;
 		$('#arrow').attr("src","images/left arrow.svg");
-		if($(".lista:eq("+0+")").html() !== ""){
+		if($(".list:eq("+0+")").html() !== ""){
 			$(".expand:eq("+0+")").attr("src","images/up.png");
 			$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
 			$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");
@@ -429,7 +473,7 @@ $(document).ready(function() {
 			$(".campi_ricerca:eq("+1+")").removeClass("open");
 			$(".campi_ricerca:eq("+1+")").css("max-height", "0");
 			contatori[1]=0;
-		}else if($(".lista:eq("+1+")").html() !== ""){
+		}else if($(".list:eq("+1+")").html() !== ""){
 			$(".expand:eq("+1+")").attr("src","images/up.png");
 			$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
 			$(".campi_ricerca:eq("+1+")").css("max-height", ($(window).height()-184)+"px");
@@ -477,9 +521,9 @@ $(document).ready(function() {
 	/* AL CLICK DEL TASTO DI ESPANSIONE, APRO IL CORRISPONDENTE BOX DI RICERCA*/
 	$(".expand").click(function(){
 		if(contatori[this.value]==0){
-			if($(".lista:eq("+this.value+")").html() !== ""){
+			if($(".list:eq("+this.value+")").html() !== ""){
 				if(this.value==0){
-					if($(".lista:eq("+1+")").html() !== ""){
+					if($(".list:eq("+1+")").html() !== ""){
 						$(".expand:eq("+1+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+1+")").removeClass("open");
 						$(".campi_ricerca:eq("+1+")").css("max-height", "0");
@@ -490,7 +534,7 @@ $(document).ready(function() {
 						contatori[this.value]=1;
 					}
 				}else if(this.value==1){
-					if($(".lista:eq("+0+")").html() !== ""){
+					if($(".list:eq("+0+")").html() !== ""){
 						$(".expand:eq("+0+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+0+")").removeClass("open");
 						$(".campi_ricerca:eq("+0+")").css("max-height", "0");
@@ -508,9 +552,9 @@ $(document).ready(function() {
 				contatori[this.value]=0;
 			}
 		}else if(contatori[this.value]==1){
-			if($(".lista:eq("+this.value+")").html() !== ""){
+			if($(".list:eq("+this.value+")").html() !== ""){
 				if(this.value==0){
-					if($(".lista:eq("+1+")").html() !== ""){
+					if($(".list:eq("+1+")").html() !== ""){
 						$(".expand:eq("+1+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
 						$(".campi_ricerca:eq("+1+")").css("max-height", ($(window).height()-184)+"px");
@@ -526,7 +570,7 @@ $(document).ready(function() {
 						contatori[1]=0;
 					}
 				}else if(this.value==1){
-					if($(".lista:eq("+0+")").html() !== ""){
+					if($(".list:eq("+0+")").html() !== ""){
 						$(".expand:eq("+0+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
 						$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");
