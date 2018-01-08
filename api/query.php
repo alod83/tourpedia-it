@@ -83,6 +83,20 @@ if(isset($_REQUEST['category']))
 					if($v=="Trentino"){
 						$result[$i]["region"]="Trentino-alto adige";
 					}
+					if($v=="Lombardia"){
+						if($category == "attraction"){
+							$result[$i]["name"] = $result[$i]["description"]." di ".$result[$i]["city"];
+						}
+					}
+				}
+				if($k=="latitude"){
+					if(($k>48) or ($k <35)){
+						if(($result[$i]["longitude"]>24) or ($result[$i]["longitude"]<6)){
+							$temp=$result[$i]["latitude"];
+							$result[$i]["latitude"]=$result[$i]["longitude"];
+							$result[$i]["longitude"]=$temp;
+						}
+					}
 				}
 				if($k=="name"){
 					if($v =="Biblioteca Comunale"){

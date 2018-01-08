@@ -1,8 +1,10 @@
 /*GENERALI*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 *{
 	margin: 0;
     padding: 0;
-	font-family: Arial;
+	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 }
 
@@ -138,7 +140,7 @@ input:focus{
 }
 
 #ui-id-1 li:hover{
-	background-color: grey;
+	background-color: #fafafa;
 }
 
 .ui-helper-hidden-accessible{
@@ -196,11 +198,11 @@ input:focus{
 }
 
 .campi_ricerca{
-	max-height: 0;
+	height: 0;
 	background-color: white;
 	overflow: auto;
-	-webkit-transition: max-height 1s;
-    transition: max-height 1s;
+	-webkit-transition: height 1s;
+    transition: height 1s;
 }
 
 .expand{
@@ -260,7 +262,10 @@ input:focus{
 	width: 100%;
 }
 
-.i img{
+.anteprima{
+	height: 92px;
+	width: 80px;
+	border: 1px solid black;
 	position: relative;
 	top:0;
 	float: right;
@@ -295,6 +300,11 @@ input:focus{
 	display: inline;
 }
 
+.infoscheda a{
+	text-decoration: none;
+	color: black;
+}
+
 #schedaS,#schedaA{
 	background-color: white;
 	width: 100%;
@@ -309,7 +319,10 @@ input:focus{
 }
 
 .foto{
-	display:block;
+	border: 1px solid black;
+	width: 300px;
+	height: 200px;
+	display: block;
 	position: relative;
 	margin: auto;
 }

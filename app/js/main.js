@@ -5,6 +5,7 @@ var ResultsA="";
 /*INIZIALIZZO LA MAPPA*/
 var markersS = new Array();
 var markersA = new Array();
+var contatori = [];
 var markerClusterS = null;
 var markerClusterA = null;
 function inizializza(){
@@ -27,7 +28,7 @@ function inizializza(){
 	markerClusterA = new MarkerClusterer(map);
 	$( window ).resize(function() {
 		console.log($(window).height());
-		$( ".open" ).css("max-height", ($(window).height()-184)+"px");
+		$( ".open" ).css("height", ($(window).height()-184)+"px");
 	});
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
@@ -104,11 +105,7 @@ function insertResult(){
 				if(data[i].address){
 					stringa+="<p>"+data[i].address+"</p>";
 				}
-				if(data[i].region=="Lombardia"){
-					ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].longitude+","+data[i].latitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
-				}else{
-					ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
-				}
+				ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></div></li>";
 			}
 		}
 	});
@@ -125,11 +122,7 @@ function insertResult(){
 				if(data[i].description){
 					stringa+="<p>"+data[i].description+"</p>";
 				}
-				if(data[i].region=="Lombardia"){
-					ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].longitude+","+data[i].latitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
-				}else{
-					ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></li>";
-				}			
+				ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></div></li>";			
 			}
 		}
 	});
@@ -221,7 +214,7 @@ function createMarker(map){
 		}
 		$.getJSON(url, function (data) {
 			if(data.length != 0){
-				var correctData=0;
+				/*var correctData=0;*/
 				for (i=0; i<data.length; i++){
 					if(data[i].latitude && data[i].longitude){
 						if(place==data[i].region){
@@ -230,17 +223,10 @@ function createMarker(map){
 						if(place==data[i].city){
 							map.setZoom(10);
 						}
-						correctData+=1;
 						var string="<div id='schedaS'><form><input class='chiudi' type='image' src='images/x.png' onclick='ChiudiS()'></form>";
-						if(data[i].region == "Lombardia"){
-							coordinate = {lat: data[i].longitude, lng: data[i].latitude};
-							map.setCenter({ lat : data[0].longitude , lng : data[0].latitude });
-							string+="<img class='foto' src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location="+data[i].longitude+","+data[i].latitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>"
-						}else{
-							coordinate = {lat: data[i].latitude, lng: data[i].longitude};
-							map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
-							string+="<img class='foto' src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>"
-						}
+						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
+						map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
+						string+="<div class='foto'><img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div>"
 						if(data[i].name){
 							string+="<p>"+data[i].name+"</p>";
 						}
@@ -266,10 +252,10 @@ function createMarker(map){
 							string+="<img class='icons' src='images/telephone.svg' alt='telephone'><p class='infoscheda'> Tel: "+data[i].telephone+"</p></br>";
 						}
 						if(data[i].email){
-							string+="<img class='icons' src='images/mail.svg' alt='email'><p class='infoscheda'> Email: "+data[i].email+"</p></br>";
+							string+="<img class='icons' src='images/mail.svg' alt='email'><p class='infoscheda'> Email: <a href='mailto:"+data[i].email+"'>"+data[i].email+"</a></p></br>";
 						}
 						if(data[i]['web site']){
-							string+="<img class='icons' src='images/internet.svg' alt='internet'><p class='infoscheda'> "+data[i]['web site']+"</p></br>";
+							string+="<img class='icons' src='images/internet.svg' alt='internet'><p class='infoscheda'> <a href='http://"+data[i]['web site']+"'>"+data[i]['web site']+"</a></p></br>";
 						}
 						string+="</div>"
 						var marker = new google.maps.Marker({
@@ -288,20 +274,24 @@ function createMarker(map){
 							/*infowindow.setContent(this.content);
 							infowindow.open(map, this);*/
 							$("#ricercaS").html(this.content);
+							$('#navigation').css('left','0');
+							$('#arrow').attr("src","images/left arrow.svg");
+							contatori[contatori.length-1]=1;
 						});
 						markersS.push(marker);
 					}
 				}
-				if(correctData != 0){
-					$("#ns").html("("+correctData+")");
+				if (markersS.length != 0){
+					$("#ns").html("("+markersS.length+")");
 				}else{
 					$("#ns").html("(Nessun risultato trovato)");
 				}
+			}else{
+				$("#ns").html("(Nessun risultato trovato)");
 			}
 		});
 		$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
 			if(data.length != 0){
-				var correctData=0;
 				for (i=0; i<data.length; i++){
 					if(data[i].latitude && data[i].longitude){
 						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
@@ -312,7 +302,6 @@ function createMarker(map){
 							map.setZoom(10);
 						}
 						map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
-						correctData+=1;
 						var string="<div id='schedaA'><form><input class='chiudi' type='image' src='images/x.png' onclick='ChiudiA()'></form>";
 						string+="<img class='foto' src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'><br/>"
 						if(data[i].name){
@@ -337,10 +326,10 @@ function createMarker(map){
 							string+="<img class='icons' src='images/telephone1.svg' alt='telephone'><p class='infoscheda'>Tel: "+data[i].telephone+"</p></br>";
 						}
 						if(data[i].email){
-							string+="<img class='icons' src='images/mail1.svg' alt='email'><p class='infoscheda'>Email: "+data[i].email+"</p></br>";
+							string+="<img class='icons' src='images/mail1.svg' alt='email'><p class='infoscheda'>Email: <a href='mailto:"+data[i].email+"'>"+data[i].email+"</a></p></br>";
 						}
 						if(data[i].url){
-							string+="<img class='icons' src='images/internet1.svg' alt='internet'><p class='infoscheda'> "+data[i].url+"</p></br>";
+							string+="<img class='icons' src='images/internet1.svg' alt='internet'><p class='infoscheda'> <a href='http://"+data[i].url+"'>"+data[i].url+"</a></p></br>";
 						}
 						string+="</div>"
 						var marker = new google.maps.Marker({
@@ -359,28 +348,29 @@ function createMarker(map){
 							//infowindow.setContent(this.content);
 							//infowindow.open(map, this);
 							$("#ricercaA").html(this.content);
+							$('#navigation').css('left','0');
+							$('#arrow').attr("src","images/left arrow.svg");
+							contatori[contatori.length-1]=1;
 						});
 						markersA.push(marker);
 					}
 				}
-				if(correctData != 0){
-					$("#na").html("("+correctData+")");
+				if(markersA.length != 0){
+					$("#na").html("("+markersA.length+")");
 				}else{
 					$("#na").html("(Nessun risultato trovato)");
 				}
+			}else{
+				$("#na").html("(Nessun risultato trovato)");
 			}
-			
 		});
 	}
 }
 /*AL CARICAMENTO DELLA PAGINA, CREA LA MAPPA, ,CREA L'EVENTO CLICK DEL TASTO CERCA,E QUELLI RELATIVI AL TASTO X*/
 $(document).ready(function() {
-	console.log($(window).height());
-	/*$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");*/
 	/*NASCONDO IL TASTO X DELLA RICERCA TESTUALE*/
 	$("#x").hide();
 	/*INIZIALIZZO I CONTATORI PER L'APERTURA E LA CHIUSURA DEI BOX DI RICERCA*/
-	var contatori = [];
 	for (var i=0; i<$(".expand").length; i++){
 		contatori[i]=0;
 	}
@@ -417,22 +407,32 @@ $(document).ready(function() {
 			if($(".list:eq("+0+")").html() !== ""){
 				$(".expand:eq("+0+")").attr("src","images/up.png");
 				$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
-				$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");
+				$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-184)+"px");
 				contatori[0]=1;
 				$(".expand:eq("+1+")").attr("src","images/down.png");
 				$(".campi_ricerca:eq("+1+")").removeClass("open");
-				$(".campi_ricerca:eq("+1+")").css("max-height", "0");
+				$(".campi_ricerca:eq("+1+")").css("height", "0");
 				contatori[1]=0;
 			}else if($(".list:eq("+1+")").html() !== ""){
 				$(".expand:eq("+1+")").attr("src","images/up.png");
 				$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
-				$(".campi_ricerca:eq("+1+")").css("max-height", ($(window).height()-184)+"px");
+				$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-184)+"px");
 				contatori[1]=1;
 				$(".expand:eq("+0+")").attr("src","images/down.png");
 				$(".campi_ricerca:eq("+0+")").removeClass("open");
-				$(".campi_ricerca:eq("+0+")").css("max-height", "0");
+				$(".campi_ricerca:eq("+0+")").css("height", "0");
 				contatori[0]=0;
+			}else{
+				$(".expand:eq("+0+")").attr("src","images/down.png");
+				$(".campi_ricerca:eq("+0+")").removeClass("open");
+				$(".campi_ricerca:eq("+0+")").css("height", "0");
+				contatori[0]=0;
+				$(".expand:eq("+1+")").attr("src","images/down.png");
+				$(".campi_ricerca:eq("+1+")").removeClass("open");
+				$(".campi_ricerca:eq("+1+")").css("height", "0");
+				contatori[1]=0;
 			}
+			console.log(markersA,markersS);
 			Hover();
 			Click();
 		}
@@ -467,21 +467,30 @@ $(document).ready(function() {
 		if($(".list:eq("+0+")").html() !== ""){
 			$(".expand:eq("+0+")").attr("src","images/up.png");
 			$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
-			$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");
+			$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-184)+"px");
 			contatori[0]=1;
 			$(".expand:eq("+1+")").attr("src","images/down.png");
 			$(".campi_ricerca:eq("+1+")").removeClass("open");
-			$(".campi_ricerca:eq("+1+")").css("max-height", "0");
+			$(".campi_ricerca:eq("+1+")").css("height", "0");
 			contatori[1]=0;
 		}else if($(".list:eq("+1+")").html() !== ""){
 			$(".expand:eq("+1+")").attr("src","images/up.png");
 			$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
-			$(".campi_ricerca:eq("+1+")").css("max-height", ($(window).height()-184)+"px");
+			$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-184)+"px");
 			contatori[1]=1;
 			$(".expand:eq("+0+")").attr("src","images/down.png");
 			$(".campi_ricerca:eq("+0+")").removeClass("open");
-			$(".campi_ricerca:eq("+0+")").css("max-height", "0");
+			$(".campi_ricerca:eq("+0+")").css("height", "0");
 			contatori[0]=0;
+		}else{
+			$(".expand:eq("+0+")").attr("src","images/down.png");
+			$(".campi_ricerca:eq("+0+")").removeClass("open");
+			$(".campi_ricerca:eq("+0+")").css("height", "0");
+			contatori[0]=0;
+			$(".expand:eq("+1+")").attr("src","images/down.png");
+			$(".campi_ricerca:eq("+1+")").removeClass("open");
+			$(".campi_ricerca:eq("+1+")").css("height", "0");
+			contatori[1]=0;
 		}
 		Hover();
 		Click();
@@ -509,10 +518,12 @@ $(document).ready(function() {
 	/*AL CLICK DEL TASTO INDICATO DALLA FRECCIA, APRO E CHIUDO IL DIV DI NAVIGAZIONE*/
 	$("#tasto").click(function(){
 		if(contatori[contatori.length-1]==0){
+			console.log("miao");
 			$('#navigation').css('left','0');
 			$('#arrow').attr("src","images/left arrow.svg");
 			contatori[contatori.length-1]=1;
 		}else if(contatori[contatori.length-1]==1){
+			console.log("ciao");
 			$('#navigation').css('left','-30%');
 			$('#arrow').attr("src","images/right arrow.svg");
 			contatori[contatori.length-1]=0;
@@ -526,29 +537,29 @@ $(document).ready(function() {
 					if($(".list:eq("+1+")").html() !== ""){
 						$(".expand:eq("+1+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+1+")").removeClass("open");
-						$(".campi_ricerca:eq("+1+")").css("max-height", "0");
+						$(".campi_ricerca:eq("+1+")").css("height", "0");
 						contatori[1]=0;
 						$(".expand:eq("+this.value+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+this.value+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+this.value+")").css("max-height", ($(window).height()-184)+"px");
+						$(".campi_ricerca:eq("+this.value+")").css("height", ($(window).height()-184)+"px");
 						contatori[this.value]=1;
 					}
 				}else if(this.value==1){
 					if($(".list:eq("+0+")").html() !== ""){
 						$(".expand:eq("+0+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+0+")").removeClass("open");
-						$(".campi_ricerca:eq("+0+")").css("max-height", "0");
+						$(".campi_ricerca:eq("+0+")").css("height", "0");
 						contatori[0]=0;
 						$(".expand:eq("+this.value+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+this.value+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+this.value+")").css("max-height", ($(window).height()-184)+"px");
+						$(".campi_ricerca:eq("+this.value+")").css("height", ($(window).height()-184)+"px");
 						contatori[this.value]=1;
 					}
 				}
 			}else{
 				$(".expand:eq("+this.value+")").attr("src","images/down.png");
 				$(".campi_ricerca:eq("+this.value+")").removeClass("open");
-				$(".campi_ricerca:eq("+this.value+")").css("max-height", "0");
+				$(".campi_ricerca:eq("+this.value+")").css("height", "0");
 				contatori[this.value]=0;
 			}
 		}else if(contatori[this.value]==1){
@@ -557,32 +568,32 @@ $(document).ready(function() {
 					if($(".list:eq("+1+")").html() !== ""){
 						$(".expand:eq("+1+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+1+")").css("max-height", ($(window).height()-184)+"px");
+						$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-184)+"px");
 						contatori[1]=1;
 						$(".expand:eq("+this.value+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+this.value+")").removeClass("open");
-						$(".campi_ricerca:eq("+this.value+")").css("max-height", "0");
+						$(".campi_ricerca:eq("+this.value+")").css("height", "0");
 						contatori[this.value]=0;
 					}else{
 						$(".expand:eq("+1+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+1+")").removeClass("open");
-						$(".campi_ricerca:eq("+1+")").css("max-height", "0");
+						$(".campi_ricerca:eq("+1+")").css("height", "0");
 						contatori[1]=0;
 					}
 				}else if(this.value==1){
 					if($(".list:eq("+0+")").html() !== ""){
 						$(".expand:eq("+0+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+0+")").css("max-height", ($(window).height()-184)+"px");
+						$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-184)+"px");
 						contatori[0]=1;
 						$(".expand:eq("+this.value+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+this.value+")").removeClass("open");
-						$(".campi_ricerca:eq("+this.value+")").css("max-height", "0");
+						$(".campi_ricerca:eq("+this.value+")").css("height", "0");
 						contatori[this.value]=0;
 					}else{
 						$(".expand:eq("+0+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+0+")").removeClass("open");
-						$(".campi_ricerca:eq("+0+")").css("max-height", "0");
+						$(".campi_ricerca:eq("+0+")").css("height", "0");
 						contatori[0]=0;
 					}
 				}
