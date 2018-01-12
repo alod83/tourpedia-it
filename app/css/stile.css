@@ -17,6 +17,13 @@ input:focus{
 	outline:0;
 }
 
+#container{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+/*BARRA DI SCORRIMENTO*/
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -45,23 +52,15 @@ input:focus{
     box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
-#container{
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
 /*NAVIGAZIONE*/
 #navigation{
 	background-color:#ffffff;
 	box-shadow: inset 25px 0px 30px -25px grey, inset -25px 0px 30px -25px grey;
 	position: absolute;
-	width:30%;
 	height:100%;
 	z-index: 2;
-	left: -32%;
-	transition: left 0.5s;
-	-webkit-transition: left 0.5s;
+	transition: left 0.4s;
+	-webkit-transition: left 0.4s;
 }
 
 #ricerca{
@@ -69,7 +68,7 @@ input:focus{
 	background-color:#fafafa;
 	color: #900;
 	width: 25%;
-	min-width: 315px;
+	min-width: 339.25px;
 	margin: 8px;
 	height: 48px;
 	z-index: 3;
@@ -105,7 +104,7 @@ input:focus{
 	position: relative;
 	float:left;
 	height: 34px;
-	width: 245px;
+	width: 72%;
 	padding-left: 5px;
 	margin-top: 6px;
 }
@@ -129,24 +128,6 @@ input:focus{
 	height: 30px;
 }
 
-#ui-id-1{
-	z-index: 4;
-	max-height: 500px;
-	width: 225px;
-	max-width: 500px;
-	overflow: auto;
-	background-color: white;
-	cursor: pointer;
-}
-
-#ui-id-1 li:hover{
-	background-color: #fafafa;
-}
-
-.ui-helper-hidden-accessible{
-	display: none;
-}
-
 #tasto{
 	position: absolute;
     top: 50%;
@@ -166,8 +147,26 @@ input:focus{
 	width: 15px;
 }
 
-/*STRUTTURE*/
+/*LISTA SUGGERIMENTI*/
+#ui-id-1{
+	z-index: 4;
+	max-height: 500px;
+	width: 225px;
+	max-width: 500px;
+	overflow: auto;
+	background-color: white;
+	cursor: pointer;
+}
 
+#ui-id-1 li:hover{
+	background-color: #fafafa;
+}
+
+.ui-helper-hidden-accessible{
+	display: none;
+}
+
+/*STRUTTURE E ATTRAZIONI*/
 #background{
 	width: 100%;
 	min-height: 64px;
@@ -181,7 +180,7 @@ input:focus{
 .argument{
 	width: calc(90%-2px);
 	border: 1px solid grey;
-	padding: 5%;
+	padding: 20.484px;
 }
 
 #strutture .argument{
@@ -193,7 +192,8 @@ input:focus{
 }
 
 .argument p{
-	width: 70%;
+	width: 80%;
+	height: 17px;
 	display: inline-block;
 }
 
@@ -339,4 +339,11 @@ input:focus{
 
 #map{
 	height: 100%;
+}
+
+/*MEDIA QUERY*/
+@media all and (max-width: 1156px) {
+	#navigation{
+		left: -378.25px;
+	}
 }

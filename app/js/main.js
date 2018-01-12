@@ -8,7 +8,10 @@ var markersA = new Array();
 var contatori = [];
 var markerClusterS = null;
 var markerClusterA = null;
+var paginaS = 0;
+var paginaA = 0;
 function inizializza(){
+	console.log($(window).width(),$(window).height());
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: {lat: 42.0, lng: 12.0},
 	  zoom: 6,
@@ -26,9 +29,28 @@ function inizializza(){
 	});
 	markerClusterS = new MarkerClusterer(map);
 	markerClusterA = new MarkerClusterer(map);
+	if(window.matchMedia("(max-width: 1180px)").matches){
+		$("#navigation").css("width", "355.25px");
+	}else{
+		$("#navigation").css("width", ($(window).width()/100)*30+"px");
+	}
+	$("#navigation").css("left", "-"+($("#navigation").width()+23)+"px");
 	$( window ).resize(function() {
-		console.log($(window).height());
-		$( ".open" ).css("height", ($(window).height()-184)+"px");
+		$( ".open" ).css("height", ($(window).height()-186)+"px");
+		if(contatori[contatori.length-1]==0){
+			if($("#ricercaS").html() == ""){
+				if($("#ricercaA").html() == ""){
+					$("#navigation").css("left", "-"+($("#navigation").width()+23)+"px");
+				}
+				if($("#ricercaA").html() !== ""){
+					$("#navigation").css("left", "-"+($("#navigation").width())+"px");
+				}
+			}else if($("#ricercaA").html() == ""){
+				$("#navigation").css("left", "-"+($("#navigation").width())+"px");
+			}
+		}else{
+			$("#navigation").css("left", "0");
+		}
 	});
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
@@ -63,6 +85,16 @@ function ChiudiS(){
 				pagination: true
 			 };
 	listObj = new List('ricercaS', options);
+	if(paginaS == 1){
+		listObj.show(1,6);
+	}else{
+		listObj.show((paginaS-1)*7-(paginaS-2),6);
+	}
+	if(markersS.length <= listObj.page){
+		document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "none";
+	}else{
+		document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "block";
+	}
 };
 //Al click del tasto X della scheda delle ATTRAZIONI, la scheda si chiude e ricompare la lista di attrazioni ricercata
 function ChiudiA(){
@@ -84,12 +116,22 @@ function ChiudiA(){
 				pagination: true
 			 };
 	listObj2 = new List('ricercaA', options);
+	if(paginaA == 1){
+		listObj2.show(1,6);
+	}else{
+		listObj2.show((paginaA-1)*7-(paginaA-2),6);
+	}
+	if(markersA.length <= listObj2.page){
+		document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "none";
+	}else{
+		document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
+	}
 };
 //inserisco la lista dei risultati
 function insertResult(){
 	var place = document.form_ricerca.ricerca_luogo.value;
 	var url= "../api/query.php?category=accommodation&place=";
-	if (place=="Trentino-alto adige"){
+	if (place=="Trentino-Alto Adige"){
 		url+="Trentino";
 	}else{
 		url+=place;
@@ -170,6 +212,17 @@ function Hover(){
 function Click(){
 	$(".result").click(
 		function(){
+			var NPagAct = document.getElementsByClassName("active");
+			if($(".list:eq(0)").html() !== ""){
+				paginaS=parseInt(NPagAct[0].getElementsByClassName("page")[0].innerHTML);
+			}
+			if($(".list:eq(1)").html() !== ""){
+				if($(".list:eq(0)").html() == ""){
+					paginaA=parseInt(NPagAct[0].getElementsByClassName("page")[0].innerHTML);
+				}else{
+					paginaA=parseInt(NPagAct[1].getElementsByClassName("page")[0].innerHTML);
+				}
+			}	
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
 					if(markersA[i].icon == 'images/attrMar.png'){
@@ -207,7 +260,7 @@ function createMarker(map){
 	var place = document.form_ricerca.ricerca_luogo.value;
 	if (place){
 		var url= "../api/query.php?category=accommodation&place=";
-		if (place=="Trentino-alto adige"){
+		if (place=="Trentino-Alto Adige"){
 			url+="Trentino";
 		}else{
 			url+=place;
@@ -283,6 +336,11 @@ function createMarker(map){
 				}
 				if (markersS.length != 0){
 					$("#ns").html("("+markersS.length+")");
+					if(window.matchMedia("(max-width: 1156px)").matches){
+						map.setCenter({lat: markersS[0].getPosition().lat(), lng: markersS[0].getPosition().lng()-0.3});
+					}else{
+						map.setCenter(markersS[0].position);
+					}
 				}else{
 					$("#ns").html("(Nessun risultato trovato)");
 				}
@@ -301,7 +359,6 @@ function createMarker(map){
 						if(place==data[i].city){
 							map.setZoom(10);
 						}
-						map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
 						var string="<div id='schedaA'><form><input class='chiudi' type='image' src='images/x.png' onclick='ChiudiA()'></form>";
 						string+="<img class='foto' src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'><br/>"
 						if(data[i].name){
@@ -357,6 +414,11 @@ function createMarker(map){
 				}
 				if(markersA.length != 0){
 					$("#na").html("("+markersA.length+")");
+					if(window.matchMedia("(max-width: 1156px)").matches){
+						map.setCenter({lat: markersA[0].getPosition().lat(), lng: markersA[0].getPosition().lng()-0.3});
+					}else{
+						map.setCenter(markersA[0].position);
+					}
 				}else{
 					$("#na").html("(Nessun risultato trovato)");
 				}
@@ -388,6 +450,8 @@ $(document).ready(function() {
 			markerClusterA = new MarkerClusterer(map, markersA,
 				{imagePath: 'images/g'}
 			);
+			Hover();
+			Click();
 			var options = {
 				valueNames: [ 'i' ],
 				page: 6,
@@ -399,7 +463,17 @@ $(document).ready(function() {
 			 };
 			 
 			var listObj = new List('ricercaS', options);
+			if(markersS.length <= listObj.page){
+				document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "none";
+			}else{
+				document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "block";
+			}
 			var listObj2 = new List('ricercaA', options);
+			if(markersA.length <= listObj2.page){
+				document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "none";
+			}else{
+				document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
+			}
 			$('#ui-id-1').hide();
 			$('#navigation').css('left','0');
 			contatori[contatori.length-1]=1;
@@ -407,7 +481,7 @@ $(document).ready(function() {
 			if($(".list:eq("+0+")").html() !== ""){
 				$(".expand:eq("+0+")").attr("src","images/up.png");
 				$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
-				$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-184)+"px");
+				$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-186)+"px");
 				contatori[0]=1;
 				$(".expand:eq("+1+")").attr("src","images/down.png");
 				$(".campi_ricerca:eq("+1+")").removeClass("open");
@@ -416,7 +490,7 @@ $(document).ready(function() {
 			}else if($(".list:eq("+1+")").html() !== ""){
 				$(".expand:eq("+1+")").attr("src","images/up.png");
 				$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
-				$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-184)+"px");
+				$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-186)+"px");
 				contatori[1]=1;
 				$(".expand:eq("+0+")").attr("src","images/down.png");
 				$(".campi_ricerca:eq("+0+")").removeClass("open");
@@ -433,8 +507,6 @@ $(document).ready(function() {
 				contatori[1]=0;
 			}
 			console.log(markersA,markersS);
-			Hover();
-			Click();
 		}
 	});
 	/*CREO L'EVENTO DELLA RICERCA TESTUALE*/
@@ -449,6 +521,8 @@ $(document).ready(function() {
 		markerClusterA = new MarkerClusterer(map, markersA,
 			{imagePath: 'images/g'}
 		);
+		Hover();
+		Click();
 		var options = {
 				valueNames: [ 'i' ],
 				page: 6,
@@ -460,14 +534,25 @@ $(document).ready(function() {
 			 };
 
 		var listObj = new List('ricercaS', options);
+		if(markersS.length <= listObj.page){
+			document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "none";
+		}else{
+			document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "block";
+		}
 		var listObj2 = new List('ricercaA', options);
+		if(markersA.length <= listObj2.page){
+			document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "none";
+		}else{
+			document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
+		}
+		$('#ui-id-1').hide();
 		$('#navigation').css('left','0');
 		contatori[contatori.length-1]=1;
 		$('#arrow').attr("src","images/left arrow.svg");
 		if($(".list:eq("+0+")").html() !== ""){
 			$(".expand:eq("+0+")").attr("src","images/up.png");
 			$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
-			$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-184)+"px");
+			$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-186)+"px");
 			contatori[0]=1;
 			$(".expand:eq("+1+")").attr("src","images/down.png");
 			$(".campi_ricerca:eq("+1+")").removeClass("open");
@@ -476,7 +561,7 @@ $(document).ready(function() {
 		}else if($(".list:eq("+1+")").html() !== ""){
 			$(".expand:eq("+1+")").attr("src","images/up.png");
 			$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
-			$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-184)+"px");
+			$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-186)+"px");
 			contatori[1]=1;
 			$(".expand:eq("+0+")").attr("src","images/down.png");
 			$(".campi_ricerca:eq("+0+")").removeClass("open");
@@ -492,8 +577,6 @@ $(document).ready(function() {
 			$(".campi_ricerca:eq("+1+")").css("height", "0");
 			contatori[1]=0;
 		}
-		Hover();
-		Click();
 	});
 	// if text input field value is not empty show the "X" button
 	$("#ricerca_luogo").keyup(
@@ -524,72 +607,73 @@ $(document).ready(function() {
 			contatori[contatori.length-1]=1;
 		}else if(contatori[contatori.length-1]==1){
 			console.log("ciao");
-			$('#navigation').css('left','-30%');
+			$("#navigation").css("left", "-"+($("#navigation").width())+"px");
 			$('#arrow').attr("src","images/right arrow.svg");
 			contatori[contatori.length-1]=0;
 		}
 	});
 	/* AL CLICK DEL TASTO DI ESPANSIONE, APRO IL CORRISPONDENTE BOX DI RICERCA*/
-	$(".expand").click(function(){
-		if(contatori[this.value]==0){
-			if($(".list:eq("+this.value+")").html() !== ""){
-				if(this.value==0){
+	$(".argument").click(function(){
+		var value = this.getElementsByClassName("expand")[0].value;
+		if(contatori[value]==0){
+			if($(".list:eq("+value+")").html() !== ""){
+				if(value==0){
 					if($(".list:eq("+1+")").html() !== ""){
 						$(".expand:eq("+1+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+1+")").removeClass("open");
 						$(".campi_ricerca:eq("+1+")").css("height", "0");
 						contatori[1]=0;
-						$(".expand:eq("+this.value+")").attr("src","images/up.png");
-						$(".campi_ricerca:eq("+this.value+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+this.value+")").css("height", ($(window).height()-184)+"px");
-						contatori[this.value]=1;
+						$(".expand:eq("+value+")").attr("src","images/up.png");
+						$(".campi_ricerca:eq("+value+")").addClass("campi_ricerca open");
+						$(".campi_ricerca:eq("+value+")").css("height", ($(window).height()-186)+"px");
+						contatori[value]=1;
 					}
-				}else if(this.value==1){
+				}else if(value==1){
 					if($(".list:eq("+0+")").html() !== ""){
 						$(".expand:eq("+0+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+0+")").removeClass("open");
 						$(".campi_ricerca:eq("+0+")").css("height", "0");
 						contatori[0]=0;
-						$(".expand:eq("+this.value+")").attr("src","images/up.png");
-						$(".campi_ricerca:eq("+this.value+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+this.value+")").css("height", ($(window).height()-184)+"px");
-						contatori[this.value]=1;
+						$(".expand:eq("+value+")").attr("src","images/up.png");
+						$(".campi_ricerca:eq("+value+")").addClass("campi_ricerca open");
+						$(".campi_ricerca:eq("+value+")").css("height", ($(window).height()-186)+"px");
+						contatori[value]=1;
 					}
 				}
 			}else{
-				$(".expand:eq("+this.value+")").attr("src","images/down.png");
-				$(".campi_ricerca:eq("+this.value+")").removeClass("open");
-				$(".campi_ricerca:eq("+this.value+")").css("height", "0");
-				contatori[this.value]=0;
+				$(".expand:eq("+value+")").attr("src","images/down.png");
+				$(".campi_ricerca:eq("+value+")").removeClass("open");
+				$(".campi_ricerca:eq("+value+")").css("height", "0");
+				contatori[value]=0;
 			}
-		}else if(contatori[this.value]==1){
-			if($(".list:eq("+this.value+")").html() !== ""){
-				if(this.value==0){
+		}else if(contatori[value]==1){
+			if($(".list:eq("+value+")").html() !== ""){
+				if(value==0){
 					if($(".list:eq("+1+")").html() !== ""){
 						$(".expand:eq("+1+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+1+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-184)+"px");
+						$(".campi_ricerca:eq("+1+")").css("height", ($(window).height()-186)+"px");
 						contatori[1]=1;
-						$(".expand:eq("+this.value+")").attr("src","images/down.png");
-						$(".campi_ricerca:eq("+this.value+")").removeClass("open");
-						$(".campi_ricerca:eq("+this.value+")").css("height", "0");
-						contatori[this.value]=0;
+						$(".expand:eq("+value+")").attr("src","images/down.png");
+						$(".campi_ricerca:eq("+value+")").removeClass("open");
+						$(".campi_ricerca:eq("+value+")").css("height", "0");
+						contatori[value]=0;
 					}else{
 						$(".expand:eq("+1+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+1+")").removeClass("open");
 						$(".campi_ricerca:eq("+1+")").css("height", "0");
 						contatori[1]=0;
 					}
-				}else if(this.value==1){
+				}else if(value==1){
 					if($(".list:eq("+0+")").html() !== ""){
 						$(".expand:eq("+0+")").attr("src","images/up.png");
 						$(".campi_ricerca:eq("+0+")").addClass("campi_ricerca open");
-						$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-184)+"px");
+						$(".campi_ricerca:eq("+0+")").css("height", ($(window).height()-186)+"px");
 						contatori[0]=1;
-						$(".expand:eq("+this.value+")").attr("src","images/down.png");
-						$(".campi_ricerca:eq("+this.value+")").removeClass("open");
-						$(".campi_ricerca:eq("+this.value+")").css("height", "0");
-						contatori[this.value]=0;
+						$(".expand:eq("+value+")").attr("src","images/down.png");
+						$(".campi_ricerca:eq("+value+")").removeClass("open");
+						$(".campi_ricerca:eq("+value+")").css("height", "0");
+						contatori[value]=0;
 					}else{
 						$(".expand:eq("+0+")").attr("src","images/down.png");
 						$(".campi_ricerca:eq("+0+")").removeClass("open");
@@ -609,16 +693,16 @@ $(document).ready(function() {
 		$.getJSON("../api/query.php?category=accommodation", function (data) {
 			for(var i=0; i<data.length; i++){
 				if(data[i].latitude && data[i].longitude){
-					Tags.push(data[i].region.substr(0,1).toUpperCase()+data[i].region.substr(1).toLowerCase());
-					Tags.push(data[i].city.substr(0,1).toUpperCase()+data[i].city.substr(1).toLowerCase());
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
 				}
 			}
 		});
 		$.getJSON("../api/query.php?category=attraction", function (data) {
 			for(var i=0; i<data.length; i++){
 				if(data[i].latitude && data[i].longitude){
-					Tags.push(data[i].region.substr(0,1).toUpperCase()+data[i].region.substr(1).toLowerCase());
-					Tags.push(data[i].city.substr(0,1).toUpperCase()+data[i].city.substr(1).toLowerCase());
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
 				}
 			}
 		});
