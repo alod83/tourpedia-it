@@ -3,7 +3,8 @@
 require_once 'libraries/excel/reader.php';
 //require 'libraries/SevenZipArchive.php';
 include('utilities/mongo.php');
-include('utilities/functions.php');
+//include('utilities/functions.php');
+include('utilities/csv.php');
 include('enrichment/geocoding.php');
 include('sources/attraction/Lig_kml.php');
 Include('sources/attraction/xls.php');
