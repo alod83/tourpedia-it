@@ -58,7 +58,9 @@ if(isset($_REQUEST['category']))
 			if(isset($_REQUEST[$fields_list[$i]]) && ! in_array($fields_list[$i], $excluded_fields))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
 		//var_dump($query);
-		$result=iterator_to_array($collection->find($query));
+		$options = array('sort' => array('name' => 1));
+		//$result=iterator_to_array($collection->find($query));//
+		$result=iterator_to_array($collection->find($query, $options));
 		for($i=0; $i<count($result); $i++){
 			foreach($result[$i] as $k=>$v){
 				if($k=="number of stars"){

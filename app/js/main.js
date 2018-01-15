@@ -32,20 +32,24 @@ function inizializza(){
 	if(window.matchMedia("(max-width: 1180px)").matches){
 		$("#navigation").css("width", "355.25px");
 	}else{
-		$("#navigation").css("width", ($(window).width()/100)*30+"px");
+		$("#navigation").css("width", "30%");
 	}
-	$("#navigation").css("left", "-"+($("#navigation").width()+23)+"px");
 	$( window ).resize(function() {
+		if(window.matchMedia("(max-width: 1180px)").matches){
+			$("#navigation").css("width", "355.25px");
+		}else{
+			$("#navigation").css("width", "30%");
+		}
 		$( ".open" ).css("height", ($(window).height()-186)+"px");
 		if(contatori[contatori.length-1]==0){
 			if($("#ricercaS").html() == ""){
 				if($("#ricercaA").html() == ""){
-					$("#navigation").css("left", "-"+($("#navigation").width()+23)+"px");
+					$("#navigation").css("left", "-2000px");
 				}
 				if($("#ricercaA").html() !== ""){
-					$("#navigation").css("left", "-"+($("#navigation").width())+"px");
+					$("#navigation").css("left", "-2000px");
 				}
-			}else if($("#ricercaA").html() == ""){
+			}else{
 				$("#navigation").css("left", "-"+($("#navigation").width())+"px");
 			}
 		}else{
