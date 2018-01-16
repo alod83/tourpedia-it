@@ -15,6 +15,7 @@ function ZIP($source,$date, $config, $nuovo, $vecchio)
 	$fformat = $config['dataset_'.$db]['file format'];
 	
 	$tmpZipFileName = "Tmpfile.zip";
+	$base_dir = str_replace(' ', '', $source);
 	if(file_put_contents($tmpZipFileName, fopen($url, 'r')))
 	{
 		if($zip->open($tmpZipFileName)!==FALSE)
@@ -25,7 +26,6 @@ function ZIP($source,$date, $config, $nuovo, $vecchio)
 				$filename = $zip->getNameIndex($i);
 				if($ndir > 0)
 				{
-					$base_dir = str_replace(' ', '', $source);
 					$zip->extractTo($base_dir);
 					$filename = "";
 					$current_dir = $base_dir."/".$zip->getNameIndex($i);
@@ -57,6 +57,7 @@ function ZIP($source,$date, $config, $nuovo, $vecchio)
 		}
 	 }
 	 unlink($tmpZipFileName);
+	 system("rm -rf $base_dir");
 	 array_map('unlink', glob( "*.csv"));
 }
 

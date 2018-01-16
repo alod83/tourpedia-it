@@ -101,6 +101,8 @@ function latlon_explode($point){
 	return $arr_point;
 
 }
+
+
 function get_op_hours($va,$arr){
 	$count=0;
 	$subdocument=array();
@@ -363,6 +365,15 @@ function get_record($document,$mapping,$arr,$title=null)
 			else if(strpos($v, '-') !== false){
 				$va = explode('-', $v);	
 				$value=get_op_hours($va,$arr);
+			}else if(strpos($v, ':') !== false)
+			{
+				$va = explode(':', $v);
+				
+				$temp_value = explode(",", $arr[$va[0]]);
+				$new_key = $va[1];
+				$document[$new_key] = trim($temp_value[1]);
+				$value = $temp_value[0];
+				$mapping[$new_key] = true;
 			}
 			else{
 				//esclude i casi in cui il record non è ben formato o vuoto (Trentino_2 Toscana_18, Toscana_19)
@@ -386,7 +397,12 @@ function get_record($document,$mapping,$arr,$title=null)
 					if (!array_key_exists('longitude', $mapping)){
 						$document['latitude']=round(floatval($value[1]),6);
 						$document['longitude']=round(floatval($value[0]),6);
-					}else{
+					}else if($mapping['longitude'] == true)
+					{
+						$document[$k]=round(floatval($value),6);
+						$document['longitude']=round(floatval($document['longitude']),6);
+					}
+					else{
 						$document[$k]=round(floatval($value),6);
 						
 					}
@@ -456,6 +472,7 @@ function get_record($document,$mapping,$arr,$title=null)
 			$document[$k] = $v;
 		}
 	}
+	var_dump($document);
 	return $document;
 	
 }
