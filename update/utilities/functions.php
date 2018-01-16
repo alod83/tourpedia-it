@@ -472,7 +472,6 @@ function get_record($document,$mapping,$arr,$title=null)
 			$document[$k] = $v;
 		}
 	}
-	var_dump($document);
 	return $document;
 	
 }
