@@ -373,7 +373,7 @@ function get_record($document,$mapping,$arr,$title=null)
 				$new_key = $va[1];
 				$document[$new_key] = trim($temp_value[1]);
 				$value = $temp_value[0];
-				$mapping[$new_key] = true;
+				$mapping[$new_key] = 'added';
 			}
 			else{
 				//esclude i casi in cui il record non è ben formato o vuoto (Trentino_2 Toscana_18, Toscana_19)
@@ -397,7 +397,7 @@ function get_record($document,$mapping,$arr,$title=null)
 					if (!array_key_exists('longitude', $mapping)){
 						$document['latitude']=round(floatval($value[1]),6);
 						$document['longitude']=round(floatval($value[0]),6);
-					}else if($mapping['longitude'] == true)
+					}else if($mapping['longitude'] == 'added')
 					{
 						$document[$k]=round(floatval($value),6);
 						$document['longitude']=round(floatval($document['longitude']),6);
