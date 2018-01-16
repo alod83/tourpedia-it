@@ -5,7 +5,7 @@ var ResultsA="";
 /*INIZIALIZZO LA MAPPA*/
 var markersS = new Array();
 var markersA = new Array();
-var contatori = [];
+var contatori = new Array();
 var markerClusterS = null;
 var markerClusterA = null;
 var paginaS = 0;
@@ -59,8 +59,8 @@ function inizializza(){
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
 function Unique(inputArray){
-    var temporaryArray = {};
-	var outputArray = [];
+    var temporaryArray = new Array();
+	var outputArray = new Array();
     for (var i = 0; i < inputArray.length; i++){
 		temporaryArray[inputArray[i]] = true;
 	}
@@ -806,7 +806,7 @@ $(document).ready(function() {
 		$.ajaxSetup({
 			async: false
 		});
-		var Tags=[];
+		var Tags=new Array();
 		$.getJSON("../api/query.php?category=accommodation", function (data) {
 			for(var i=0; i<data.length; i++){
 				if(data[i].latitude && data[i].longitude){
