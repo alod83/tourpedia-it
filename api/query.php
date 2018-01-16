@@ -59,8 +59,8 @@ if(isset($_REQUEST['category']))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
 		//var_dump($query);
 		$options = array('sort' => array('name' => 1));
-		//$result=iterator_to_array($collection->find($query));//
-		$result=iterator_to_array($collection->find($query, $options));
+		$result=iterator_to_array($collection->find($query));//
+		//$result=iterator_to_array($collection->find($query, $options));
 		for($i=0; $i<count($result); $i++){
 			foreach($result[$i] as $k=>$v){
 				if($k=="number of stars"){
@@ -81,8 +81,8 @@ if(isset($_REQUEST['category']))
 						$result[$i]["longitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
 					}
 				}
-				if($k=="latitude"){
-					if(($k>48) or ($k <35)){
+				if($k=="Italy"){
+					if(($result[$i]["latitude"] >48) or ($result[$i]["latitude"] <35)){
 						if(($result[$i]["longitude"]>24) or ($result[$i]["longitude"]<6)){
 							$temp=$result[$i]["latitude"];
 							$result[$i]["latitude"]=$result[$i]["longitude"];

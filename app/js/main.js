@@ -99,6 +99,26 @@ function ChiudiS(){
 	}else{
 		document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "block";
 	}
+	var res = document.getElementById("ricercaS").getElementsByClassName("list")[0].getElementsByClassName("result");
+	for(var i=0; i<res.length; i++){
+		for(var j=0; j<markersS.length; j++){
+			if(res[i].id==markersS[j].title.replace(/ /g,"_")){
+			var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+			anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+			}
+		}
+	}
+	listObj.on('updated', function(listObj) {
+		var res = document.getElementById("ricercaS").getElementsByClassName("list")[0].getElementsByClassName("result");
+		for(var i=0; i<res.length; i++){
+			for(var j=0; j<markersS.length; j++){
+				if(res[i].id==markersS[j].title.replace(/ /g,"_")){
+				var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+				anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+				}
+			}
+		}
+	});
 };
 //Al click del tasto X della scheda delle ATTRAZIONI, la scheda si chiude e ricompare la lista di attrazioni ricercata
 function ChiudiA(){
@@ -130,6 +150,26 @@ function ChiudiA(){
 	}else{
 		document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
 	}
+	var res = document.getElementById("ricercaA").getElementsByClassName("list")[0].getElementsByClassName("result");
+	for(var i=0; i<res.length; i++){
+		for(var z=0; z<markersA.length; z++){
+			if(res[i].id==markersA[z].title.replace(/ /g,"_")){
+				var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+				anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersA[z].getPosition().lat()+","+markersA[z].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+			}
+		}
+	}
+	listObj2.on('updated', function(listObj2) {
+		var res = document.getElementById("ricercaA").getElementsByClassName("list")[0].getElementsByClassName("result");
+		for(var i=0; i<res.length; i++){
+			for(var z=0; z<markersA.length; z++){
+				if(res[i].id==markersA[z].title.replace(/ /g,"_")){
+					var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+					anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersA[z].getPosition().lat()+","+markersA[z].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+				}
+			}
+		}
+	});
 };
 //inserisco la lista dei risultati
 function insertResult(){
@@ -151,7 +191,7 @@ function insertResult(){
 				if(data[i].address){
 					stringa+="<p>"+data[i].address+"</p>";
 				}
-				ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></div></li>";
+				ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";
 			}
 		}
 	});
@@ -168,7 +208,7 @@ function insertResult(){
 				if(data[i].description){
 					stringa+="<p>"+data[i].description+"</p>";
 				}
-				ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'><img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div></div></li>";			
+				ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";			
 			}
 		}
 	});
@@ -226,11 +266,15 @@ function Click(){
 				}else{
 					paginaA=parseInt(NPagAct[1].getElementsByClassName("page")[0].innerHTML);
 				}
-			}	
+			}
+			if(map.getZoom() < 12){
+				map.setZoom(12);
+			}
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
 					if(markersA[i].icon == 'images/attrMar.png'){
 						$("#ricercaA").html(markersA[i].content);
+						map.setCenter(markersA[i].position);
 					}
 				}
 			}
@@ -238,6 +282,7 @@ function Click(){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
 					if(markersS[j].icon == 'images/structMar.png'){
 						$("#ricercaS").html(markersS[j].content);
+						map.setCenter(markersS[j].position);
 					}
 				}
 			}
@@ -276,8 +321,7 @@ function createMarker(map){
 					if(data[i].latitude && data[i].longitude){
 						if(place==data[i].region){
 							map.setZoom(8);
-						}
-						if(place==data[i].city){
+						}else{
 							map.setZoom(10);
 						}
 						var string="<div id='schedaS'><form><input class='chiudi' type='image' src='images/x.png' onclick='ChiudiS()'></form>";
@@ -334,6 +378,10 @@ function createMarker(map){
 							$('#navigation').css('left','0');
 							$('#arrow').attr("src","images/left arrow.svg");
 							contatori[contatori.length-1]=1;
+							if(map.getZoom() < 12){
+								map.setZoom(12);
+							}
+							map.setCenter(this.position);
 						});
 						markersS.push(marker);
 					}
@@ -359,8 +407,7 @@ function createMarker(map){
 						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
 						if(place==data[i].region){
 							map.setZoom(8);
-						}
-						if(place==data[i].city){
+						}else{
 							map.setZoom(10);
 						}
 						var string="<div id='schedaA'><form><input class='chiudi' type='image' src='images/x.png' onclick='ChiudiA()'></form>";
@@ -412,6 +459,10 @@ function createMarker(map){
 							$('#navigation').css('left','0');
 							$('#arrow').attr("src","images/left arrow.svg");
 							contatori[contatori.length-1]=1;
+							if(map.getZoom() < 12){
+								map.setZoom(12);
+							}
+							map.setCenter(this.position);
 						});
 						markersA.push(marker);
 					}
@@ -448,6 +499,7 @@ $(document).ready(function() {
 			insertResult();
 			clearMarkers();
 			createMarker(map);
+			$('#ui-id-1').hide();
 			markerClusterS = new MarkerClusterer(map, markersS,
 				{imagePath: 'images/m'}
 			);
@@ -478,7 +530,43 @@ $(document).ready(function() {
 			}else{
 				document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
 			}
-			$('#ui-id-1').hide();
+			var res = document.getElementsByClassName("result");
+			for(var i=0; i<res.length; i++){
+				for(var j=0; j<markersS.length; j++){
+					if(res[i].id==markersS[j].title.replace(/ /g,"_")){
+						var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+						anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+					}
+				}
+				for(var z=0; z<markersA.length; z++){
+					if(res[i].id==markersA[z].title.replace(/ /g,"_")){
+						var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+						anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersA[z].getPosition().lat()+","+markersA[z].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+					}
+				}
+			}
+			listObj.on('updated', function(listObj) {
+				var res = document.getElementById("ricercaS").getElementsByClassName("list")[0].getElementsByClassName("result");
+					for(var i=0; i<res.length; i++){
+						for(var j=0; j<markersS.length; j++){
+							if(res[i].id==markersS[j].title.replace(/ /g,"_")){
+							var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+							anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+							}
+						}
+					}
+			});
+			listObj2.on('updated', function(listObj2) {
+				var res = document.getElementById("ricercaA").getElementsByClassName("list")[0].getElementsByClassName("result");
+				for(var i=0; i<res.length; i++){
+					for(var z=0; z<markersA.length; z++){
+						if(res[i].id==markersA[z].title.replace(/ /g,"_")){
+							var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+							anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersA[z].getPosition().lat()+","+markersA[z].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+						}
+					}
+				}
+			});
 			$('#navigation').css('left','0');
 			contatori[contatori.length-1]=1;
 			$('#arrow').attr("src","images/left arrow.svg");
@@ -549,6 +637,32 @@ $(document).ready(function() {
 		}else{
 			document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
 		}
+		var res = document.getElementsByClassName("result");
+		for(var i=0; i<res.length; i++){
+			for(var j=0; j<markersS.length; j++){
+				if(res[i].id==markersS[j].title.replace(/ /g,"_")){
+					var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+					anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+				}
+			}
+			for(var z=0; z<markersA.length; z++){
+				if(res[i].id==markersA[z].title.replace(/ /g,"_")){
+					var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+					anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersA[z].getPosition().lat()+","+markersA[z].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+				}
+			}
+		}
+		listObj.on('updated', function(listObj) {
+			var res = document.getElementById("ricercaS").getElementsByClassName("list")[0].getElementsByClassName("result");
+			for(var i=0; i<res.length; i++){
+				for(var j=0; j<markersS.length; j++){
+					if(res[i].id==markersS[j].title.replace(/ /g,"_")){
+					var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+					anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+					}
+				}
+			}
+		});
 		$('#ui-id-1').hide();
 		$('#navigation').css('left','0');
 		contatori[contatori.length-1]=1;
@@ -599,7 +713,6 @@ $(document).ready(function() {
 			event.preventDefault();
 			$("#ricerca_luogo").val("");
 			$(this).hide();
-			clearMarkers();
 		}
 	);
 	/*AL CLICK DEL TASTO INDICATO DALLA FRECCIA, APRO E CHIUDO IL DIV DI NAVIGAZIONE*/
