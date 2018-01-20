@@ -1,12 +1,12 @@
 <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-
  <g>
   <title>background</title>
-  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+  <rect x="-1" y="-1" width="3.864077" height="3.864077" id="canvas_background" fill="none"/>
  </g>
+
  <g>
   <title>Layer 1</title>
-  <rect id="svg_1" width="32" height="32" fill="none"/>
-  <path fill="#00007f" stroke="null" id="svg_2" d="m0.709219,4.851063l0,22.510641l30.581562,0l0,-22.510641l-30.581562,0zm26.901262,1.875887l-11.612392,9.115872l-11.60857,-9.115872l23.220962,0zm-24.989914,18.757929l0,-17.744013l13.377522,10.502152l13.380389,-10.502152l0,17.744013l-26.757911,0z"/>
+  <rect fill="none" height="32" width="32" id="svg_1"/>
+  <path d="m0.709219,4.851063l0,22.510641l30.581562,0l0,-22.510641l-30.581562,0zm26.901262,1.875887l-11.612392,9.115872l-11.60857,-9.115872l23.220962,0zm-24.989914,18.757929l0,-17.744013l13.377522,10.502152l13.380389,-10.502152l0,17.744013l-26.757911,0z" id="svg_2" stroke="null" fill="#0000ff"/>
  </g>
 </svg>

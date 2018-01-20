@@ -8,13 +8,13 @@
 	font-size: 14px;
 }
 
+*:focus{
+	outline:0;
+}
+
 html, body {
     height: 100%;
 	overflow: hidden;
-}
-
-input:focus{
-	outline:0;
 }
 
 #container{
@@ -53,15 +53,22 @@ input:focus{
 }
 
 /*NAVIGAZIONE*/
-#navigation{
+.navigation{
 	background-color:#ffffff;
 	box-shadow: inset 25px 0px 30px -25px grey, inset -25px 0px 30px -25px grey;
 	position: absolute;
+	width: 30%;
+	min-width: 355.25px;
 	height:100%;
 	left: -2000px;
 	z-index: 2;
 	transition: left 0.3s;
 	-webkit-transition: left 0.3s;
+}
+
+.out{
+	transition: none;
+	-webkit-transition: none;
 }
 
 #ricerca{
@@ -73,6 +80,7 @@ input:focus{
 	margin: 8px;
 	height: 48px;
 	z-index: 3;
+	border-radius: 2px;
 }
 
 [name="form_ricerca"]{
@@ -114,10 +122,11 @@ input:focus{
 	float:right;
 	position: absolute;
 	display: block;
-	margin-left: 260px;
+	margin-left: 75%;
 	margin-top: 11px;
-	width: 26px;
-	height: 26px;
+	width: 16px;
+	height: 16px;
+	padding: 5.5px;
 }
 
 #cerca{
@@ -141,7 +150,21 @@ input:focus{
 	height:100%;
 	width:100%;
 	cursor: pointer;
+	border: 1px solid grey;
 }
+
+#tasto button:hover{
+	background-color: trasparent;
+}
+
+#tasto button:visited{
+	background-color: trasparent;
+}
+
+#tasto button:active{
+	background-color: trasparent;
+}
+
 
 #arrow{
 	height: 15px;
@@ -163,6 +186,10 @@ input:focus{
 	background-color: #fafafa;
 }
 
+#ui-id-1 li:in-range{
+	background-color: #fafafa;
+}
+
 .ui-helper-hidden-accessible{
 	display: none;
 }
@@ -171,7 +198,9 @@ input:focus{
 #background{
 	width: 100%;
 	min-height: 64px;
-	background-color: blue;
+	-webkit-transition: background-color 1s ease-out;
+	-moz-transition: background-color 1s ease-out;
+	transition: background-color 1s ease-out;
 }
 
 .box_ricerca{
@@ -185,7 +214,7 @@ input:focus{
 }
 
 #strutture .argument{
-	border-bottom: 2px solid blue;
+	border-bottom: 2px solid #0000ff;
 }
 
 #attrazioni .argument{
@@ -293,7 +322,7 @@ input:focus{
 	margin-top: 5px;
 	height: 26px;
 	width: 26px;
-	display: inline;
+	display: inline-block;
 }
 
 .infoscheda{
@@ -311,21 +340,62 @@ input:focus{
 	width: 100%;
 	min-height: 453px;
 	z-index:2;
+	position: relative;
+}
+
+#schedaS form, #schedaA form{
+	z-index: 3;
+	position: absolute;
 }
 
 .chiudi{
 	cursor: pointer;
-	height: 6%;
-	width: 6%;
+	width: 5%;
+	min-width: 15px;
+	margin: 5px;
+	z-index: 3;
+	padding: 15%;
+	border-radius: 4px;
+	background-color: white;
+	opacity: 0.9;
 }
 
 .foto{
-	border: 1px solid black;
-	width: 300px;
-	height: 200px;
+	width: 100%;
+	min-height: 178.77px;
 	display: block;
-	position: relative;
-	margin: auto;
+}
+
+.foto img{
+	width: 100%;
+	display:block;
+}
+
+.header{
+	width: 90%;
+	padding: 5%;
+	color: white;
+}
+
+#header1{
+	background-color: #0000ff;
+}
+
+#header2{
+	background-color: red;
+}
+
+.name{
+	font-size: 18px;
+}
+
+.contenuto{
+	width: 90%;
+	padding: 5%;
+}
+
+.website:hover{
+	text-decoration: underline;
 }
 
 /*MAPPA*/
@@ -343,8 +413,8 @@ input:focus{
 }
 
 /*MEDIA QUERY*/
-@media all and (max-width: 1156px) {
-	#navigation{
+@media all and (max-width: 1178px) {
+	.navigation{
 		left: -378.25px;
 	}
 }
