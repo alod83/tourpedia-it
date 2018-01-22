@@ -64,8 +64,8 @@ if(isset($_REQUEST['category']))
 		for($i=0; $i<count($result); $i++){
 			foreach($result[$i] as $k=>$v){
 				if($k=="number of stars"){
-					$result[$i]["stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
-					unset($result[$i][$k]);
+					$result[$i]["number of stars stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
+					//unset($result[$i][$k]);
 				}
 				if($k=="lat"){
 					if (strpos($v, '.') !== false) {

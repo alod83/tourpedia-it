@@ -333,8 +333,8 @@ function createMarker(map){
 						if(data[i].name){
 							string+="<p class='name'>"+data[i].name+"</p>";
 						}
-						if(data[i].stars){
-							for(var y=0; y<data[i].stars; y++){
+						if(data[i]['number of stars']){
+							for(var y=0; y<data[i]['number of stars']; y++){
 								string+="<img class='star' src='images/star.svg'>";
 							}
 							string+="<br/>";
