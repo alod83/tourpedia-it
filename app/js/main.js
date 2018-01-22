@@ -68,7 +68,7 @@ function Unique(inputArray){
 function ChiudiS(){
 	$("#ricercaS").html(ResultsS);
 	for(var i = 0; i<markersS.length; i++){
-		if(markersS[i].icon == 'images/structMar.png'){
+		if(markersS[i].icon == 'images/selected.png'){
 			markersS[i].setIcon('images/bed_b.png');
 		}
 	}
@@ -114,13 +114,13 @@ function ChiudiS(){
 			}
 		}
 	});
-	map.setZoom(10);
+	map.setZoom(16);
 };
 //Al click del tasto X della scheda delle ATTRAZIONI, la scheda si chiude e ricompare la lista di attrazioni ricercata
 function ChiudiA(){
 	$("#ricercaA").html(ResultsA);
 	for(var i = 0; i<markersA.length; i++){
-		if(markersA[i].icon == 'images/attrMar.png'){
+		if(markersA[i].icon == 'images/selected.png'){
 			markersA[i].setIcon('images/attraction.png');
 		}
 	}
@@ -166,7 +166,7 @@ function ChiudiA(){
 			}
 		}
 	});
-	map.setZoom(10);
+	map.setZoom(16);
 };
 //inserisco la lista dei risultati
 function insertResult(){
@@ -220,14 +220,14 @@ function Hover(){
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
 					if(markersA[i].icon == 'images/attraction.png'){
-						markersA[i].setIcon('images/attrMar.png');
+						markersA[i].setIcon('images/selected.png');
 					}
 				}
 			}
 			for(var j = 0; j<markersS.length; j++){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
 					if(markersS[j].icon == 'images/bed_b.png'){
-						markersS[j].setIcon('images/structMar.png');
+						markersS[j].setIcon('images/selected.png');
 					}
 				}
 			}
@@ -235,14 +235,14 @@ function Hover(){
 		function(){
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
-					if(markersA[i].icon == 'images/attrMar.png'){
+					if(markersA[i].icon == 'images/selected.png'){
 						markersA[i].setIcon('images/attraction.png');
 					}
 				}
 			}
 			for(var j = 0; j<markersS.length; j++){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
-					if(markersS[j].icon == 'images/structMar.png'){
+					if(markersS[j].icon == 'images/selected.png'){
 						markersS[j].setIcon('images/bed_b.png');
 					}
 				}
@@ -273,18 +273,22 @@ function Click(){
 			}
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
-					if(markersA[i].icon == 'images/attrMar.png'){
+					if(markersA[i].icon == 'images/selected.png'){
 						$("#ricercaA").html(markersA[i].content);
 						map.setCenter(markersA[i].position);
 					}
+				}else{
+					markersA[i].setIcon('images/attraction.png');
 				}
 			}
 			for(var j = 0; j<markersS.length; j++){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
-					if(markersS[j].icon == 'images/structMar.png'){
+					if(markersS[j].icon == 'images/selected.png'){
 						$("#ricercaS").html(markersS[j].content);
 						map.setCenter(markersS[j].position);
 					}
+				}else{
+					markersS[j].setIcon('images/bed_b.png');
 				}
 			}
 		}
@@ -298,7 +302,7 @@ function clearMarkers() {
     }
 	for (var j = 0; j < markersA.length; j++) {
 		markersA[j].setMap(null);
-	}		
+	}
 	markersS.length = 0;
 	markersA.length = 0;
     // Recreate the Markers array
@@ -393,6 +397,17 @@ function createMarker(map){
 							$(".campi_ricerca:eq(1)").css("height", "0");
 							contatori[1]=0;
 							$("#background").css("background-color","#0000ff");
+							for(var i=0; i<markersS.length; i++){
+								if(markersS[i].icon == "images/selected.png"){
+									markersS[i].setIcon('images/bed_b.png');
+								}
+							}
+							for(var j=0; j<markersA.length; j++){
+								if(markersA[j].icon == "images/selected.png"){
+									markersA[j].setIcon('images/attraction.png');
+								}
+							}
+							this.setIcon('images/selected.png');
 							if(map.getZoom() < 17){
 								map.setZoom(17);
 							}
@@ -504,6 +519,17 @@ function createMarker(map){
 							$(".campi_ricerca:eq(0)").css("height", "0");
 							contatori[0]=0;
 							$("#background").css("background-color","red");
+							for(var i=0; i<markersS.length; i++){
+								if(markersS[i].icon == "images/selected.png"){
+									markersS[i].setIcon('images/bed_b.png');
+								}
+							}
+							for(var j=0; j<markersA.length; j++){
+								if(markersA[j].icon == "images/selected.png"){
+									markersA[j].setIcon('images/attraction.png');
+								}
+							}
+							this.setIcon('images/selected.png');
 							if(map.getZoom() < 17){
 								map.setZoom(17);
 							}

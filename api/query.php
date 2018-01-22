@@ -59,13 +59,12 @@ if(isset($_REQUEST['category']))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
 		//var_dump($query);
 		$options = array('sort' => array('name' => 1));
-		$result=iterator_to_array($collection->find($query));//
-		//$result=iterator_to_array($collection->find($query, $options));
+		//$result=iterator_to_array($collection->find($query));//
+		$result=iterator_to_array($collection->find($query, $options));
 		for($i=0; $i<count($result); $i++){
 			foreach($result[$i] as $k=>$v){
 				if($k=="number of stars"){
-					$result[$i]["number of stars stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
-					//unset($result[$i][$k]);
+					$result[$i]["number of stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
 				}
 				if($k=="lat"){
 					if (strpos($v, '.') !== false) {
