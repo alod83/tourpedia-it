@@ -8,7 +8,7 @@ $ini_array = parse_ini_file("../update/config.ini", true);
 
 function exists_field($field)
 {
-	$bool = $field === 'true' ? true: false;
+	$bool = $field === 'false' ? false: true;
 	return array('$exists' => $bool);
 }
 

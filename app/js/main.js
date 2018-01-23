@@ -67,9 +67,9 @@ function Unique(inputArray){
 //Al click del tasto X della scheda delle STRUTTURE, la scheda si chiude e ricompare la lista di strutture ricercata
 function ChiudiS(){
 	$("#ricercaS").html(ResultsS);
-	for(var i = 0; i<markersS.length; i++){
-		if(markersS[i].icon == 'images/selected.png'){
-			markersS[i].setIcon('images/bed_b.png');
+	for(var z = 0; z<markersS.length; z++){
+		if(markersS[z].icon == 'images/selected.png'){
+			markersS[z].setIcon('images/bed_b.png');
 		}
 	}
 	Hover();
@@ -86,12 +86,12 @@ function ChiudiS(){
 	listObj = new List('ricercaS', options);
 	if(paginaS == 1){
 		listObj.show(1,6);
-	}else{
+	}else if(paginaS != 1){
 		listObj.show((paginaS-1)*7-(paginaS-2),6);
 	}
 	if(markersS.length <= listObj.page){
 		document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "none";
-	}else{
+	}else if(markersS.length > listObj.page){
 		document.getElementById("ricercaS").getElementsByClassName("pagination")[0].style.display = "block";
 	}
 	var res = document.getElementById("ricercaS").getElementsByClassName("list")[0].getElementsByClassName("result");
@@ -119,9 +119,9 @@ function ChiudiS(){
 //Al click del tasto X della scheda delle ATTRAZIONI, la scheda si chiude e ricompare la lista di attrazioni ricercata
 function ChiudiA(){
 	$("#ricercaA").html(ResultsA);
-	for(var i = 0; i<markersA.length; i++){
-		if(markersA[i].icon == 'images/selected.png'){
-			markersA[i].setIcon('images/attraction.png');
+	for(var j = 0; j<markersA.length; j++){
+		if(markersA[j].icon == 'images/selected.png'){
+			markersA[j].setIcon('images/attraction.png');
 		}
 	}
 	Hover();
@@ -138,12 +138,12 @@ function ChiudiA(){
 	listObj2 = new List('ricercaA', options);
 	if(paginaA == 1){
 		listObj2.show(1,6);
-	}else{
+	}else if (paginaA != 1){
 		listObj2.show((paginaA-1)*7-(paginaA-2),6);
 	}
 	if(markersA.length <= listObj2.page){
 		document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "none";
-	}else{
+	}else if(markersA.length > listObj2.page){
 		document.getElementById("ricercaA").getElementsByClassName("pagination")[0].style.display = "block";
 	}
 	var res = document.getElementById("ricercaA").getElementsByClassName("list")[0].getElementsByClassName("result");
@@ -383,6 +383,20 @@ function createMarker(map){
 						google.maps.event.addListener(marker, 'click', function(event) {
 							/*infowindow.setContent(this.content);
 							infowindow.open(map, this);*/
+							if($("#ricercaS").html() !== ""){
+								if(document.getElementById("ricercaS").firstChild.className == "list"){
+									if(document.getElementById("ricercaS").getElementsByClassName("list")[0].innerHTML !== ""){
+										paginaS = parseInt(document.getElementById("ricercaS").getElementsByClassName("pagination")[0].getElementsByClassName("active")[0].getElementsByClassName("page")[0].innerHTML);
+									}
+								}
+							}
+							if($("#ricercaA").html() !== ""){
+								if(document.getElementById("ricercaA").firstChild.className == "list"){
+									if(document.getElementById("ricercaA").getElementsByClassName("list")[0].innerHTML !== ""){
+										paginaA = parseInt(document.getElementById("ricercaA").getElementsByClassName("pagination")[0].getElementsByClassName("active")[0].getElementsByClassName("page")[0].innerHTML);
+									}
+								}
+							}
 							$("#ricercaS").html(this.content);
 							$(".navigation").removeClass("out");
 							$('.navigation').css('left','0');
@@ -505,6 +519,20 @@ function createMarker(map){
 						google.maps.event.addListener(marker, 'click', function(event) {
 							//infowindow.setContent(this.content);
 							//infowindow.open(map, this);
+							if($("#ricercaS").html() !== ""){
+								if(document.getElementById("ricercaS").firstChild.className == "list"){
+									if(document.getElementById("ricercaS").getElementsByClassName("list")[0].innerHTML !== ""){
+										paginaS = parseInt(document.getElementById("ricercaS").getElementsByClassName("pagination")[0].getElementsByClassName("active")[0].getElementsByClassName("page")[0].innerHTML);
+									}
+								}
+							}
+							if($("#ricercaA").html() !== ""){
+								if(document.getElementById("ricercaA").firstChild.className == "list"){
+									if(document.getElementById("ricercaA").getElementsByClassName("list")[0].innerHTML !== ""){
+										paginaA = parseInt(document.getElementById("ricercaA").getElementsByClassName("pagination")[0].getElementsByClassName("active")[0].getElementsByClassName("page")[0].innerHTML);
+									}
+								}
+							}
 							$("#ricercaA").html(this.content);
 							$(".navigation").removeClass("out");
 							$('.navigation').css('left','0');
@@ -736,6 +764,17 @@ $(document).ready(function() {
 					if(res[i].id==markersS[j].title.replace(/ /g,"_")){
 					var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
 					anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersS[j].getPosition().lat()+","+markersS[j].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
+					}
+				}
+			}
+		});
+		listObj2.on('updated', function(listObj2) {
+			var res = document.getElementById("ricercaA").getElementsByClassName("list")[0].getElementsByClassName("result");
+			for(var i=0; i<res.length; i++){
+				for(var z=0; z<markersA.length; z++){
+					if(res[i].id==markersA[z].title.replace(/ /g,"_")){
+						var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
+						anteprima.innerHTML = "<img src='https://maps.googleapis.com/maps/api/streetview?size=80x92&location="+markersA[z].getPosition().lat()+","+markersA[z].getPosition().lng()+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'>";
 					}
 				}
 			}
