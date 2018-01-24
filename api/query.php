@@ -92,6 +92,7 @@ if(isset($_REQUEST['category']))
 				if($k=="region"){
 					if($v=="Trentino"){
 						$result[$i]["region"]="Trentino-Alto Adige";
+						$result[$i]["country"]="Italy";
 					}
 					if($v=="Lombardia"){
 						if($category == "attraction"){

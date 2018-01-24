@@ -9,13 +9,146 @@ var markerClusterS = null;
 var markerClusterA = null;
 var paginaS = 1;
 var paginaA = 1;
+var infowindowF;
+var infowindowI;
+var infowindowE;
 /*INIZIALIZZO LA MAPPA*/
 function inizializza(){
 	map = new google.maps.Map(document.getElementById('map'), {
-	  center: {lat: 42.0, lng: 12.0},
-	  zoom: 6,
+	  center: {lat: 43.194351, lng: 6.240234},
+	  zoom: 5,
 	  mapTypeControl: false,
-	  fullscreenControl: false
+	  fullscreenControl: false,
+	  styles: [
+		  {
+			"featureType": "administrative.land_parcel",
+			"elementType": "labels",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi",
+			"elementType": "labels.text",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.business",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "road",
+			"elementType": "labels.icon",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "road.local",
+			"elementType": "labels",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "transit",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  }
+		]
+	});
+	/*SUGGERIMENTI RICERCA TESTUALE e POPUP*/
+	$( function() {
+		$.ajaxSetup({
+			async: false
+		});
+		var markerF = new google.maps.Marker({
+          position: {lat: 46.227638, lng: 2.213749 },
+          map: map,
+		  icon: "images/null.png",
+          title: 'Francia'
+        });
+		var markerI = new google.maps.Marker({
+          position: {lat: 41.871940, lng: 12.56738 },
+          map: map,
+		  icon: "images/null.png",
+          title: 'Italia'
+        });
+		var markerE = new google.maps.Marker({
+          position: {lat: 40.463667, lng: -3.74922 },
+          map: map,
+		  icon: "images/null.png",
+          title: 'Spagna'
+        });
+		var Francia=new Array(0,0);
+		var Italia=new Array(0,0);
+		var Spagna=new Array(0,0);
+		var Tags = new Array();
+		$.getJSON("../api/query.php?category=accommodation", function (data) {
+			for(var i=0; i<data.length; i++){
+				if(data[i].latitude && data[i].longitude){
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
+					if(data[i].country == "France"){
+						Francia[0]+=1;
+					}else if(data[i].country == "Italy"){
+						Italia[0]+=1;
+					}else{
+						Spagna[0]+=1;
+					}
+				}		
+			}
+		});
+		$.getJSON("../api/query.php?category=attraction", function (data) {
+			for(var i=0; i<data.length; i++){
+				if(data[i].latitude && data[i].longitude){
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
+					Italia[1]+=1;
+				}
+			}
+		});
+		infowindowF = new google.maps.InfoWindow({ 
+			content: "<h1>Francia</h1><div><img class='icons' src='images/structure.png'><p class='infoscheda'> Strutture: "+Francia[0]+"</p></br><img class='icons' src='images/attr.png'><p class='infoscheda'> Attrazioni: "+Francia[1]+"</p></div>",
+		});
+		infowindowI = new google.maps.InfoWindow({ 
+			content: "<h1>Italia</h1><div><img class='icons' src='images/structure.png'><p class='infoscheda'> Strutture: "+Italia[0]+"</p></br><img class='icons' src='images/attr.png'><p class='infoscheda'> Attrazioni: "+Italia[1]+"</p></div>",
+		});
+		infowindowE = new google.maps.InfoWindow({
+			content: "<h1>Spagna</h1><div><img class='icons' src='images/structure.png'><p class='infoscheda'> Strutture: "+Spagna[0]+"</p></br><img class='icons' src='images/attr.png'><p class='infoscheda'> Attrazioni: "+Spagna[1]+"</p></div>",
+		});
+		infowindowI.open(map, markerI);
+		infowindowF.open(map, markerF);
+		infowindowE.open(map, markerE);
+		var availableTags = Unique(Tags);
+		$( "#ricerca_luogo" ).autocomplete({
+			minLength: 2,
+			source: function(req, responseFn) {
+				var re = $.ui.autocomplete.escapeRegex(req.term);
+				var matcher = new RegExp( "^" + re, "i" );
+				var a = $.grep( availableTags, function(item,index){
+					return matcher.test(item);
+				});
+				responseFn( a );
+			}
+		});
 	});
 	/*SE ATTIVO STREETWIEW LO RENDO VISIBILE*/
 	var thePanorama = map.getStreetView();
@@ -31,7 +164,7 @@ function inizializza(){
 	markerClusterA = new MarkerClusterer(map);
 	/*MEDIA QUERY*/
 	$( window ).resize(function() {
-		$( ".open" ).css("height", ($(window).height()-186)+"px");
+		$( ".open" ).css("height", ($(window).height()-196)+"px");
 		if(contatori[contatori.length-1]==0){
 			if($("#ricercaS").html() == ""){
 				if($("#ricercaA").html() == ""){
@@ -68,7 +201,7 @@ function Unique(inputArray){
 function ChiudiS(){
 	$("#ricercaS").html(ResultsS);
 	for(var z = 0; z<markersS.length; z++){
-		if(markersS[z].icon == 'images/selected.png'){
+		if(markersS[z].icon == 'images/structure_selected.png'){
 			markersS[z].setIcon('images/bed_b.png');
 		}
 	}
@@ -120,7 +253,7 @@ function ChiudiS(){
 function ChiudiA(){
 	$("#ricercaA").html(ResultsA);
 	for(var j = 0; j<markersA.length; j++){
-		if(markersA[j].icon == 'images/selected.png'){
+		if(markersA[j].icon == 'images/attraction_selected.png'){
 			markersA[j].setIcon('images/attraction.png');
 		}
 	}
@@ -220,14 +353,14 @@ function Hover(){
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
 					if(markersA[i].icon == 'images/attraction.png'){
-						markersA[i].setIcon('images/selected.png');
+						markersA[i].setIcon('images/attraction_selected.png');
 					}
 				}
 			}
 			for(var j = 0; j<markersS.length; j++){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
 					if(markersS[j].icon == 'images/bed_b.png'){
-						markersS[j].setIcon('images/selected.png');
+						markersS[j].setIcon('images/structure_selected.png');
 					}
 				}
 			}
@@ -235,14 +368,14 @@ function Hover(){
 		function(){
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
-					if(markersA[i].icon == 'images/selected.png'){
+					if(markersA[i].icon == 'images/attraction_selected.png'){
 						markersA[i].setIcon('images/attraction.png');
 					}
 				}
 			}
 			for(var j = 0; j<markersS.length; j++){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
-					if(markersS[j].icon == 'images/selected.png'){
+					if(markersS[j].icon == 'images/structure_selected.png'){
 						markersS[j].setIcon('images/bed_b.png');
 					}
 				}
@@ -268,12 +401,12 @@ function Click(){
 					}
 				}
 			}
-			if(map.getZoom() < 17){
-				map.setZoom(17);
+			if(map.getZoom() < 19){
+				map.setZoom(19);
 			}
 			for(var i = 0; i<markersA.length; i++){
 				if(this.id==markersA[i].title.replace(/ /g,"_")){
-					if(markersA[i].icon == 'images/selected.png'){
+					if(markersA[i].icon == 'images/attraction_selected.png'){
 						$("#ricercaA").html(markersA[i].content);
 						map.setCenter(markersA[i].position);
 					}
@@ -283,7 +416,7 @@ function Click(){
 			}
 			for(var j = 0; j<markersS.length; j++){
 				if(this.id==markersS[j].title.replace(/ /g,"_")){
-					if(markersS[j].icon == 'images/selected.png'){
+					if(markersS[j].icon == 'images/structure_selected.png'){
 						$("#ricercaS").html(markersS[j].content);
 						map.setCenter(markersS[j].position);
 					}
@@ -412,18 +545,18 @@ function createMarker(map){
 							contatori[1]=0;
 							$("#background").css("background-color","#0000ff");
 							for(var i=0; i<markersS.length; i++){
-								if(markersS[i].icon == "images/selected.png"){
+								if(markersS[i].icon == "images/structure_selected.png"){
 									markersS[i].setIcon('images/bed_b.png');
 								}
 							}
 							for(var j=0; j<markersA.length; j++){
-								if(markersA[j].icon == "images/selected.png"){
+								if(markersA[j].icon == "images/attraction_selected.png"){
 									markersA[j].setIcon('images/attraction.png');
 								}
 							}
-							this.setIcon('images/selected.png');
-							if(map.getZoom() < 17){
-								map.setZoom(17);
+							this.setIcon('images/structure_selected.png');
+							if(map.getZoom() < 19){
+								map.setZoom(19);
 							}
 							map.setCenter(this.position);
 						});
@@ -548,18 +681,18 @@ function createMarker(map){
 							contatori[0]=0;
 							$("#background").css("background-color","red");
 							for(var i=0; i<markersS.length; i++){
-								if(markersS[i].icon == "images/selected.png"){
+								if(markersS[i].icon == "images/structure_selected.png"){
 									markersS[i].setIcon('images/bed_b.png');
 								}
 							}
 							for(var j=0; j<markersA.length; j++){
-								if(markersA[j].icon == "images/selected.png"){
+								if(markersA[j].icon == "images/attraction_selected.png"){
 									markersA[j].setIcon('images/attraction.png');
 								}
 							}
-							this.setIcon('images/selected.png');
-							if(map.getZoom() < 17){
-								map.setZoom(17);
+							this.setIcon('images/attraction_selected.png');
+							if(map.getZoom() < 19){
+								map.setZoom(19);
 							}
 							map.setCenter(this.position);
 						});
@@ -596,6 +729,9 @@ $(document).ready(function() {
 	$("#ricerca_luogo").keypress(function(e) {
 		if (e.keyCode == 13){
 			e.preventDefault();
+			infowindowI.setMap(null);
+			infowindowE.setMap(null);
+			infowindowF.setMap(null);
 			$('#ui-id-1').fadeOut();
 			insertResult();
 			clearMarkers();
@@ -708,6 +844,9 @@ $(document).ready(function() {
 	/*CREO L'EVENTO DELLA RICERCA TESTUALE*/
 	$("#cerca").click(function(event) {
 		event.preventDefault();
+		infowindowI.setMap(null);
+		infowindowE.setMap(null);
+		infowindowF.setMap(null);
 		$('#ui-id-1').fadeOut();
 		insertResult();
 		clearMarkers();
@@ -837,13 +976,11 @@ $(document).ready(function() {
 	/*AL CLICK DEL TASTO INDICATO DALLA FRECCIA, APRO E CHIUDO IL DIV DI NAVIGAZIONE*/
 	$("#tasto").click(function(){
 		if(contatori[contatori.length-1]==0){
-			console.log("miao");
 			$(".navigation").removeClass("out");
 			$('.navigation').css('left','0');
 			$('#arrow').attr("src","images/left arrow.svg");
 			contatori[contatori.length-1]=1;
 		}else if(contatori[contatori.length-1]==1){
-			console.log("ciao");
 			$(".navigation").css("left", "-"+($(".navigation").width())+"px");
 			$('#arrow').attr("src","images/right arrow.svg");
 			contatori[contatori.length-1]=0;
@@ -928,40 +1065,5 @@ $(document).ready(function() {
 				}
 			}
 		}
-	});
-	/*SUGGERIMENTI RICERCA TESTUALE*/
-	$( function() {
-		$.ajaxSetup({
-			async: false
-		});
-		var Tags=new Array();
-		$.getJSON("../api/query.php?category=accommodation", function (data) {
-			for(var i=0; i<data.length; i++){
-				if(data[i].latitude && data[i].longitude){
-					Tags.push(data[i].region);
-					Tags.push(data[i].city);
-				}
-			}
-		});
-		$.getJSON("../api/query.php?category=attraction", function (data) {
-			for(var i=0; i<data.length; i++){
-				if(data[i].latitude && data[i].longitude){
-					Tags.push(data[i].region);
-					Tags.push(data[i].city);
-				}
-			}
-		});
-		var availableTags = Unique(Tags);
-		$( "#ricerca_luogo" ).autocomplete({
-			minLength: 2,
-			source: function(req, responseFn) {
-				var re = $.ui.autocomplete.escapeRegex(req.term);
-				var matcher = new RegExp( "^" + re, "i" );
-				var a = $.grep( availableTags, function(item,index){
-					return matcher.test(item);
-				});
-				responseFn( a );
-			}
-		});
 	});
 });
