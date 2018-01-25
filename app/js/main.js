@@ -79,6 +79,37 @@ function inizializza(){
 		$.ajaxSetup({
 			async: false
 		});
+		var Tags = new Array();
+		$.getJSON("../api/query.php?category=accommodation", function (data) {
+			for(var i=0; i<data.length; i++){
+				if(data[i].latitude && data[i].longitude){
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
+				}		
+			}
+		});
+		$.getJSON("../api/query.php?category=attraction", function (data) {
+			for(var i=0; i<data.length; i++){
+				if(data[i].latitude && data[i].longitude){
+					Tags.push(data[i].region);
+					Tags.push(data[i].city);
+				}
+			}
+		});
+		var availableTags = Unique(Tags);
+		$( "#ricerca_luogo" ).autocomplete({
+			minLength: 2,
+			source: function(req, responseFn) {
+				var re = $.ui.autocomplete.escapeRegex(req.term);
+				var matcher = new RegExp( "^" + re, "i" );
+				var a = $.grep( availableTags, function(item,index){
+					return matcher.test(item);
+				});
+				responseFn( a );
+			}
+		});
+	});
+	$( function(){
 		var markerF = new google.maps.Marker({
           position: {lat: 46.227638, lng: 2.213749 },
           map: map,
@@ -100,30 +131,23 @@ function inizializza(){
 		var Francia=new Array(0,0);
 		var Italia=new Array(0,0);
 		var Spagna=new Array(0,0);
-		var Tags = new Array();
-		$.getJSON("../api/query.php?category=accommodation", function (data) {
-			for(var i=0; i<data.length; i++){
-				if(data[i].latitude && data[i].longitude){
-					Tags.push(data[i].region);
-					Tags.push(data[i].city);
-					if(data[i].country == "France"){
-						Francia[0]+=1;
-					}else if(data[i].country == "Italy"){
-						Italia[0]+=1;
-					}else{
-						Spagna[0]+=1;
-					}
-				}		
-			}
+		$.getJSON("../api/count.php?category=accommodation&country=France", function (data) {
+			Francia[0] = data;
 		});
-		$.getJSON("../api/query.php?category=attraction", function (data) {
-			for(var i=0; i<data.length; i++){
-				if(data[i].latitude && data[i].longitude){
-					Tags.push(data[i].region);
-					Tags.push(data[i].city);
-					Italia[1]+=1;
-				}
-			}
+		$.getJSON("../api/count.php?category=attraction&country=France", function (data) {
+			Francia[1] = data;
+		});
+		$.getJSON("../api/count.php?category=accommodation&country=Italy", function (data) {
+			Italia[0] = data;
+		});
+		$.getJSON("../api/count.php?category=attraction&country=Italy", function (data) {
+			Italia[1] = data;
+		});
+		$.getJSON("../api/count.php?category=accommodation&country=Spain", function (data) {
+			Spagna[0] = data;
+		});
+		$.getJSON("../api/count.php?category=attraction&country=Spain", function (data) {
+			Spagna[1] = data;
 		});
 		infowindowF = new google.maps.InfoWindow({ 
 			content: "<h1>Francia</h1><div><img class='icons' src='images/structure.png'><p class='infoscheda'> Strutture: "+Francia[0]+"</p></br><img class='icons' src='images/attr.png'><p class='infoscheda'> Attrazioni: "+Francia[1]+"</p></div>",
@@ -137,18 +161,6 @@ function inizializza(){
 		infowindowI.open(map, markerI);
 		infowindowF.open(map, markerF);
 		infowindowE.open(map, markerE);
-		var availableTags = Unique(Tags);
-		$( "#ricerca_luogo" ).autocomplete({
-			minLength: 2,
-			source: function(req, responseFn) {
-				var re = $.ui.autocomplete.escapeRegex(req.term);
-				var matcher = new RegExp( "^" + re, "i" );
-				var a = $.grep( availableTags, function(item,index){
-					return matcher.test(item);
-				});
-				responseFn( a );
-			}
-		});
 	});
 	/*SE ATTIVO STREETWIEW LO RENDO VISIBILE*/
 	var thePanorama = map.getStreetView();
