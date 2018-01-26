@@ -2,9 +2,9 @@
 var map;
 var ResultsS="";
 var ResultsA="";
-var markersS = new Array();
-var markersA = new Array();
-var contatori = new Array();
+var markersS = [];
+var markersA = [];
+var contatori = [];
 var markerClusterS = null;
 var markerClusterA = null;
 var paginaS = 1;
@@ -79,8 +79,9 @@ function inizializza(){
 		$.ajaxSetup({
 			async: false
 		});
-		var Tags = new Array();
-		$.getJSON("../api/query.php?category=accommodation", function (data) {
+		var Tags = [];
+		$.getJSON("../api/query.php?category=accommodation", function (result) {
+			var data = $.map(result, function(el) { return el });
 			for(var i=0; i<data.length; i++){
 				if(data[i].latitude && data[i].longitude){
 					Tags.push(data[i].region);
@@ -88,7 +89,8 @@ function inizializza(){
 				}		
 			}
 		});
-		$.getJSON("../api/query.php?category=attraction", function (data) {
+		$.getJSON("../api/query.php?category=attraction", function (result) {
+			var data = $.map(result, function(el) { return el });
 			for(var i=0; i<data.length; i++){
 				if(data[i].latitude && data[i].longitude){
 					Tags.push(data[i].region);
@@ -131,22 +133,28 @@ function inizializza(){
 		var Francia=new Array(0,0);
 		var Italia=new Array(0,0);
 		var Spagna=new Array(0,0);
-		$.getJSON("../api/count.php?category=accommodation&country=France", function (data) {
+		$.getJSON("../api/count.php?category=accommodation&country=France", function (result) {
+			var data = Number(result);
 			Francia[0] = data;
 		});
-		$.getJSON("../api/count.php?category=attraction&country=France", function (data) {
+		$.getJSON("../api/count.php?category=attraction&country=France", function (result) {
+			var data = Number(result);
 			Francia[1] = data;
 		});
-		$.getJSON("../api/count.php?category=accommodation&country=Italy", function (data) {
+		$.getJSON("../api/count.php?category=accommodation&country=Italy", function (result) {
+			var data = Number(result);
 			Italia[0] = data;
 		});
-		$.getJSON("../api/count.php?category=attraction&country=Italy", function (data) {
+		$.getJSON("../api/count.php?category=attraction&country=Italy", function (result) {
+			var data = Number(result);
 			Italia[1] = data;
 		});
-		$.getJSON("../api/count.php?category=accommodation&country=Spain", function (data) {
+		$.getJSON("../api/count.php?category=accommodation&country=Spain", function (result) {
+			var data = Number(result);
 			Spagna[0] = data;
 		});
-		$.getJSON("../api/count.php?category=attraction&country=Spain", function (data) {
+		$.getJSON("../api/count.php?category=attraction&country=Spain", function (result) {
+			var data = Number(result);
 			Spagna[1] = data;
 		});
 		infowindowF = new google.maps.InfoWindow({ 
@@ -199,8 +207,8 @@ function inizializza(){
 }
 //Prende un array in input, e restuisce come output un array con gli elementi del primo, senza doppioni
 function Unique(inputArray){
-    var temporaryArray = new Array();
-	var outputArray = new Array();
+    var temporaryArray = [];
+	var outputArray = [];
     for (var i = 0; i < inputArray.length; i++){
 		temporaryArray[inputArray[i]] = true;
 	}
@@ -323,7 +331,8 @@ function insertResult(){
 		url+=place;
 	}
 	ResultsS = "<ul class='list'>";
-	$.getJSON(url, function (data) {
+	$.getJSON(url, function (result) {
+		var data = $.map(result, function(el) { return el });
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
 				var stringa="";
@@ -340,7 +349,8 @@ function insertResult(){
 	ResultsS += "</ul><ul class='pagination'></ul>";
 	$("#ricercaS").html(ResultsS);
 	ResultsA = "<ul class='list'>";
-	$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
+	$.getJSON("../api/query.php?category=attraction&place="+place, function (result) {
+		var data = $.map(result, function(el) { return el });
 		for (i=0; i<data.length; i++){
 			if(data[i].latitude && data[i].longitude){
 				var stringa="";
@@ -464,9 +474,9 @@ function createMarker(map){
 		}else{
 			url+=place;
 		}
-		$.getJSON(url, function (data) {
+		$.getJSON(url, function (result) {
+			var data = $.map(result, function(el) { return el });
 			if(data.length != 0){
-				/*var correctData=0;*/
 				for (i=0; i<data.length; i++){
 					if(data[i].latitude && data[i].longitude){
 						if(place==data[i].region){
@@ -589,7 +599,8 @@ function createMarker(map){
 				$("#ns").html("(Nessun risultato trovato)");
 			}
 		});
-		$.getJSON("../api/query.php?category=attraction&place="+place, function (data) {
+		$.getJSON("../api/query.php?category=attraction&place="+place, function (result) {
+			var data = $.map(result, function(el) { return el });
 			if(data.length != 0){
 				for (i=0; i<data.length; i++){
 					if(data[i].latitude && data[i].longitude){
