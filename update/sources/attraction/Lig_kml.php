@@ -27,6 +27,7 @@ function Lig_kml($region,$date, $config, $nuovo, $vecchio){
 					$document['_id'] = $reg_acr.$row;
 					$document['description'] = $mapping['description'];
 					$document['region'] = $mapping['region'];
+					$document['country'] = 'Italy';
 					foreach($attr[0]->{'ExtendedData'}->{'SchemaData'}->{'SimpleData'} as $field){
 						$field_a = $field[0]->attributes();
 						if ((isset($field_a['name'])) && (($field_a['name']=="SITO") || ($field_a['name']=="SITO_INTERNET"))){$document['url']=(string)($field[0]);}

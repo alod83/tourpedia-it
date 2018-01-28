@@ -12,6 +12,7 @@ function Trentino_4($date, $config, $nuovo, $vecchio){
 			$document['_id'] = "TRE4_".$row;
 			$document['description'] = 'Biblioteche';
 			$document['region'] = 'Trentino-Alto Adige';
+			$document['country'] = 'Italy';
 			if(isset($biblio[0]->{'anagrafica'}->{'nomi'}->{'attuale'})){ $document['name']= (string)($biblio[0]->{'anagrafica'}->{'nomi'}->{'attuale'});} 
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'via'})){$document['address'] = (string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'via'});}
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'cap'})){$document['postal-code'] = intval((string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'cap'}));}

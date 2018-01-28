@@ -1,5 +1,5 @@
 [Mongo]
-url 				= "mongodb://localhost:27017"
+url 					= "mongodb://localhost:27017"
 db_accommodation 	= "Strutture"
 db_attraction		= "Attrazioni"
 collection			= "NUOVO"
@@ -23,9 +23,11 @@ accommodation_list[] = "Roma"
 accommodation_list[] = "Ile-de-France"
 accommodation_list[] = "Bretagne"
 accommodation_list[] = "Auvergne-Rhône-Alpes"
-accommodation_list[] = "Bourgogne-Franche-Comté"
+; TODO completare
+;accommodation_list[] = "Bourgogne-Franche-Comté"
 accommodation_list[] = "Pays de la Loire"
-accommodation_list[] = "Provence-Alpes-Côte d Azur"
+; TODO sistemare
+;accommodation_list[] = "Provence-Alpes-Côte d Azur"
 ; Spagna
 accommodation_list[] = "Castilla y León"
 accommodation_list[] = "Región de Murcia"
@@ -62,80 +64,81 @@ accommodation_field[] = "manager"
 accommodation_field[] = "high season price"
 accommodation_field[] = "low season price"
 accommodation_field[] = "photo"
-accommodation_field[] = "chain"
 
-attraction_list[] = "Basilicata_1"
-attraction_list[] = "Basilicata_2"
-attraction_list[] = "Basilicata_3"
-attraction_list[] = "EmiliaRomagna_1"
-attraction_list[] = "EmiliaRomagna_2"
-attraction_list[] = "EmiliaRomagna_3"
-attraction_list[] = "EmiliaRomagna_4"
-attraction_list[] = "EmiliaRomagna_5"
-attraction_list[] = "EmiliaRomagna_6"
-attraction_list[] = "EmiliaRomagna_7"
-attraction_list[] = "Lazio_1"
-attraction_list[] = "Lazio_2"
-attraction_list[] = "Lazio_3"
-attraction_list[] = "Lazio_4"
-attraction_list[] = "Lazio_5"
-attraction_list[] = "Lazio_6"
-attraction_list[] = "Lazio_7"
-attraction_list[] = "Liguria_1"
-attraction_list[] = "Liguria_2"
-attraction_list[] = "Liguria_3"
-attraction_list[] = "Liguria_4"
-attraction_list[] = "Liguria_5"
-attraction_list[] = "Liguria_6"
-attraction_list[] = "Lombardia_1"
-attraction_list[] = "Lombardia_2"
-attraction_list[] = "Lombardia_3"
-attraction_list[] = "Lombardia_4"
-attraction_list[] = "Lombardia_5"
-attraction_list[] = "Lombardia_6"
-attraction_list[] = "Lombardia_7"
-attraction_list[] = "Lombardia_8"
-attraction_list[] = "Lombardia_9"
-attraction_list[] = "Marche_1"
-attraction_list[] = "Marche_2"
-attraction_list[] = "Marche_3"
-attraction_list[] = "Marche_4"
-attraction_list[] = "Piemonte_1"
-attraction_list[] = "Piemonte_2"
-attraction_list[] = "Piemonte_3"
+;attraction_list[] = "Basilicata_1"
+;attraction_list[] = "Basilicata_2"
+;attraction_list[] = "Basilicata_3"
+;attraction_list[] = "EmiliaRomagna_1"
+;attraction_list[] = "EmiliaRomagna_2"
+;attraction_list[] = "EmiliaRomagna_3"
+;attraction_list[] = "EmiliaRomagna_4"
+;attraction_list[] = "EmiliaRomagna_5"
+;attraction_list[] = "EmiliaRomagna_6"
+;attraction_list[] = "EmiliaRomagna_7"
+;attraction_list[] = "Lazio_1"
+;attraction_list[] = "Lazio_2"
+;attraction_list[] = "Lazio_3"
+;attraction_list[] = "Lazio_4"
+;attraction_list[] = "Lazio_5"
+;attraction_list[] = "Lazio_6"
+;attraction_list[] = "Lazio_7"
+;attraction_list[] = "Liguria_1"
+;attraction_list[] = "Liguria_2"
+;attraction_list[] = "Liguria_3"
+;attraction_list[] = "Liguria_4"
+;attraction_list[] = "Liguria_5"
+;attraction_list[] = "Liguria_6"
+;attraction_list[] = "Lombardia_1"
+;attraction_list[] = "Lombardia_2"
+;attraction_list[] = "Lombardia_3"
+;attraction_list[] = "Lombardia_4"
+;attraction_list[] = "Lombardia_5"
+;attraction_list[] = "Lombardia_6"
+;attraction_list[] = "Lombardia_7"
+;attraction_list[] = "Lombardia_8"
+;attraction_list[] = "Lombardia_9"
+;attraction_list[] = "Marche_1"
+;attraction_list[] = "Marche_2"
+;attraction_list[] = "Marche_3"
+;attraction_list[] = "Marche_4"
+;attraction_list[] = "Piemonte_1"
+;attraction_list[] = "Piemonte_2"
+;attraction_list[] = "Piemonte_3"
 ;attraction_list[] = "Piemonte_4"
-attraction_list[] = "Puglia_1"
-attraction_list[] = "Puglia_2"
-attraction_list[] = "Sardegna_1"
-attraction_list[] = "Sardegna_2"
-attraction_list[] = "Sardegna_3"
-attraction_list[] = "Sardegna_4"
-attraction_list[] = "Sardegna_5"
-attraction_list[] = "Sardegna_6"
-attraction_list[] = "Sardegna_7"
-attraction_list[] = "Sardegna_8"
-attraction_list[] = "Sardegna_9"
-attraction_list[] = "Toscana_1"
-attraction_list[] = "Toscana_2"
-attraction_list[] = "Toscana_3"
-attraction_list[] = "Toscana_4"
-attraction_list[] = "Trentino_1"
-attraction_list[] = "Trentino_2"
-attraction_list[] = "Trentino_3"
-attraction_list[] = "Trentino_4"
-attraction_list[] = "Umbria_1"
-attraction_list[] = "Umbria_2"
-attraction_list[] = "Umbria_3"
-attraction_list[] = "Umbria_4"
-attraction_list[] = "Umbria_5"
-attraction_list[] = "Umbria_6"
-attraction_list[] = "Umbria_7"
-attraction_list[] = "Umbria_8"
-attraction_list[] = "Umbria_9"
-attraction_list[] = "Umbria_10"
-attraction_list[] = "Veneto_1"
-attraction_list[] = "Veneto_2"
-attraction_list[] = "Italia"
+;attraction_list[] = "Puglia_1"
+;attraction_list[] = "Puglia_2"
+;attraction_list[] = "Sardegna_1"
+;attraction_list[] = "Sardegna_2"
+;attraction_list[] = "Sardegna_3"
+;attraction_list[] = "Sardegna_4"
+;attraction_list[] = "Sardegna_5"
+;attraction_list[] = "Sardegna_6"
+;attraction_list[] = "Sardegna_7"
+;attraction_list[] = "Sardegna_8"
+;attraction_list[] = "Sardegna_9"
+;attraction_list[] = "Toscana_1"
+;attraction_list[] = "Toscana_2"
+;attraction_list[] = "Toscana_3"
+;attraction_list[] = "Toscana_4"
+;attraction_list[] = "Trentino_1"
+;attraction_list[] = "Trentino_2"
+;attraction_list[] = "Trentino_3"
+;attraction_list[] = "Trentino_4"
+;attraction_list[] = "Umbria_1"
+;attraction_list[] = "Umbria_2"
+;attraction_list[] = "Umbria_3"
+;attraction_list[] = "Umbria_4"
+;attraction_list[] = "Umbria_5"
+;attraction_list[] = "Umbria_6"
+;attraction_list[] = "Umbria_7"
+;attraction_list[] = "Umbria_8"
+;attraction_list[] = "Umbria_9"
+;attraction_list[] = "Umbria_10"
+;attraction_list[] = "Veneto_1"
+;attraction_list[] = "Veneto_2"
+;attraction_list[] = "Italia"
+
+
 
 attraction_field[] = "region"
 attraction_field[] = "province"
@@ -173,7 +176,6 @@ attraction[description] = "Siti archeologici"
 attraction[region] = "Basilicata"
 attraction[province] = "MT"
 attraction[city] = "Matera"
-attraction[country]	= "Italy"
 
 [Basilicata_2]
 url_attraction		= "http://dati.comune.matera.it/storage/f/2014-02-22T18%3A55%3A03.355Z/beniculturalicomunali.csv"
@@ -191,7 +193,6 @@ attraction[region] = "Basilicata"
 attraction[province] = "MT"
 attraction[city] = "Matera"
 attraction[address] = 4,5
-attraction[country]	= "Italy"
 
 [Basilicata_3]
 url_attraction		= "http://dati.comune.matera.it/storage/f/2015-03-22T12%3A23%3A58.931Z/nuove-immagini-chiese-rupestri-rev0.csv"
@@ -208,7 +209,37 @@ attraction[region] = "Basilicata"
 attraction[province] = "MT"
 attraction[city] = "Matera"
 attraction[accessibility] = 4
-attraction[country]	= "Italy"
+
+[Basilicata]
+url_accommodation 	= "http://www.aptbasilicata.it/fileadmin/uploads/Documenti_vari/Servizi_turisici_Professionisti_ecc/Strutture_ricettive_sito_APT.xls"
+;Vecchia url
+;url = "http://goo.gl/Kcc49c"
+
+[EmiliaRomagna]
+url_accommodation 			= "http://dati.emilia-romagna.it/dataset/29a34fd2-3068-47c7-89cd-2995e4fac20f/resource/fdb22cba-61fb-4410-90c8-d20045807ab2/download/strutturericettive-2016-09-28.zip"
+dataset_accommodation[format] 			= ZIP
+dataset_accommodation[number of files] 	= 9
+dataset_accommodation[file format]		= CSV
+dataset_accommodation[separator]		= ";"
+dataset_attraction[encoding] = utf8
+
+accommodation[name]			= 6
+accommodation[description] 	= 5
+accommodation[address]		= 8
+accommodation[city]			= 2
+accommodation[province]		= 1
+accommodation[locality]		= 3
+accommodation[postal-code]	= 9
+accommodation[number of stars]= 7
+accommodation[email]			= 14
+accommodation[web site]		= 13
+accommodation[telephone]		= 10
+accommodation[telephone2]	= 11
+accommodation[fax]			= 12
+accommodation[latitude]		= 16
+accommodation[longitude]	= 15
+accommodation[country]		= "Italy"
+accommodation[region]		= "Emilia Romagna"
 
 [EmiliaRomagna_1]
 url_attraction		= "http://dati.comune.bologna.it/download/file/fid/3190"
@@ -228,7 +259,6 @@ attraction[image] = 2
 attraction[codistat] = 9
 attraction[address] = 10
 attraction[url] = 8
-attraction[country]	= "Italy"
 
 [EmiliaRomagna_2]
 url_attraction		= "http://dati.comune.bologna.it/download/file/fid/2644"
@@ -246,7 +276,6 @@ attraction[city] = "Bologna"
 attraction[image] = 2
 attraction[address] = 5
 attraction[url] = 3
-attraction[country]	= "Italy"
 
 [EmiliaRomagna_3]
 url_attraction		= "http://dati.comune.bologna.it/download/file/fid/3383"
@@ -265,7 +294,6 @@ attraction[city] = "Bologna"
 attraction[image] = 2
 attraction[address] = 9
 attraction[url] = 8
-attraction[country]	= "Italy"
 
 [EmiliaRomagna_4]
 url_attraction		= "http://dati.comune.bologna.it/download/file/fid/3480"
@@ -284,7 +312,6 @@ attraction[city] = "Bologna"
 attraction[image] = 1
 attraction[address] = 8
 attraction[url] = 7
-attraction[country]	= "Italy"
 
 [EmiliaRomagna_5]
 url_attraction		= "http://dati.comune.bologna.it/download/file/fid/3380"
@@ -304,7 +331,6 @@ attraction[image] = 2
 attraction[address] = 9
 attraction[url] = 7
 attraction[codistat] = 8
-attraction[country]	= "Italy"
 
 [EmiliaRomagna_6]
 url_attraction		= "http://dati.comune.bologna.it/download/file/fid/3197"
@@ -324,7 +350,6 @@ attraction[image] = 2
 attraction[address] = 11
 attraction[url] = 9
 attraction[codistat] = 1
-attraction[country]	= "Italy"
 
 [EmiliaRomagna_7]
 url_attraction = "http://dati.comune.bologna.it/download/file/fid/2846"
@@ -345,7 +370,6 @@ attraction[city] = 1
 attraction[address] = 5
 attraction[description] = 3
 attraction[telephone] = 6
-attraction[country]	= "Italy"
 
 [Lazio_2]
 url_attraction		= "http://dati.lazio.it/catalog/it/dataset/4ff54e24-d768-4e32-bdab-75752f224305/resource/3345fa82-b5bd-4f0b-9aae-9780b794d2d8/download/salecinematografiche2013.csv"
@@ -363,7 +387,6 @@ attraction[city] = 1
 attraction[address] = 6
 attraction[description] = 3
 attraction[telephone] = 7
-attraction[country]	= "Italy"
 
 [Lazio_3]
 url_attraction		= "http://dati.lazio.it/catalog/it/dataset/4ff54e24-d768-4e32-bdab-75752f224305/resource/df172146-7580-4bde-8dce-d92482b107cf/download/cinemateatro2013.csv"
@@ -381,7 +404,6 @@ attraction[city] = 1
 attraction[address] = 5
 attraction[description] = 3
 attraction[telephone] = 6
-attraction[country]	= "Italy"
 
 [Lazio_4]
 url_attraction		= "http://dati.lazio.it/catalog/it/dataset/4ff54e24-d768-4e32-bdab-75752f224305/resource/07e1c4d0-ec8a-4ee5-b6c1-e562dd007249/download/multisala2013.csv"
@@ -399,7 +421,6 @@ attraction[province] = 0<province
 attraction[city] = 1
 attraction[address] = 5
 attraction[telephone] = 6
-attraction[country]	= "Italy"
 
 [Lazio_5]
 url_attraction		= "http://dati.lazio.it/catalog/it/dataset/64281dd7-2222-4513-bdb7-0061c5d8cd25/resource/25f320a5-ee4f-486c-a8e7-408733c606c5/download/elencomusei20141.csv"
@@ -421,7 +442,6 @@ attraction[postal-code] = 12
 attraction[fax] = 14
 attraction[email] = 15
 attraction[url] = 16
-attraction[country]	= "Italy"
 
 [Lazio_6]
 url_attraction		= "http://dati.lazio.it/catalog/it/dataset/64281dd7-2222-4513-bdb7-0061c5d8cd25/resource/eb98bb58-3d7e-46b4-a6d2-305054ed8cc5/download/elencobibliotechelazio20142b.csv"
@@ -444,7 +464,6 @@ attraction[postal-code] = 9
 attraction[fax] = 13
 attraction[email] = 14
 attraction[url] = 15
-attraction[country]	= "Italy"
 
 [Lazio_7]
 url_attraction		= "http://dati.lazio.it/catalog/it/dataset/d2c9dfdb-51af-4faf-bdd2-52ce662e63d8/resource/b4950fa1-75a7-4324-aa4c-f04e7cde04e9/download/censimentodeglispazidipubblicospettacolo2.csv"
@@ -464,49 +483,42 @@ attraction[address] = 3
 attraction[category] = 23
 attraction[postal-code] = 4
 attraction[accessibility] = 7
-attraction[country]	= "Italy"
 
 [Liguria_1]
 url_attraction = "http://cartodownloadpubb.regione.liguria.it/webpubb/geoservices/download/repository_pubb//79866/Teatri.zip"
 
 attraction[description] = "Teatri"
 attraction[region] = "Liguria"
-attraction[country]	= "Italy"
 
 [Liguria_2]
 url_attraction = "http://cartodownloadpubb.regione.liguria.it/webpubb/geoservices/download/repository_pubb//79867/Siti_Archeologici.zip"
 
 attraction[description] = "Siti archeologici"
 attraction[region] = "Liguria"
-attraction[country]	= "Italy"
 
 [Liguria_3]
 url_attraction = "http://cartodownloadpubb.regione.liguria.it/webpubb/geoservices/download/repository_pubb//79868/Musei.zip"
 
 attraction[description] = "Musei"
 attraction[region] = "Liguria"
-attraction[country]	= "Italy"
 
 [Liguria_4]
 url_attraction = "http://cartodownloadpubb.regione.liguria.it/webpubb/geoservices/download/repository_pubb//79869/Gallerie_d_arte.zip"
 
 attraction[description] = "Gallerie d'arte"
 attraction[region] = "Liguria"
-attraction[country]	= "Italy"
 
 [Liguria_5]
 url_attraction = "http://cartodownloadpubb.regione.liguria.it/webpubb/geoservices/download/repository_pubb//79870/Borghi_Storici.zip"
 
 attraction[description] = "Borghi storici"
 attraction[region] = "Liguria"
-attraction[country]	= "Italy"
 
 [Liguria_6]
 url_attraction = "http://cartodownloadpubb.regione.liguria.it/webpubb/geoservices/download/repository_pubb//79871/Giardini.zip"
 
 attraction[description] = "Giardini"
 attraction[region] = "Liguria"
-attraction[country]	= "Italy"
 
 
 
@@ -534,7 +546,6 @@ attraction[url] = 12
 attraction[accessibility] = 17
 attraction[entrance] = 43
 attraction[opening hours] = 21
-attraction[country]	= "Italy"
 
 [Lombardia_2]
 url_attraction		= "https://www.dati.lombardia.it/api/views/k2xm-fcgg/rows.csv?accessType=DOWNLOAD"
@@ -546,16 +557,16 @@ dataset_attraction[lastmodified] = 8
 
 attraction[description] = "Biblioteche"
 attraction[region] = "Lombardia"
-attraction[province] = 3
-attraction[city] = 2
-attraction[address] = 5,6,7
+attraction[province] = 5
+attraction[city] = 4
+attraction[address] = 2
 attraction[name] = 1
-attraction[postal-code] = 4
-attraction[telephone] = 8
-attraction[email] = 9
-attraction[url] = 10
+attraction[postal-code] = 3
+attraction[telephone] = 6
+attraction[fax] = 7
+attraction[email] = 8
+attraction[url] = 9
 attraction[opening hours] = 24-65
-attraction[country]	= "Italy"
 
 [Lombardia_3]
 url_attraction		= "https://www.dati.lombardia.it/api/views/q9ef-6jgc/rows.csv?accessType=DOWNLOAD"
@@ -575,7 +586,6 @@ attraction[email] = 10
 attraction[url] = 11
 attraction[lat] = 13
 attraction[lon] = 12
-attraction[country]	= "Italy"
 
 [Lombardia_4]
 url_attraction		= "https://www.dati.lombardia.it/api/views/4mr7-hfsh/rows.csv?accessType=DOWNLOAD"
@@ -597,7 +607,6 @@ attraction[opening hours] = 15
 attraction[url] = 16
 attraction[lat] = 35
 attraction[lon] = 36
-attraction[country]	= "Italy"
 
 [Lombardia_5]
 url_attraction		= "https://www.dati.lombardia.it/api/views/5dhz-9ubp/rows.csv?accessType=DOWNLOAD"
@@ -616,7 +625,6 @@ attraction[address] = 2
 attraction[telephone] = 3<tel
 attraction[url] = 5
 attraction[email] = 4
-attraction[country]	= "Italy"
 
 [Lombardia_6]
 url_attraction		= "https://www.dati.lombardia.it/api/views/4kkk-xzn5/rows.csv?accessType=DOWNLOAD"
@@ -635,7 +643,6 @@ attraction[address] = 2
 attraction[telephone] = 5or6
 attraction[url] = 7
 attraction[email] = 3or4
-attraction[country]	= "Italy"
 
 [Lombardia_7]
 url_attraction		= "https://www.dati.lombardia.it/api/views/cq9n-g2b3/rows.csv?accessType=DOWNLOAD"
@@ -655,7 +662,6 @@ attraction[address] = 2
 attraction[telephone] = 3
 attraction[url] = 5
 attraction[email] = 4
-attraction[country]	= "Italy"
 
 [Lombardia_8]
 url_attraction		= "https://www.dati.lombardia.it/api/views/sd8x-w4h3/rows.csv?accessType=DOWNLOAD"
@@ -676,7 +682,6 @@ attraction[telephone] = 5or6
 attraction[url] = 9
 attraction[email] = 8
 attraction[fax] = 7
-attraction[country]	= "Italy"
 
 [Lombardia_9]
 url_attraction		= "https://www.dati.lombardia.it/api/views/haxp-4dkd/rows.csv?accessType=DOWNLOAD"
@@ -692,8 +697,7 @@ attraction[codistat] = 2
 attraction[city] = 3
 attraction[address] = 5
 attraction[lat] = 12
-attraction[lon] = 13
-attraction[country]	= "Italy"
+attraction[lon] = 11
 
 [Marche_1]
 url_attraction= "http://goodpa.regione.marche.it/dataset/d8444ecf-586c-4410-9a78-f24fcf938822/resource/4b48dfbf-59a6-40a6-8be1-3c3aaa6e30e7/download/8poisettembre.xls"
@@ -715,7 +719,6 @@ attraction[image] = 14
 attraction[description] = "Punti di interesse turistico"
 attraction[category]= 2
 attraction[region]= "Marche"
-attraction[country]	= "Italy"
 
 
 [Marche_2]
@@ -733,7 +736,6 @@ attraction[longitude] = 8
 attraction[category] = 9
 attraction[description] = "Locali storici"
 attraction[region] = "Marche"
-attraction[country]	= "Italy"
 
 [Marche_3]
 url_attraction= "http://goodpa.regione.marche.it/dataset/22e82da2-a4d1-4e83-928d-e384b85da978/resource/0155710f-f2b6-412d-a138-1db184c7c3ab/download/biblioteche.xls"
@@ -754,7 +756,6 @@ attraction[latitude] = 14
 attraction[longitude] = 15
 attraction[description] = "Biblioteche"
 attraction[region] = "Marche"
-attraction[country]	= "Italy"
 
 [Marche_4]
 url_attraction= "http://goodpa.regione.marche.it/dataset/b8c4dfa8-a0ab-46b6-b078-3def5bbe6d35/resource/cd75ebf3-809e-475e-b91e-0b3e6fe07ad6/download/musei.xls"
@@ -777,7 +778,6 @@ attraction[entrance] = 18
 attraction[image]= 19
 attraction[description] = "Musei"
 attraction[region] = "Marche"
-attraction[country]	= "Italy"
 
 
 [Piemonte_1]
@@ -801,7 +801,6 @@ attraction[city] = 24
 attraction[address] = 17,18
 attraction[lat] = 20
 attraction[lon] = 21
-attraction[country]	= "Italy"
 
 [Piemonte_2]
 url_attraction		= "http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=459"
@@ -823,7 +822,6 @@ attraction[city] = 23
 attraction[address] = 16,17
 attraction[lat] = 19
 attraction[lon] = 20
-attraction[country]	= "Italy"
 
 [Piemonte_3]
 url_attraction		= "http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=1141"
@@ -837,7 +835,6 @@ attraction[name] =3
 attraction[address] = 4,5
 attraction[description] = "Centri commerciali"
 attraction[region] = "Piemonte"
-attraction[country]	= "Italy"
 
 [Piemonte_4]
 url_attraction = "http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=806"
@@ -848,7 +845,6 @@ attraction[city]= 8
 attraction[category]= 11
 attraction[description]= "Strutture termali"
 attraction[region]= "Piemonte"
-attraction[country]	= "Italy"
 
 
 [Puglia_1]
@@ -873,7 +869,6 @@ attraction[image] = 17or19or21
 attraction[category] = 2
 attraction[description] = "Luoghi di interesse turistico, culturale, naturalistico"
 attraction[region] = "Puglia"
-attraction[country]	= "Italy"
 
 [Puglia_2]
 url_attraction		= "http://www.dataset.puglia.it/dataset/ad9df93d-46fc-4486-83d0-f62cd3845e60/resource/bc957644-7994-47f9-942d-2ce6a600cc45/download/stabilimentibalneari.csv"
@@ -897,7 +892,6 @@ attraction[province] = 13<province
 attraction[codistat] = 14
 attraction[image] = 15
 attraction[region] = "Puglia"
-attraction[country]	= "Italy"
 
 [Sardegna_1]
 url_attraction		= "http://webgis2.regione.sardegna.it:80/geoserver/dbu/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=dbu:IDT_OP08V_POI_EXPORT&outputFormat=CSV"
@@ -912,7 +906,6 @@ attraction[url] = 6
 attraction[address] = 7
 attraction[latitude] = 5<lon
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_2]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:nuraghi&maxFeatures=7719&outputFormat=csv"
@@ -925,7 +918,6 @@ attraction[category] = 2
 attraction[description] = "Nuraghi"
 attraction[latitude] = 8<lon
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_3]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:menhir&maxFeatures=7000&outputFormat=csv"
@@ -940,7 +932,6 @@ attraction[description] = "Menhir"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_4]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:domus&maxFeatures=7000&outputFormat=csv"
@@ -955,7 +946,6 @@ attraction[description] = "Domus de janas"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_5]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:tombe&maxFeatures=7000&outputFormat=csv"
@@ -970,7 +960,6 @@ attraction[description] = "Tombe dei giganti"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_6]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:dolmen&maxFeatures=7000&outputFormat=csv"
@@ -985,7 +974,6 @@ attraction[description] = "Dolmen"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_7]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:villaggi&maxFeatures=7000&outputFormat=csv"
@@ -1000,7 +988,6 @@ attraction[description] = "Villaggi"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_8]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:acqua&maxFeatures=7000&outputFormat=csv"
@@ -1015,7 +1002,6 @@ attraction[description] = "Culto dell'acqua"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 [Sardegna_9]
 url_attraction		= "http://nurnet.crs4.it/geoserver/nurnet/ows?service=WFS&srsName=EPSG:4326&version=1.1.0&request=GetFeature&typeName=nurnet:altro&maxFeatures=7000&outputFormat=csv"
@@ -1030,7 +1016,6 @@ attraction[description] = "Unicum e tafoni"
 attraction[latitude] = 13<lon
 attraction[url] = 12<url
 attraction[region] = "Sardegna"
-attraction[country]	= "Italy"
 
 
 [Toscana_1]
@@ -1046,7 +1031,6 @@ attraction[province] = 6
 attraction[lat] = 2
 attraction[lon] = 1
 attraction[region] = "Toscana"
-attraction[country]	= "Italy"
 
 [Toscana_2]
 url_attraction		= "http://mappe.regione.toscana.it/db-webgis/luoghispettacolo/example_postgis.jsp?format=csv&_ga=2.262320655.261920716.1495633157-701941840.1495028728"
@@ -1063,7 +1047,6 @@ attraction[province] = 6
 attraction[category] = 8
 attraction[description] = "Luoghi dello spettacolo"
 attraction[region] = "Toscana"
-attraction[country]	= "Italy"
 
 [Toscana_3]
 url_attraction		= "http://mappe.regione.toscana.it/db-webgis/musei/example_postgis.jsp?format=csv&_ga=2.83957593.1351149729.1495633667-701941840.1495028728"
@@ -1080,14 +1063,12 @@ attraction[city] = 13
 attraction[province] = 14
 attraction[description] = "Musei"
 attraction[region] = "Toscana"
-attraction[country]	= "Italy"
 
 [Toscana_4]
 url_attraction		= "http://dati.toscana.it/dataset/75d6183f-8b8d-4150-a1f0-f69eb984c238/resource/80020491-6b17-4e1b-94be-bd8d1a41f62a/download/esportazioneadesioni10102016.csv"
 dataset_attraction[format] 	= CSV
 dataset_attraction[separator]	= "|"
 dataset_attraction[lastmodified] = 8
-dataset_attraction[encoding] = utf8
 
 attraction[category] = 0
 attraction[description] = "Ristoranti e botteghe"
@@ -1102,7 +1083,6 @@ attraction[fax] = 8
 attraction[lat] = 9
 attraction[lon] = 10
 attraction[region] = "Toscana"
-attraction[country]	= "Italy"
 
 [Trentino_1]
 url_attraction		= "http://dati.trentino.it/dataset/e491b841-cc4a-47e3-9d6e-0c54436bb98f/resource/e572c92e-05dc-41b7-ba22-e9898bddc85c/download/apttrentocensimentoappwudefinitivopart2.csv"
@@ -1127,7 +1107,6 @@ attraction[opening hours] = 14
 attraction[province] = "TN"
 attraction[region] = "Trentino-Alto Adige"
 attraction[description] = 21
-attraction[country]	= "Italy"
 
 [Trentino_2]
 url_attraction		= "http://dati.trentino.it/dataset/c9270e2a-041f-449b-a27b-100bb02de4b2/resource/0de24153-8dc2-4b98-84c3-2cda64a37658/download/albobotteghestorichefeb2017.csv"
@@ -1143,7 +1122,6 @@ attraction[city] = 4
 attraction[postal-code] = 5
 attraction[region] = "Trentino-Alto Adige"
 attraction[description] = "Botteghe storiche"
-attraction[country]	= "Italy"
 
 [Trentino_3]
 url_attraction="http://www.commercio.provincia.tn.it/binary/pat_commercio/marchi_prodotto/Elenco_osterie_tipiche_31ott13.1387207601.xls"
@@ -1157,7 +1135,6 @@ attraction[name] = 3
 attraction[address] = 5
 attraction[description] = "Osterie tipiche"
 attraction[region]= "Trentino-Alto Adige"
-attraction[country]	= "Italy"
 
 
 [Trentino_4]
@@ -1183,7 +1160,6 @@ attraction[address] = 17
 attraction[postal-code] = 19
 attraction[region] = "Umbria"
 attraction[description] = "Attrattori turistici"
-attraction[country]	= "Italy"
 
 [Umbria_2]
 url_attraction		= "http://dati.umbria.it/dataset/32cca8e8-4e6e-43ed-b7df-2f577de8ac4d/resource/520895ad-05d8-4734-94f7-7a6b8acfea36/download/iatcsvitit.zipiatitit.csv"
@@ -1204,7 +1180,6 @@ attraction[email] = 14
 attraction[city] = 8
 attraction[region] = "Umbria"
 attraction[description] = 0
-attraction[country]	= "Italy"
 
 [Umbria_3]
 url_attraction		= "http://dati.umbria.it/dataset/773e2bd0-b0ce-422e-80be-9da831f77f26/resource/c145f43d-b7e7-4033-b587-70c16bf8ac7b/download/bibliotechecomunalisezioneragazzicleaned.csv"
@@ -1226,7 +1201,6 @@ attraction[email] = 12
 attraction[category] = 14
 attraction[region] = 8
 attraction[description] = "Biblioteche comunali con sezione ragazzi"
-attraction[country]	= "Italy"
 
 [Umbria_4]
 url_attraction		= "http://dati.umbria.it/dataset/88cb23f2-0e34-4e0c-8fc3-4c90ca872d5d/resource/f5e7f052-903e-4bad-8a62-98ec4f5ed418/download/reteregionalebibliotechenpl.csv"
@@ -1242,7 +1216,6 @@ attraction[address] = 2<address
 attraction[email] = 3
 attraction[region] = "Umbria"
 attraction[description] = "Rete regionale 'Nati per leggere'"
-attraction[country]	= "Italy"
 
 [Umbria_5]
 url_attraction		= "http://dati.umbria.it/dataset/c3d9e1c7-67aa-4ea7-bf95-b5ec299db957/resource/c2e0a071-ba78-4d07-a574-2d8907ce3a01/download/elencobibliotechesbn.csv"
@@ -1258,7 +1231,6 @@ attraction[address] = 2<address
 attraction[email] = 3
 attraction[region] = "Umbria"
 attraction[description] = "Biblioteche SBN"
-attraction[country]	= "Italy"
 
 [Umbria_6]
 url_attraction		= "http://dati.umbria.it/dataset/2a580dcb-1319-4726-8fa1-131dd3eef77c/resource/124381ae-1e1b-485e-93ee-69c667c91635/download/opendataanagraficacomunalicleaned.csv"
@@ -1279,7 +1251,6 @@ attraction[email] = 8
 attraction[url] = 9
 attraction[region] = "Umbria"
 attraction[description] = "Biblioteche comunali"
-attraction[country]	= "Italy"
 
 [Umbria_7]
 url_attraction		= "http://dati.umbria.it/dataset/a06d6b87-293d-4a18-ac6d-6c49924e832c/resource/ccdc8f3e-8b48-4072-adc4-2e686bfe90e3/download/luoghiculturasettembre2016cleaned.csv"
@@ -1301,7 +1272,6 @@ attraction[telephone] = 10
 attraction[fax] = 11
 attraction[region] = "Umbria"
 attraction[description] = "Musei e luoghi della cultura"
-attraction[country]	= "Italy"
 
 [Umbria_8]
 url_attraction		= "http://dati.umbria.it/dataset/cbb56a52-5707-4397-9853-95c0ab8f026c/resource/ccd7d772-2973-4ae4-ac77-c8df0d35945e/download/museichehannostoffa.csv"
@@ -1320,7 +1290,6 @@ attraction[lat] = 10
 attraction[lon] = 11
 attraction[region] = "Umbria"
 attraction[description] = "Musei che hanno stoffa"
-attraction[country]	= "Italy"
 
 [Umbria_9]
 url_attraction		= "http://dati.umbria.it/dataset/ec44f060-3225-4e14-a565-3f744cd2bf42/resource/35883822-d131-44df-a627-e19086b42b23/download/2016opendataecomusei.csv"
@@ -1335,7 +1304,6 @@ attraction[email] = 5or6
 attraction[url] = 7
 attraction[description] = "Ecomusei"
 attraction[region] = "Umbria"
-attraction[country]	= "Italy"
 
 [Umbria_10]
 url_attraction		= "http://dati.umbria.it/dataset/1b0ef5fa-a3f5-465e-8aab-c6ea3531060c/resource/4e88408f-4dd6-45ce-a0a6-236081367c78/download/strutturetermaliregioneumbriastrutturetermaliregioneumbri.csv"
@@ -1351,7 +1319,6 @@ attraction[postal-code] = 7
 attraction[telephone] = 8,9
 attraction[region] = "Umbria"
 attraction[description] = "Strutture termali"
-attraction[country]	= "Italy"
 
 [Veneto_1]
 url_attraction= "http://dati.veneto.it/storage/f/2014-01-16T14%3A03%3A54.281Z/veneto-cinema-2012.xls"
@@ -1368,7 +1335,6 @@ attraction[postal-code]=7
 attraction[category]= 9
 attraction[description] = "Cinema"
 attraction[region]= "Veneto"
-attraction[country]	= "Italy"
 
 [Veneto_2]
 url_attraction= "http://dati.veneto.it/dataset/58b96ef0-f088-4d5b-ac90-53183b489149/resource/82c990ce-bd26-4b21-9c79-78ecedcffbe7/download/teatriveneto42014.xls"
@@ -1385,7 +1351,6 @@ attraction[postal-code]=5
 attraction[telephone]= 6
 attraction[description] = "Teatri"
 attraction[region]= "Veneto"
-attraction[country]	= "Italy"
 
 [Italia]
 url_attraction = "http://www.unesco.beniculturali.it/getfile.php?name=Siti_italiani_Unesco"
@@ -1398,60 +1363,7 @@ attraction[name] = 1
 attraction[category] = 7
 attraction[region] = Italia
 attraction[description] = "Siti Unesco"
-attraction[country]	= "Italy"
 
-; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
-; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
-;             A C C O M M O D A T I O N                 ;
-; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
-; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
-
-[Basilicata]
-url_accommodation 	= "http://www.aptbasilicata.it/fileadmin/uploads/Documenti_vari/Servizi_turisici_Professionisti_ecc/Strutture_ricettive_sito_APT.xls"
-dataset_accommodation[format]		= XLS
-dataset_accommodation[separator] 	= ","
-dataset_accommodation[coord]		= 'True'
-
-accommodation[name]				= 1
-accommodation[description]		= 2
-accommodation[number of stars]	= 3
-accommodation[address]			= 4,5
-accommodation[telephone]		= 6
-accommodation[cellular phone]	= 7
-accommodation[fax]				= 8
-accommodation[web site]			= 9
-accommodation[email]			= 10
-accommodation[opening period]	= 11
-accommodation[beds]				= 12
-accommodation[region]			= "Basilicata"
-accommodation[country]			= "Italy"
-
-[EmiliaRomagna]
-url_accommodation 			= "http://dati.emilia-romagna.it/dataset/29a34fd2-3068-47c7-89cd-2995e4fac20f/resource/fdb22cba-61fb-4410-90c8-d20045807ab2/download/strutturericettive-2016-09-28.zip"
-dataset_accommodation[format] 			= ZIP
-dataset_accommodation[number of files] 	= 9
-dataset_accommodation[number of internal directories] = 0
-dataset_accommodation[file format]		= CSV
-dataset_accommodation[separator]		= ";"
-dataset_accommodation[encoding] = utf8
-
-accommodation[name]			= 6
-accommodation[description] 	= 5
-accommodation[address]		= 8
-accommodation[city]			= 2
-accommodation[province]		= 1
-accommodation[locality]		= 3
-accommodation[postal-code]	= 9
-accommodation[number of stars]= 7
-accommodation[email]			= 14
-accommodation[web site]		= 13
-accommodation[telephone]		= 10
-accommodation[telephone2]	= 11
-accommodation[fax]			= 12
-accommodation[latitude]		= 16
-accommodation[longitude]	= 15
-accommodation[country]		= "Italy"
-accommodation[region]		= "Emilia Romagna"
 
 [Friuli]
 url_accommodation 			= "https://www.dati.friuliveneziagiulia.it/api/views/fiiw-i5su/rows.csv?accessType=DOWNLOAD"
@@ -1730,7 +1642,8 @@ accommodation[telephone]	= 8
 accommodation[email]		= 9
 accommodation[web site]		= 10
 accommodation[rooms]			= 12
-accommodation[latitude]		= 20:longitude
+accommodation[latitude]		= 20
+accommodation[longitude]	= 21
 accommodation[region]		= "Ile-de-France"
 accommodation[country]		= "France"
 
@@ -1772,31 +1685,9 @@ accommodation[region]		= "Auvergne-Rhône-Alpes"
 accommodation[country]		= "France"
 
 [Bourgogne-Franche-Comté]
-url_accommodation = "https://telecarto.ideobfc.fr/DOWNLOAD/Telechargement_1514522767_3710.zip"
-dataset_accommodation[format] 	= ZIP
-dataset_accommodation[number of files] 	= 9
-dataset_accommodation[file format]		= CSV
-dataset_accommodation[separator]		= ","
-dataset_accommodation[number of internal directories] = 1
-dataset_accommodation[number of files] 	= 1
-
-accommodation[latitude]		= 2
-accommodation[longitude]	= 3
-accommodation[name]			= 4
-accommodation[address]		= 5,6,7
-accommodation[postal-code]	= 8
-accommodation[city]			= 9
-accommodation[telephone]	= 10
-accommodation[fax]			= 11
-accommodation[email]		= 12
-accommodation[web site]		= 13
-accommodation[opening period]= 14
-accommodation[description]		= 16
-accommodation[number of stars]	= 17
-accommodation[rooms]		= 21
-accommodation[chain]		= 22
-accommodation[region]		= "Bourgogne-Franche-Comté"
-accommodation[country]		= "France"
+; TODO sistemare link
+url_accommodation = "https://catalogue.ideobfc.fr/geosource/panierDownloadFrontalParametrage?LAYERIDTS=9441667"
+dataset_accommodation[format] 	= ???
 
 [Pays de la Loire]
 url_accommodation = "http://data.paysdelaloire.fr/api/publication/23440003400026_J325/tourinsoft_heberghotel_table/content/?format=csv"
@@ -1819,27 +1710,6 @@ accommodation[country]		= "France"
 
 [Provence-Alpes-Côte d Azur]
 url_accommodation = "http://opendata.regionpaca.fr/donnees.html?type=109&no_cache=1&tx_ausyopendata_pi1%5Bdataset%5D=1289&tx_ausyopendata_pi1%5Bdatafile%5D=2191&tx_ausyopendata_pi1%5Baction%5D=download&tx_ausyopendata_pi1%5Bcontroller%5D=Dataset&cHash=88c929e69c7de3fcb4ba56399f0486ac"
-dataset_accommodation[format]		= XLS
-dataset_accommodation[separator] 	= ","
-
-accommodation[name]				= 0
-accommodation[address]			= 1,2,3
-accommodation[postal-code]		= 4
-accommodation[city]				= 5
-accommodation[telephone]		= 7
-accommodation[email]			= 8
-accommodation[web site]			= 9
-accommodation[fax]				= 10
-accommodation[description]		= 11
-accommodation[number of stars]	= 12
-accommodation[chain]			= 13
-accommodation[longitude]		= 15
-accommodation[latitude]			= 16
-accommodation[elevation]		= 17
-accommodation[opening period]	= 19
-accommodation[manager]			= 21
-accommodation[region]			= "Provence-Alpes-Côte d Azur"
-accommodation[country]		= "France"
 
 [Castilla y León]
 ; TO DO il link non funziona

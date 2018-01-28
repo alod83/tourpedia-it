@@ -13,6 +13,7 @@ function EmiliaRomagna_7($date, $config, $nuovo, $vecchio){
 			$document['region'] = 'Emilia-Romagna';
 			$document['city'] = 'Bologna';
 			$document['province'] = 'BO';
+			$document['country'] = 'Italy';
 			if(isset($biblio[0]->{'name'})){$document['name']=(string)($biblio[0]->{'name'});}
 			if(isset($biblio[0]->{'Point'}->{'coordinates'})){
 				preg_match('/[0-9]+\.[0-9]+,/', (string)($biblio[0]->{'Point'}->{'coordinates'}), $matches);

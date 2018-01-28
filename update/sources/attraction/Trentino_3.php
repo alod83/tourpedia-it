@@ -27,8 +27,9 @@ function Trentino_3($date, $config, $nuovo, $vecchio){
 				if(isset($data->sheets[0]['cells'][$i][3])) {$document['name']=utf8_encode($data->sheets[0]['cells'][$i][3]);} else {$document['name']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][5])) {$document['address']=utf8_encode($data->sheets[0]['cells'][$i][5]);} else {$document['address']=NULL;}
 				$document['_id']='TRE3_'.$row;
-				$document['region'] = 'Trentino';
+				$document['region'] = 'Trentino-Alto Adige';
 				$document['description'] = "Osterie tipiche";
+				$document['country'] = 'Italy';
 				$document=TrovaCoordinate($document, $vecchio);
 				$nuovo->insertOne($document);
 		}

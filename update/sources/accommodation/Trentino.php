@@ -14,7 +14,7 @@ function Trentino($date, $config, $nuovo, $vecchio){
 			$document['city']            = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->comune);
 			$document['hamlet']          = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->frazione);
 			$document['province']        = 'TN';
-			$document['region']          = 'Trentino';
+			$document['region']          = 'Trentino-Alto Adige';
 			$document['postal-code']     = (string)($strut[0]->{'prezzi-localita'}->attributes()->cap);
 			$document['number of stars'] = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->{'livello-classifica'});
 			$document['email']           = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'recapito-email'}); 
@@ -23,6 +23,7 @@ function Trentino($date, $config, $nuovo, $vecchio){
 			$document['fax']             = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'recapito-fax'});
 			$document['rooms']           = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'numero-unita'});
 			$document['beds']            = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'numero-posti-letto'});
+			$document['country']		 = "Italy";
 			$document=TrovaCoordinate($document, $vecchio);
 			$nuovo->save($document);
 		}
