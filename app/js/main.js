@@ -74,7 +74,7 @@ function inizializza(){
 		  }
 		]
 	});
-	/*SUGGERIMENTI RICERCA TESTUALE e POPUP*/
+	/*SUGGERIMENTI RICERCA TESTUALE*/
 	$( function() {
 		$.ajaxSetup({
 			async: false
@@ -321,53 +321,6 @@ function ChiudiA(){
 	});
 	map.setZoom(16);
 };
-//inserisco la lista dei risultati
-function insertResult(){
-	var place = document.form_ricerca.ricerca_luogo.value;
-	var url= "../api/query.php?category=accommodation&place=";
-	if (place=="Trentino-Alto Adige"){
-		url+="Trentino";
-	}else{
-		url+=place;
-	}
-	ResultsS = "<ul class='list'>";
-	$.getJSON(url, function (result) {
-		var data = $.map(result, function(el) { return el });
-		for (i=0; i<data.length; i++){
-			if(data[i].latitude && data[i].longitude){
-				var stringa="";
-				if(data[i].name){
-					stringa+="<p>"+data[i].name+"</p>";
-				}
-				if(data[i].address){
-					stringa+="<p>"+data[i].address+"</p>";
-				}
-				ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";
-			}
-		}
-	});
-	ResultsS += "</ul><ul class='pagination'></ul>";
-	$("#ricercaS").html(ResultsS);
-	ResultsA = "<ul class='list'>";
-	$.getJSON("../api/query.php?category=attraction&place="+place, function (result) {
-		var data = $.map(result, function(el) { return el });
-		for (i=0; i<data.length; i++){
-			if(data[i].latitude && data[i].longitude){
-				var stringa="";
-				if(data[i].name){
-					stringa+="<p>"+data[i].name+"</p>";
-				}
-				if(data[i].description){
-					stringa+="<p>"+data[i].description+"</p>";
-				}
-				ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";			
-			}
-		}
-	});
-	ResultsA += "</ul><ul class='pagination'></ul>";
-	$("#ricercaA").html(ResultsA);
-}
-
 /*FUNZIONE HOVER SULLA LISTA*/
 function Hover(){
 	$(".result").hover(
@@ -467,6 +420,8 @@ function clearMarkers() {
 /*CREA I SEGNALINI SULLA MAPPA, STRUTTURE E ATTRAZIONI, IN BASE AL PARAMETRO PASSATO NEL CAMPO DI RICERCA*/
 function createMarker(map){
 	var place = document.form_ricerca.ricerca_luogo.value;
+	ResultsS = "<ul class='list'>";
+	ResultsA = "<ul class='list'>";
 	if (place){
 		var url= "../api/query.php?category=accommodation&place=";
 		if (place=="Trentino-Alto Adige"){
@@ -479,6 +434,7 @@ function createMarker(map){
 			if(data.length != 0){
 				for (i=0; i<data.length; i++){
 					if(data[i].latitude && data[i].longitude){
+						var stringa="";
 						if(place==data[i].region){
 							map.setZoom(8);
 						}else{
@@ -490,6 +446,7 @@ function createMarker(map){
 						string+="<div class='foto'><img src='https://maps.googleapis.com/maps/api/streetview?size=480x250&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div>"
 						string+="<div id='header1' class='header'>";
 						if(data[i].name){
+							stringa+="<p>"+data[i].name+"</p>";
 							string+="<p class='name'>"+data[i].name+"</p>";
 						}
 						if(data[i]['number of stars']){
@@ -504,8 +461,10 @@ function createMarker(map){
 						string+="</div><div class='contenuto'>";
 						string+="<img class='icons' src='images/address.svg' alt='address'><p class='infoscheda'> ";
 						if(data[i].address){
+							stringa+="<p>"+data[i].address+"</p>";
 							string+=data[i].address+", ";
 						}
+						ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";
 						if(data[i].city){
 							string+=data[i].city;
 						}
@@ -585,6 +544,7 @@ function createMarker(map){
 						markersS.push(marker);
 					}
 				}
+				
 				if (markersS.length != 0){
 					$("#ns").html("("+markersS.length+")");
 					if(window.matchMedia("(max-width: 1156px)").matches){
@@ -604,6 +564,7 @@ function createMarker(map){
 			if(data.length != 0){
 				for (i=0; i<data.length; i++){
 					if(data[i].latitude && data[i].longitude){
+						var stringa="";
 						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
 						if(place==data[i].region){
 							map.setZoom(8);
@@ -614,14 +575,17 @@ function createMarker(map){
 						string+="<div class='foto'><img src='https://maps.googleapis.com/maps/api/streetview?size=480x250&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div>"
 						string+="<div id='header2' class='header'>";
 						if(data[i].name){
+							stringa+="<p>"+data[i].name+"</p>";
 							string+="<p class='name'>"+data[i].name+"</p>";
 						}
 						if(data[i].category){
 							string+="<p>Tipo di attrazione: "+data[i].category+"</p>";
 						}
 						if(data[i].description){
+							stringa+="<p>"+data[i].description+"</p>";
 							string+="<p>Categoria: "+data[i].description+"</p>";
 						}
+						ResultsA += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";			
 						string+="</div><div class='contenuto'>"
 						string+="<img class='icons' src='images/address1.svg' alt='address'><p class='infoscheda'> ";
 						if(data[i].address){
@@ -737,6 +701,10 @@ function createMarker(map){
 			}
 		});
 	}
+	ResultsS += "</ul><ul class='pagination'></ul>";
+	ResultsA += "</ul><ul class='pagination'></ul>";
+	$("#ricercaS").html(ResultsS);
+	$("#ricercaA").html(ResultsA);
 }
 /*AL CARICAMENTO DELLA PAGINA, CREA LA MAPPA, ,CREA L'EVENTO CLICK DEL TASTO CERCA,E QUELLI RELATIVI AL TASTO X*/
 $(document).ready(function() {
@@ -756,7 +724,6 @@ $(document).ready(function() {
 			infowindowE.setMap(null);
 			infowindowF.setMap(null);
 			$('#ui-id-1').fadeOut();
-			insertResult();
 			clearMarkers();
 			createMarker(map);
 			markerClusterS = new MarkerClusterer(map, markersS,
@@ -871,7 +838,6 @@ $(document).ready(function() {
 		infowindowE.setMap(null);
 		infowindowF.setMap(null);
 		$('#ui-id-1').fadeOut();
-		insertResult();
 		clearMarkers();
 		createMarker(map);
 		markerClusterS = new MarkerClusterer(map, markersS,
