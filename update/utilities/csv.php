@@ -81,7 +81,7 @@ function parseCSV($csv, $db_info,$region,$df,$date,$nuovo,$vecchio,$reg_acr_inde
 	}
 	UpdateLog($region, $date, $row, $lastmodified, $collect);
 	if($df['curl'])
-		unlink($url);
+		unlink($csv);
 	return $row;
 }
 
@@ -98,7 +98,7 @@ function CSV($region,$date,$config, $nuovo, $vecchio, $url=null,$reg_acr_index=0
 	$df = parse_dataset_features($db_info['dataset_feature']);
 	
 	if($df['curl'])
-		$url = download_file($url, $region, $fformat,$ssl);
+		$url = download_file($url, $region, $fformat,$df['ssl']);
 	return parseCSV($url,$db_info,$region,$df,$date,$nuovo,$vecchio,$reg_acr_index);
 }
 

@@ -23,7 +23,7 @@ function Trentino_3($date, $config, $nuovo, $vecchio){
 		$row=0;
 		for($i=6; $i<$data->sheets[0]['numRows']; $i++){
 				$row++;
-				if(isset($data->sheets[0]['cells'][$i][2])) {$document['city']=utf8_encode($data->sheets[0]['cells'][$i][2]);} else {$document['city']=NULL;}
+				if(isset($data->sheets[0]['cells'][$i][2])) {$document['city']=ucfirst(utf8_encode($data->sheets[0]['cells'][$i][2]));} else {$document['city']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][3])) {$document['name']=utf8_encode($data->sheets[0]['cells'][$i][3]);} else {$document['name']=NULL;}
 				if(isset($data->sheets[0]['cells'][$i][5])) {$document['address']=utf8_encode($data->sheets[0]['cells'][$i][5]);} else {$document['address']=NULL;}
 				$document['_id']='TRE3_'.$row;

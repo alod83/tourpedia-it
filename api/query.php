@@ -64,20 +64,20 @@ if(isset($_REQUEST['category']))
 		for($i=0; $i<count($result); $i++){
 			foreach($result[$i] as $k=>$v){
 				if($k=="number of stars"){
-					$result[$i]["number of stars"] = (int)trim(preg_replace('/[^0-9]/', '',$v));
+					$result[$i]["number of stars"] = intval(trim(preg_replace('/[^0-9]/', '',$v)));
 				}
 				if($k=="lat"){
 					if (strpos($v, '.') !== false) {
-						$result[$i]["latitude"] = (float)$v;
+						$result[$i]["latitude"] = floatval($v);
 					}else{
-						$result[$i]["latitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
+						$result[$i]["latitude"] = floatval(substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0));
 					}
 				}
 				if($k=="lon" or $k=="lng"){
 					if (strpos($v, '.') !== false) {
-						$result[$i]["longitude"] = (float)$v;
+						$result[$i]["longitude"] = floatval($v);
 					}else{
-						$result[$i]["longitude"] = (float)substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0);
+						$result[$i]["longitude"] = floatval(substr_replace(trim(preg_replace('/[^A-Za-z0-9\-]/','',$v)), '.', 2, 0));
 					}
 				}
 				if($k=="Italy"){
@@ -90,10 +90,7 @@ if(isset($_REQUEST['category']))
 					}
 				}
 				if($k=="region"){
-					if($v=="Trentino"){
-						$result[$i]["region"]="Trentino-Alto Adige";
-						$result[$i]["country"]="Italy";
-					}
+					
 					if($v=="Lombardia"){
 						if($category == "attraction"){
 							$result[$i]["name"] = $result[$i]["description"]." di ".$result[$i]["city"];

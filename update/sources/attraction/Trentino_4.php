@@ -16,7 +16,7 @@ function Trentino_4($date, $config, $nuovo, $vecchio){
 			if(isset($biblio[0]->{'anagrafica'}->{'nomi'}->{'attuale'})){ $document['name']= (string)($biblio[0]->{'anagrafica'}->{'nomi'}->{'attuale'});} 
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'via'})){$document['address'] = (string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'via'});}
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'cap'})){$document['postal-code'] = intval((string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'cap'}));}
-			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'comune'})){$document['city'] = (string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'comune'});}
+			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'comune'})){$document['city'] = ucfirst((string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'comune'}));}
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'provincia'})){$document['province'] = (string)($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'provincia'});}
 			if(isset($biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'})){
 				$biblio_a = $biblio[0]->{'anagrafica'}->{'indirizzo'}->{'coordinate'}->attributes();

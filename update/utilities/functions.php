@@ -462,6 +462,9 @@ function get_record($document,$mapping,$arr,$title=null)
 							$document[$k] = $value;
 					}
 					break;
+				case 'city':
+					$document[$k] = ucfirst($value);
+					break;
 				default				:
 					if(!empty($value))
 						$document[$k] = $value;

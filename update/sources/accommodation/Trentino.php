@@ -11,7 +11,7 @@ function Trentino($date, $config, $nuovo, $vecchio){
 			$document['name']            = (string)($strut[0]->attributes()->denominazione);
 			$document['description']     = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->attributes()->{'tipologia-alberghiera'}); 
 			$document['address']         = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->indirizzo);
-			$document['city']            = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->comune);
+			$document['city']            = ucfirst((string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->comune));
 			$document['hamlet']          = (string)($strut[0]->{'prezzi-localita'}->{'prezzi-albergo'}->{'prezzi-saa'}->attributes()->frazione);
 			$document['province']        = 'TN';
 			$document['region']          = 'Trentino-Alto Adige';
@@ -34,7 +34,7 @@ function Trentino($date, $config, $nuovo, $vecchio){
 		$cursor = $vecchio->find();
 		$row = 0;
 		foreach ($cursor as $obj){
-			if($obj['region']=='Trentino'){
+			if($obj['region']=='Trentino-Alto Adige'){
 				$nuovo->save($obj);
 				$row++;
 			}

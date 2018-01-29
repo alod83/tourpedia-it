@@ -36,7 +36,7 @@ function Lig_kml($region,$date, $config, $nuovo, $vecchio){
 						if ((isset($field_a['name'])) && $field_a['name']=="TELEFONO"){$document['telephone']=(string)($field[0]);}
 						if ((isset($field_a['name'])) && $field_a['name']=="INDIRIZZO"){$document['address']=(string)($field[0]);}
 						if ((isset($field_a['name'])) && ($field_a['name']=="DENOMINAZIONE" || $field_a['name']=="NOME") ){$document['name']=(string)($field[0]);}
-						if ((isset($field_a['name'])) && $field_a['name']=="COMUNE"){$document['city']=(string)($field[0]);}
+						if ((isset($field_a['name'])) && $field_a['name']=="COMUNE"){$document['city']=ucfirst((string)($field[0]));}
 						if ((isset($field_a['name'])) && (($field_a['name']=="COD_ISTAT_COM") || ($field_a['name']=="COD_COMUNE"))){$document['codistat']=intval((string)($field[0]));}
 						if ((isset($field_a['name'])) && $field_a['name']=="ORARIO"){$document['opening hours']=(string)($field[0]);}
 						if ((isset($field_a['name'])) && $field_a['name']=="CAP"){$document['postal-code']=intval((string)($field[0]));}
