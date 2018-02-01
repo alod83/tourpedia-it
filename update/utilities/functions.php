@@ -296,8 +296,8 @@ function get_record($document,$mapping,$arr,$title=null)
 					case 'utf8':
 						$value = utf8_encode($arr[$value]);
 						break;
-					case 'lon':
-						$value = latlon_explode($arr[$value]);
+					//case 'lon':
+					//	$value = latlon_explode($arr[$value]);
 						break;
 					case 'url':
 						if((strpos($arr[$value], 'https://www.youtube.com/watch?v='))!== false){
@@ -462,8 +462,19 @@ function get_record($document,$mapping,$arr,$title=null)
 							$document[$k] = $value;
 					}
 					break;
+				case 'number of stars':
+					$document[$k] = intval(trim(preg_replace('/[^0-9]/', '',$value)));
+					break;
 				case 'city':
-					$document[$k] = ucfirst($value);
+				case 'province':
+					//$document[$k] = ucfirst($value);
+					$document[$k] = substr(strtoupper(trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$value))),0,1).substr(strtolower(trim(preg_replace('/[^ .A-Za-z0-9\-\']/', '',$value))),1);
+					break;
+				case 'web site':
+					$document[$k] = trim(str_replace('<p>',"",str_replace('<a target="_blank">',"",str_replace("</a>","",str_replace("</p>","",$value)))));
+					break;
+				case 'address':
+					$document[$k] = str_replace("ï¿½ï¿½","U'",$value);
 					break;
 				default				:
 					if(!empty($value))
