@@ -1,0 +1,109 @@
+/*GENERALI*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+*{
+	margin: 0;
+    padding: 0;
+	font-family: 'Roboto', sans-serif;
+	color: #262261;
+}
+
+*:focus{
+	outline:0;
+}
+
+html, body {
+    height: 100%;
+}
+
+/*HEADER*/
+#header{
+	width: 100%;
+	background-color: #B6D78B;
+}
+
+#header img{
+	display: block;
+	position: relative;
+	width: 40%;
+	padding: 10px 0;
+	margin: 0 auto;
+}
+
+#contenuto{
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#menu{
+	border-bottom: 2px solid #B6D78B;
+}
+#menu ul{
+	list-style: none;
+}
+ 
+#menu ul li{
+	display: inline-block;
+	padding: 1%;
+}
+
+#menu ul li:hover{
+	color: #f9b05b;
+}
+
+#intro{
+	margin: 30px auto;
+}
+
+#login{
+	display: table;
+	width: 100%;
+	margin: 30px auto;
+}
+#registrati{
+	padding: 10px 0;
+	width: 45%;
+	margin: 0 2.5%;
+	background-color: #8AD0EF;
+	border-radius: 15px;
+	float: left;
+	min-height: 250px;
+	
+}
+
+#accedi{
+	padding: 10px 0;
+	width: 45%;
+	margin: 0 2.5%;
+	min-height: 250px;
+	background-color: #f9b05b;
+	border-radius: 15px;
+	float: right;
+}
+
+form{
+	display: block;
+	padding: 20px;
+	width: 50%;
+	text-align: left;
+	margin: 0 auto;
+}
+
+form input{
+	display: block;
+	border: 1px solid #262261;
+	width: calc(100% - 22px);
+	height: 20px;
+	padding: 0 10px;
+	transition: box-shadow .25s ease,-webkit-box-shadow .25s ease;
+}
+
+form input:hover{
+	box-shadow: inset 0 0 0 1px #262261;
+}
+
+.go{
+	width: 100%;
+	margin-top: 10px;
+}
