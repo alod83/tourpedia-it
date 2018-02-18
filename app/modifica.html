@@ -1,0 +1,224 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<title>
+			Portale Albergatori
+		</title>
+		<meta name="viewport" content="intial-scale=1.0">
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script><!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="js/modifica.js"></script>
+	</head>
+	<body>
+		<div>
+			<div id="header"><img src="images/tourpedia.png"></div>
+			<div id="contenuto">
+				<div id="menu">
+					<ul>
+						<li>Login</li>
+						<li>Modifica</li>
+						<li>Statistiche</li>
+					</ul>
+				</div>
+				<div id="intro">
+					<h2>Modifica</h2>
+				</div>
+				<div id="modifica">
+					<div id="obbligatori">
+						<h3>Dati di base:</h3>
+						<form>
+							<div class="sinistra">
+								<label>Nome Struttura</label><input type="text" value="Hotel Bologna">
+								<label>Categoria</label>
+								<select>
+									<option value="Albergo">Albergo</option>
+									<option value="Affittacamere">Affittacamere</option>
+									<option value="Bed and breakfast - standard">Bed and breakfast - standard</option>
+									<option value="Agriturismo, ittiturismo, pescaturismo">Agriturismo, ittiturismo, pescaturismo</option>
+									<option value="Ostello per la gioventù">Ostello per la gioventù</option>
+								</select>
+								<label>Indirizzo</label><input type="text" value="Via Roma, 1">
+								<label>Stelle</label>
+								<div id="stelle">
+									<input type="radio" name="stelle" value="Nessuna" checked>Nessuna<br>
+									<input type="radio" name="stelle" value="1"><img class='star' src='images/star.svg'><br>
+									<input type="radio" name="stelle" value="2"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
+									<input type="radio" name="stelle" value="3"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
+									<input type="radio" name="stelle" value="4"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
+									<input type="radio" name="stelle" value="5"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
+								</div>
+								<label>Telefono</label><input type="tel">
+								<label>Email</label><input type="email" value="infohotel_bologna@gmail.com">
+							</div>
+							<div class="destra">
+								<label>Paese</label>
+								<select>
+									<option value="Italy">Italia</option>
+									<option value="France">Francia</option>
+									<option value="Spain">Spagna</option>
+								</select>
+								<label>Regione</label>
+								<select>
+									<option value="Emilia Romagna">Emilia Romagna</option>
+									<option value="Sardegna">Sardegna</option>
+									<option value="Sicilia">Sicilia</option>
+									<option value="Toscana">Toscana</option>
+									<option value="Lombardia">Sardegna</option>
+									<option value="Umbria">Umbria</option>
+								</select>
+								<label>Provincia</label>
+								<select>
+									<option value="Emilia Romagna">BO</option>
+									<option value="Sardegna">FE</option>
+									<option value="Sicilia">FC</option>
+									<option value="Toscana">MO</option>
+									<option value="Lombardia">PR</option>
+									<option value="Umbria">PC</option>
+								</select>
+								<label>C.A.P.</label><input type="text" value="40121">
+								<label>Città</label><input type="text" value="Bologna">
+								<label>Latitudine</label><input type="text">
+								<label>Longitudine</label><input type="text">
+							</div>
+						</form>
+					</div>
+					<div id="facoltativi">
+						<h3>Altro:</h3>
+						<form>
+							<div class="sinistra">
+								<label>Località</label><input type="text">
+								<label>Frazione</label><input type="text">
+								<label>Fax</label><input type="tel">
+								<label>Sito web</label><input type="url">
+								<label>Periodo di apertura</label><textarea id="orari" placeholder="Scrivi il periodo e/o gli orari di apertura della tua struttura..."></textarea>
+								<label>Servizi</label>
+									<div id="servizi">
+										<input type="checkbox" name="servizi" value="palestra">palestra<br>
+										<input type="checkbox" name="servizi" value="Accettazione animali domestici">Accettazione animali domestici<br>
+										<input type="checkbox" name="servizi" value="Access. diversamente abili totale">Access. diversamente abili<br>
+										<input type="checkbox" name="servizi" value="Ascensore">Ascensore<br>
+										<input type="checkbox" name="servizi" value="Bar">Bar<br>
+										<input type="checkbox" name="servizi" value="Sala lettura separata">Sala lettura separata<br>
+										<input type="checkbox" name="servizi" value="Servizio congressi">Servizio congressi<br>
+										<input type="checkbox" name="servizi" value="Accettazione gruppi">Accettazione gruppi<br>
+										<input type="checkbox" name="servizi" value="Accesso a mezzi pubblici">Accesso a mezzi pubblici<br>
+										<input type="checkbox" name="servizi" value="Custodia valori in cassette sicurezza">Custodia valori in cassette sicurezza<br>
+										<input type="checkbox" name="servizi" value="Riscaldamento">Riscaldamento<br>
+										<input type="checkbox" name="servizi" value="Servizio in camera">Servizio in camera<br>
+										<input type="checkbox" name="servizi" value="WI-FI in aree comuni">WI-FI in aree comuni<br>
+										<input type="checkbox" name="servizi" value="Ristorante">Ristorante<br>
+										<input type="checkbox" name="servizi" value="Parco o giardino">Parco o giardino<br>
+										<input type="checkbox" name="servizi" value="Lavaggio e stiratura biancheria">Lavaggio e stiratura biancheria<br>
+										<input type="checkbox" name="servizi" value="Internet point">Internet point<br>
+										<input type="checkbox" name="servizi" value="Cucina di uso comune">Cucina di uso comune<br>
+										<input type="checkbox" name="servizi" value="Discoteca">Discoteca<br>
+										<input type="checkbox" name="servizi" value="Aria condizionata">Aria condizionata<br>
+										<input type="checkbox" name="servizi" value="Giochi per bambini">Giochi per bambini<br>
+										<input type="checkbox" name="servizi" value="Sauna privata">Sauna privata<br>
+										<input type="checkbox" name="servizi" value="Salone di bellezza">Salone di bellezza<br>
+										<input type="checkbox" name="servizi" value="Pulizia calzature">Pulizia calzature<br>
+										<input type="checkbox" name="servizi" value="Impianti termali propri">Impianti termali propri<br>
+										<input type="checkbox" name="servizi" value="Biciclette per ospiti">Biciclette per ospiti<br>
+										<input type="checkbox" name="servizi" value="Spiaggia privata">Spiaggia privata<br>
+										<input type="checkbox" name="servizi" value="Area fumatori">Area fumatori<br>
+										<input type="checkbox" name="servizi" value="Jacuzzi/Idromassaggio">Jacuzzi/Idromassaggio<br>
+										<input type="checkbox" name="servizi" value="Fitness/centro salute">Fitness/centro salute<br>
+										<input type="checkbox" name="servizi" value="Solarium">Solarium<br>
+										<input type="checkbox" name="servizi" value="Parrucchiere">Parrucchiere<br>
+										<input type="checkbox" name="servizi" value="Piscina scoperta">Piscina scoperta<br>
+										<input type="checkbox" name="servizi" value="Piscina coperta">Piscina coperta<br>
+										<input type="checkbox" name="servizi" value="Sala riunioni attrezzata">Sala riunioni attrezzata<br>
+										<input type="checkbox" name="servizi" value="Videogiochi">videogiochi<br>
+										<input type="checkbox" name="servizi" value="Bagno turco">Bagno turco<br>
+										<input type="checkbox" name="servizi" value="Rifornimento benzina immediate vicinanze">Rifornimento benzina immediate vicinanze<br>
+										<input type="checkbox" name="servizi" value="Market">Market<br>
+										<input type="checkbox" name="servizi" value="Ormeggio">Ormeggio<br>
+										<input type="checkbox" name="servizi" value="Camper service">Camper service<br>
+										<input type="checkbox" name="servizi" value="Animazione professionale">Animazione professionale<br>
+										<input type="checkbox" name="servizi" value="Noleggio natanti e/o imbarcazioni">Noleggio natanti e/o imbarcazioni<br>
+										<input type="checkbox" name="servizi" value="Lavaggio auto e roulottes ad uso degli ospiti">Lavaggio auto e roulottes ad uso degli ospiti<br>
+										<input type="checkbox" name="servizi" value="Sala per spettacoli">Sala per spettacoli<br>
+										<input type="checkbox" name="servizi" value="Miniclub">Miniclub<br>
+										<input type="checkbox" name="servizi" value="Sala giochi">Sala giochi<br>
+										<input type="checkbox" name="servizi" value="Rimessaggio caravan">Rimessaggio caravan<br>
+										<input type="checkbox" name="servizi" value="Pista da ballo">Pista da ballo<br>
+										<input type="checkbox" name="servizi" value="Dog sitter">Dog sitter<br>
+										<input type="checkbox" name="servizi" value="Cinema">Cinema<br>
+										<input type="checkbox" name="servizi" value="Locale infermeria">Locale infermeria<br>
+										<input type="checkbox" name="servizi" value="Servizio bancario">Servizio bancario<br>
+										<input type="checkbox" name="servizi" value="Centro benessere">Centro benessere<br>
+										<input type="checkbox" name="servizi" value="Telefono">Telefono<br>
+										<input type="checkbox" name="servizi" value="Bagno privato">Bagno privato<br>
+										<input type="checkbox" name="servizi" value="Sala Tv">Sala Tv<br>
+										<input type="checkbox" name="servizi" value="Cassaforte / cassetta di sicurezza">Cassaforte / cassetta di sicurezza<br>
+										<input type="checkbox" name="servizi" value="Frigobar">Frigobar<br>
+										<input type="checkbox" name="servizi" value="Deposito bagagli">Deposito bagagli<br>
+										<input type="checkbox" name="servizi" value="Sala lettura">Sala lettura<br>
+										<input type="checkbox" name="servizi" value="Tv satellitare">Tv satellitare<br>
+										<input type="checkbox" name="servizi" value="Insonorizzazione">Insonorizzazione<br>
+										<input type="checkbox" name="servizi" value="Reception 24h">Reception 24h<br>
+										<input type="checkbox" name="servizi" value="Parcheggio Coperto / Scoperto">Parcheggio Coperto / Scoperto<br>
+										<input type="checkbox" name="servizi" value="Camere fumatori">Camere fumatori<br>
+										<input type="checkbox" name="servizi" value="Facchinaggio">Facchinaggio<br>
+										<input type="checkbox" name="servizi" value="Punto ristoro">Punto ristoro<br>
+										<input type="checkbox" name="servizi" value="Baby sitting">Baby sitting<br>
+										<input type="checkbox" name="servizi" value="Attrezzature o servizi aggiuntivi per il maggior conforto per il soggiorno o ristoro">Attrezzature o servizi aggiuntivi per il maggior conforto per il soggiorno o ristoro<br>
+									</div>
+									<label>Foto</label>
+									<div id="foto">
+										<div class="image_prewiew">
+											<img id="image_upload_preview" src="images/nopicture.png" alt="your image" />
+											<button class="clear" style="background-image: url('images/x.svg')"></button>
+										</div>
+										<div id="scegli_foto">
+											<p id="NomeFile">Nessun file selezionato</p>
+											<label class="myLabel">
+												<input type="file" id="inputFile" accept="image/jpeg, image/png">
+												<span>Scegli una foto</span>
+											</label>
+										</div>
+									</div>
+							</div>
+							<div class="destra">
+								<label>Numero posti letto</label><input type="number" value="1">
+								<label>Numero di camere</label><input type="number" value="6">
+								<label>Numero di suite</label><input type="number" value="0">
+								<label>Pagina Facebook</label><input type="text">
+								<label>Profilo Instagram</label><input type="text">
+								<label>Profilo Twitter</label><input type="text">
+								<label>Lingue</label>
+								<div id="lingue">
+									<div class="lingua"><input type="checkbox" name="lingue" value="English"><img class="lang" src="images/English.png" title="English" alt="English"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="French"><img class="lang" src="images/French.png" title="French" alt="French"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Spanish"><img class="lang" src="images/Spanish.png" title="Spanish" alt="Spanish"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="German"><img class="lang" src="images/German.png" title="German" alt="German"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Svedese"><img class="lang" src="images/Svedese.png" title="Svedese" alt="Svedese"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Russian"><img class="lang" src="images/Russian.png" title="Russian" alt="Russian"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Portugese"><img class="lang" src="images/Portugese.png" title="Portugese" alt="Portugese"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Olandese"><img class="lang" src="images/Olandese.png" title="Olandese" alt="Olandese"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Arabic"><img class="lang" src="images/Arabic.png" title="Arabic" alt="Arabic"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Chinese"><img class="lang" src="images/Chinese.png" title="Chinese" alt="Chinese"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Indiano"><img class="lang" src="images/Indiano.png" title="Indiano" alt="Indiano"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Rumeno"><img class="lang" src="images/Rumeno.png" title="Rumeno" alt="Rumeno"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Ceco"><img class="lang" src="images/Ceco.png" title="Ceco" alt="Ceco"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Japanese"><img class="lang" src="images/Japanese.png" title="Japanese" alt="Japanese"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Greco"><img class="lang" src="images/Greco.png" title="Greco" alt="Greco"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Sloveno"><img class="lang" src="images/Sloveno.png" title="Sloveno" alt="Sloveno"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Serbo"><img class="lang" src="images/Serbo.png" title="Serbo" alt="Serbo"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Croato"><img class="lang" src="images/Croato.png" title="Croato" alt="Croato"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Polacco"><img class="lang" src="images/Polacco.png" title="Polacco" alt="Polacco"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Norvegese"><img class="lang" src="images/Norvegese.png" title="Norvegese" alt="Norvegese"></div>
+									<div class="lingua"><input type="checkbox" name="lingue" value="Italian"><img class="lang" src="images/Italian.png" title="Italian" alt="Italian"></div>
+								</div>
+								<label>Descrizione albergo</label><textarea placeholder="Scrivi una breve descrizione della tua struttura..."></textarea>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

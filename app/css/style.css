@@ -13,7 +13,7 @@
 }
 
 html, body {
-    height: 100%;
+    min-height: 100%;
 }
 
 /*HEADER*/
@@ -35,7 +35,7 @@ html, body {
 	margin: 0 auto;
 	text-align: center;
 }
-
+/*MENU*/
 #menu{
 	border-bottom: 2px solid #B6D78B;
 }
@@ -52,10 +52,45 @@ html, body {
 	color: #f9b05b;
 }
 
+/*LOGIN - MODIFICA - STATISTICHE*/
+
 #intro{
 	margin: 30px auto;
 }
 
+form{
+	display: block;
+	padding: 20px;
+	width: 80%;
+	text-align: left;
+	margin: 0 auto;
+}
+
+form input, form select{
+	display: block;
+	border: 1px solid #262261;
+	width: calc(100% - 22px);
+	height: 20px;
+	padding: 0 10px;
+	border-radius: 4px;
+	transition: box-shadow .25s ease,-webkit-box-shadow .25s ease;
+}
+
+form select{
+	width: 100%;
+	height: 22px;
+}
+
+form input:hover, form select:hover , textarea:hover{
+	box-shadow: inset 0 0 0 1px #262261;
+}
+
+.go{
+	width: 100%;
+	margin-top: 10px;
+}
+
+/*LOGIN*/
 #login{
 	display: table;
 	width: 100%;
@@ -82,28 +117,200 @@ html, body {
 	float: right;
 }
 
-form{
-	display: block;
-	padding: 20px;
-	width: 50%;
-	text-align: left;
-	margin: 0 auto;
+/*MODIFICA*/
+#modifica{
+	display: table;
+	width: 100%;
+	margin: 30px auto;
 }
 
-form input{
+#obbligatori{
+	padding: 10px 0 30px 0;
+	width: 100%;
+	background-color: #8AD0EF;
+	border-radius: 15px;
+	min-height: 250px;
+	display: table;
+}
+
+#facoltativi{
+	padding: 10px 0 30px 0;
+	margin-top: 30px;
+	width: 100%;
+	min-height: 250px;
+	background-color: #f9b05b;
+	border-radius: 15px;
+	display: table;
+}
+
+.destra{
+	float: right;
+	width: 45%;
+	margin-left: 5%;
+}
+
+.sinistra{
+	float: left;
+	width: 45%;
+	margin-right: 5%;
+}
+
+.centro{
+	clear: both;
+	display:block;
+	float: none;
+}
+
+label{
 	display: block;
-	border: 1px solid #262261;
-	width: calc(100% - 22px);
-	height: 20px;
-	padding: 0 10px;
+	margin-top: 10px;
+	margin-bottom: 2px;
+}
+#stelle input, #servizi input, #lingue input{
+	display: inline;
+	padding: 0;
+	width: 15px;
+	height: 15px;
+}
+
+#stelle input:hover, #servizi input, #lingue input{
+	box-shadow: none;
+}
+
+.star{
+	height: 15px;
+	width: 15px;
+	display: inline;
+}
+
+textarea{
+	display: block;
+	width: 100%;
+    height: 150px;
+    padding: 12px 12px;
+    box-sizing: border-box;
+    border: 1px solid #262261;
+    border-radius: 4px;
+    resize: none;
 	transition: box-shadow .25s ease,-webkit-box-shadow .25s ease;
 }
 
-form input:hover{
-	box-shadow: inset 0 0 0 1px #262261;
+#orari{
+	height: 77px;
 }
 
-.go{
+#servizi{
+	font-size: 12px;
+	display: block;
+	height: 250px;
+	overflow: auto;
+	box-sizing: border-box;
+	border: 1px solid #262261;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+#servizi input{
+	height: 15px;
+}
+
+#lingue{
+	display: block;
+	min-height: 250px;
+	box-sizing: border-box;
+	border: 1px solid #262261;
+	border-radius: 4px;
+	padding: 2%;
+}
+
+.lingua{
+	width: 32%;
+	display: inline-block;
+	text-align: center;
+}
+
+#lingue input{
+	height: 29px;
+}
+
+.lang{
+	max-width: 30px;
+	margin-left: 2px;
+	display: inline-block;
+}
+
+#scegli_foto{
+	width: 70%;
+	display: table;
+	margin: 10px auto;
+}
+
+#NomeFile{
+	text-align: center;
+	display: block;
+	font-size: 12px;
+	width: calc(50% - 2px);
+	height: 19px;
+	overflow: hidden;
+	padding-top: 5px;
+	border: 1px solid #262261;
+	background-color: white;
+	float: left;
+}
+
+label.myLabel input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+
+.myLabel {
+	text-align: center;
+    border: 1px solid #262261;
+    padding: 3px 5px;
+    background: #DDD;
+	font-size: 14px;
+	width: calc(50% - 12px);
+	height: 18px;
+	margin: 0;
+    display: block;
+	float: right
+}
+
+.myLabel:hover {
+    background: #CCC;
+}
+
+.image_prewiew{
+	border: 1px solid #262261;
+	background-color: white;
+	margin: 0 auto;
+	max-width: 298px;
+	max-height: 169px;
+	border-radius: 5px;
+	position: relative;
+}
+
+.image_prewiew img{
 	width: 100%;
-	margin-top: 10px;
+	max-height: 169px;
+	max-width: 298px;
+	display: block;
+	margin: 0 auto;
+	border-radius: 5px;
+}
+
+.clear{
+	height: 24px;
+	width: 24px;
+	border-radius: 50%;
+	padding: 1px;
+	position: absolute;
+	z-index: 1;
+	border: 1px solid #262261;
+	background-color: #DDD;
+	background-position: center center;
+	background-repeat: no-repeat;
+	top: -13px;
+	right: -13px;
+	display: none;
 }
