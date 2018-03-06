@@ -5,8 +5,8 @@ include("config.php");
 header('Content-Type: application/json'); 
 
 $N = $_REQUEST['n'];
-$connessione = apriConnessione("localhost", "root", null);
-$database = mysqli_select_db($connessione, "tourpedia");
+//$connessione = apriConnessione("localhost", "root", null);
+//$database = mysqli_select_db($connessione, "tourpedia");
 if($N==1){
 	$sql = "SELECT Periodo, Viaggio, Dato FROM `prenotazioni` WHERE Categoria=\"solo alloggio\" AND Viaggio<>\"tutti i tipi di viaggio\" AND Viaggio<>\"viaggio di lavoro\"";
 	$risultati = mysqli_query($connessione, $sql);
@@ -54,5 +54,5 @@ if($N==1){
 }
 echo(json_encode($v));
 
-chiudiConnessione($connessione);
+mysqli_close($connessione);
 ?>
