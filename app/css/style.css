@@ -117,14 +117,14 @@ form input:hover, form select:hover , textarea:hover{
 	float: right;
 }
 
-/*MODIFICA*/
-#modifica{
+/*MODIFICA, STATISTICHE*/
+#modifica, #statistiche{
 	display: table;
 	width: 100%;
 	margin: 30px auto;
 }
 
-#obbligatori{
+#obbligatori, #dati_generali{
 	padding: 10px 0 30px 0;
 	width: 100%;
 	background-color: #8AD0EF;
@@ -133,7 +133,7 @@ form input:hover, form select:hover , textarea:hover{
 	display: table;
 }
 
-#facoltativi{
+#facoltativi, #dati_specifici{
 	padding: 10px 0 30px 0;
 	margin-top: 30px;
 	width: 100%;
@@ -313,4 +313,11 @@ label.myLabel input[type="file"] {
 	top: -13px;
 	right: -13px;
 	display: none;
+}
+
+/*STATISTICHE*/
+.grafico{
+	min-width: 310px;
+	height: 400px;
+	margin: 2.5%;
 }
