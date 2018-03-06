@@ -31,18 +31,22 @@ $result=iterator_to_array($collection->find());
 include('../../api/config.php');
 for($i = 0; $i < count($result); $i++)
 {
-	$hotel_username = $result[$i]['_id'];
 	
-	// genero una password di 8 caratteri
-	$hotel_password = randomPassword();
-	echo $hotel_username." ".$hotel_password."<br>";
+	if(isset($result[$i]['email']))
+	{
+		$hotel_username = $result[$i]['_id'];
+		$hotel_email = $result[$i]['email'];
 	
-	// memorizzo username e password su db
-	// TODO memorizzare la hash della password
+		// genero una password di 8 caratteri
+		$hotel_password = randomPassword();
+		echo $hotel_username." ".$hotel_password."<br>";
 	
-	$sql = "INSERT INTO utenti(username,password) VALUES ('$hotel_username','$hotel_password')";
-	$risultati = mysqli_query($connessione, $sql);
+		// memorizzo username e password su db
+		// TODO memorizzare la hash della password
 	
+		$sql = "INSERT INTO utenti(username,password,email) VALUES ('$hotel_username','$hotel_password', '$hotel_email')";
+		$risultati = mysqli_query($connessione, $sql);
+	}
 }	
 mysqli_close($connessione);
 
