@@ -7,6 +7,9 @@
 		<meta name="viewport" content="intial-scale=1.0">
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script><!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="js/login.js"></script>
 	</head>
 	<body>
 		<div>
@@ -23,23 +26,16 @@
 					<h2>Benvenuto</h2>
 				</div>
 				<div id="login">
-					<div id="registrati">
-						<h3>Registrati:</h3>
-						<p>Sei nuovo? Registrati con il codice che hai ricevuto<p>
-						<form>
-							<label>Username</label><input type="text">
-							<label>Password</label><input type="text">
-							<label>Chiave</label><input type="text">
-							<input class="go" type="button" value="Registrati">
-						</form>
+					<div id="welcome">
+						
 					</div>
 					<div id="accedi">
 						<h3>Accedi:</h3>
 						<p>Entra per modificare i dati della tua struttura e visualizzare le statistiche<p>
-						<form>
-							<label>Username</label><input type="text">
-							<label>Password</label><input type="password">
-							<input class="go" type="button" value="Accedi">
+						<form name="login">
+							<label>Username</label><input id="username" type="text">
+							<label>Password</label><input id="password" type="password">
+							<input id="go" class="go" type="button" value="Accedi">
 						</form>
 					</div>
 				</div>

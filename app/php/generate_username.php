@@ -1,5 +1,5 @@
 <?php
-
+ini_set('max_execution_time', 1000);
 function randomPassword() {
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $pass = array(); //remember to declare $pass as an array

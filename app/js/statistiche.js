@@ -23,7 +23,7 @@ $(document).ready(function(){
 				text: 'Numero di viaggiatori per tipologia di vacanza'
 			},
 			subtitle: {
-				text: 'Clicca ciascuna colonna per vedere le fasce di età. Fonte: ISTAT.'
+				text: 'Clicca ciascuna colonna per vedere le fasce di età. Dati aggiornati al 2016.'
 			},
 			xAxis: {
 				type: 'category'
@@ -185,15 +185,15 @@ $(document).ready(function(){
 			},
 			xAxis: {
 				categories: [
-					result[0].Alloggio,
-					result[1].Alloggio,
-					result[2].Alloggio,
-					result[3].Alloggio,
-					result[4].Alloggio,
-					result[5].Alloggio,
-					result[6].Alloggio,
+					result[8].Alloggio,
 					result[7].Alloggio,
-					result[8].Alloggio
+					result[5].Alloggio,
+					result[1].Alloggio,
+					result[4].Alloggio,
+					result[6].Alloggio,
+					result[3].Alloggio,
+					result[2].Alloggio,
+					result[0].Alloggio,
 				],
 				crosshair: true
 			},
@@ -219,73 +219,73 @@ $(document).ready(function(){
 			},
 			series: [{
 				name: result[0].Viaggio,
-				data: [result[0].Dato, result[1].Dato, result[2].Dato, result[3].Dato,result[4].Dato, result[5].Dato,result[6].Dato, result[7].Dato,result[8].Dato]
+				data: [result[8].Dato, result[7].Dato, result[5].Dato, result[1].Dato, result[4].Dato, result[6].Dato, result[3].Dato, result[2].Dato, result[0].Dato]
 			},{
 				name: result[9].Viaggio,
-				data: [result[9].Dato, result[10].Dato, result[11].Dato, result[12].Dato,result[13].Dato, result[14].Dato,result[15].Dato, result[16].Dato,result[17].Dato]
+				data: [result[17].Dato, result[16].Dato, result[14].Dato, result[10].Dato, result[13].Dato, result[15].Dato, result[12].Dato, result[11].Dato, result[9].Dato]
 			},{
 				name: result[18].Viaggio,
-				data: [result[18].Dato, result[19].Dato, result[20].Dato, result[21].Dato,result[22].Dato, result[23].Dato,result[24].Dato, result[25].Dato,result[26].Dato]
+				data: [result[26].Dato, result[25].Dato, result[23].Dato, result[19].Dato, result[22].Dato, result[24].Dato,result[21].Dato, result[20].Dato,result[18].Dato]
 			}]
 		});
 	});
 	$.getJSON("../api/statisticheG.php?&n=1", function (result){
 		Highcharts.chart('grafico3', {
-			chart: {
-				type: 'area'
-			},
+
 			title: {
 				text: 'Numero di prenotazioni via Internet dal 2014 al 2016'
 			},
+
 			subtitle: {
 				text: 'Internet sta diventando una risorsa,<br> rendi il tuo sito visibile inserendolo nella sezione modifica'
 			},
-			xAxis: {
-				allowDecimals: false,
-				labels: {
-					formatter: function () {
-						return this.value; // clean, unformatted number for year
-					}
-				}
-			},
+
 			yAxis: {
 				title: {
 					text: 'Numero di prenotazioni, in migliaia'
-				},
-				labels: {
-					formatter: function () {
-						return this.value;
-					}
 				}
 			},
-			tooltip: {
-				pointFormat: 'Prenotazioni per {series.name} nel {point.x}: <b>{point.y:,.0f}</b><br/>'
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle'
 			},
+
 			plotOptions: {
-				area: {
-					pointStart: 2014,
-					marker: {
-						enabled: false,
-						symbol: 'circle',
-						radius: 2,
-						states: {
-							hover: {
-								enabled: true
-							}
+				series: {
+					label: {
+						connectorAllowed: false
+					},
+					pointStart: 2010
+				}
+			},
+
+			series: [{
+					name: result[0].Viaggio,
+					data: [result[0].Dato, result[1].Dato, result[2].Dato]
+				}, {
+					name: result[3].Viaggio,
+					data: [result[3].Dato, result[4].Dato, result[5].Dato]
+				}, {
+					name: result[6].Viaggio,
+					data: [result[6].Dato, result[7].Dato, result[8].Dato]
+				}],
+
+			responsive: {
+				rules: [{
+					condition: {
+						maxWidth: 500
+					},
+					chartOptions: {
+						legend: {
+							layout: 'horizontal',
+							align: 'center',
+							verticalAlign: 'bottom'
 						}
 					}
-				}
-			},
-			series: [{
-				name: result[0].Viaggio,
-				data: [result[0].Dato, result[1].Dato, result[2].Dato]
-			}, {
-				name: result[3].Viaggio,
-				data: [result[3].Dato, result[4].Dato, result[5].Dato]
-			}, {
-				name: result[6].Viaggio,
-				data: [result[6].Dato, result[7].Dato, result[8].Dato]
-			}]
+				}]
+			}
+
 		});
 	});
 	$.getJSON("../api/statisticheG.php?&n=3", function (result){
@@ -303,7 +303,7 @@ $(document).ready(function(){
 				text: 'Dati aggiornati al 2016'
 			},
 			tooltip: {
-				pointFormat: '{point.name}: <b>{point.y}%</b>'
+				pointFormat: '<b>{point.y}%</b>'
 			},
 			plotOptions: {
 				pie: {
