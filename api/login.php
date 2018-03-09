@@ -14,7 +14,6 @@ if(isset($nome_utente)){
 		$r = mysqli_fetch_assoc($risultati);
 		$v = floatval($r["N"]);
 		if($v == 1){
-			echo("$nome_utente e $password_utente ci sono!");
 			require('../vendor/autoload.php');
 			$ini_array = parse_ini_file("../update/config.ini", true);
 			$mongo_url = $ini_array['Mongo']['url'];
@@ -28,13 +27,13 @@ if(isset($nome_utente)){
 			$result=iterator_to_array($collection->find());
 			for($i = 0; $i < count($result); $i++){
 				if($result[$i]['_id']== $nome_utente){
-					header('Location: ../app/statistiche.html');
+					$a='../app/statistiche.html';
 				}
 			}
 		}
 	}
 }
-echo(json_encode($v));
+echo(json_encode($a));
 
 // se il match è corretto, abilito le sessioni
 /*session_start();
