@@ -66,7 +66,7 @@ form{
 	margin: 0 auto;
 }
 
-form input, form select{
+input, form select{
 	display: block;
 	border: 1px solid #262261;
 	width: calc(100% - 22px);
@@ -81,7 +81,7 @@ form select{
 	height: 22px;
 }
 
-form input:hover, form select:hover , textarea:hover{
+input:hover, form select:hover , textarea:hover{
 	box-shadow: inset 0 0 0 1px #262261;
 }
 
@@ -166,6 +166,7 @@ label{
 	margin-top: 10px;
 	margin-bottom: 2px;
 }
+
 #stelle input, #servizi input, #lingue input{
 	display: inline;
 	padding: 0;
@@ -315,9 +316,77 @@ label.myLabel input[type="file"] {
 	display: none;
 }
 
+#Invia{
+	margin: 3% auto;
+	width: 20%;
+	height: 20px;
+}
+
 /*STATISTICHE*/
-.grafico{
+.graficoG{
 	min-width: 310px;
 	height: 400px;
 	margin: 2.5%;
+}
+
+.graficoP{
+	width: 32%;
+	margin: 0.65%;
+	height: 300px;
+}
+
+.avviso{
+	border: 2px solid #262261;
+	border-radius: 50%;
+	position: relative;
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	
+}
+
+.avviso p{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#attrazioni_vicine{
+	clear: both;
+	position: relative;
+	margin: 0 auto;
+	max-width: 600px;
+	min-height: 300px;
+}
+
+.swiper-container {
+	width: 100%;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.swiper-slide {
+	background-color: white;
+	background-position: center;
+	background-size: cover;
+	width: 300px;
+	height: 300px;
+}
+
+.swiper-pagination-bullet-active{
+	background: #262261;
+}
+
+.swiper-button-next{
+	background-image: url('../images/right.svg');
+}
+
+.swiper-button-prev{
+	background-image: url('../images/left.svg');
+}
+
+#didascalia img{
+	display: block;
 }

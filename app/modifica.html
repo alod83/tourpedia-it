@@ -29,18 +29,18 @@
 				<div id="modifica">
 					<div id="obbligatori">
 						<h3>Dati di base:</h3>
-						<form>
+						<form name="dati">
 							<div class="sinistra">
-								<label>Nome Struttura</label><input type="text" value="Hotel Bologna">
+								<label>Nome Struttura</label><input id="nome_struttura" type="text">
 								<label>Categoria</label>
-								<select>
+								<select id="categoria_struttura">
 									<option value="Albergo">Albergo</option>
 									<option value="Affittacamere">Affittacamere</option>
 									<option value="Bed and breakfast - standard">Bed and breakfast - standard</option>
 									<option value="Agriturismo, ittiturismo, pescaturismo">Agriturismo, ittiturismo, pescaturismo</option>
 									<option value="Ostello per la gioventù">Ostello per la gioventù</option>
 								</select>
-								<label>Indirizzo</label><input type="text" value="Via Roma, 1">
+								<label>Indirizzo</label><input id="indirizzo_struttura" type="text">
 								<label>Stelle</label>
 								<div id="stelle">
 									<input type="radio" name="stelle" value="Nessuna" checked>Nessuna<br>
@@ -50,38 +50,213 @@
 									<input type="radio" name="stelle" value="4"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
 									<input type="radio" name="stelle" value="5"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
 								</div>
-								<label>Telefono</label><input type="tel">
-								<label>Email</label><input type="email" value="infohotel_bologna@gmail.com">
+								<label>Telefono</label><input id="telefono_struttura" type="tel">
+								<label>Email</label><input id="email_struttura" type="email">
 							</div>
 							<div class="destra">
 								<label>Paese</label>
-								<select>
+								<select id="paese_struttura">
+									<option value="Altro">Altro</option>
 									<option value="Italy">Italia</option>
 									<option value="France">Francia</option>
 									<option value="Spain">Spagna</option>
 								</select>
 								<label>Regione</label>
-								<select>
-									<option value="Emilia Romagna">Emilia Romagna</option>
-									<option value="Sardegna">Sardegna</option>
-									<option value="Sicilia">Sicilia</option>
-									<option value="Toscana">Toscana</option>
-									<option value="Lombardia">Sardegna</option>
-									<option value="Umbria">Umbria</option>
+								<select id="regione_struttura">
+									<option value="Altro">Altro</option>
+									<optgroup label="Italia">
+										<option value="Abruzzo">Abruzzo</option>
+										<option value="Basilicata">Basilicata</option>
+										<option value="Calabria">Calabria</option>
+										<option value="Campania">Campania</option>
+										<option value="Emilia Romagna">Emilia Romagna</option>
+										<option value="Friuli Venezia Giulia">Friuli Venezia Giulia</option>
+										<option value="Lazio">Lazio</option>
+										<option value="Liguria">Liguria</option>
+										<option value="Lombardia">Lombardia</option>
+										<option value="Marche">Marche</option>
+										<option value="Molise">Molise</option>
+										<option value="Piemonte">Piemonte</option>
+										<option value="Puglia">Puglia</option>
+										<option value="Sardegna">Sardegna</option>
+										<option value="Sicilia">Sicilia</option>
+										<option value="Toscana">Toscana</option>
+										<option value="Trentino Alto-Adige">Trentino Alto-Adige</option>
+										<option value="Umbria">Umbria</option>
+										<option value="Valle d'Aosta">Valle d'Aosta</option>
+										<option value="Veneto">Veneto</option>
+									</optgroup>
+									<optgroup label="Francia">
+										<option value="Ile-de-France">Ile-de-France</option>
+										<option value="Bretagne">Bretagne</option>
+										<option value="Auvergne-Rhône-Alpes">Auvergne-Rhône-Alpes</option>
+										<option value="Bourgogne-Franche-Comté">Bourgogne-Franche-Comté</option>
+										<option value="Pays de la Loire">Pays de la Loire</option>
+										<option value="Provence-Alpes-Côte d Azur">Provence-Alpes-Côte d Azur</option>
+									</optgroup>
+									<optgroup label="Spagna">
+										<option value="Región de Murcia">Región de Murcia</option>
+										<option value="Comunidad Foral de Navarra">Comunidad Foral de Navarra</option>
+									</optgroup>
 								</select>
 								<label>Provincia</label>
-								<select>
-									<option value="Emilia Romagna">BO</option>
-									<option value="Sardegna">FE</option>
-									<option value="Sicilia">FC</option>
-									<option value="Toscana">MO</option>
-									<option value="Lombardia">PR</option>
-									<option value="Umbria">PC</option>
+								<select id="provincia_struttura">
+									<option value="Nessuna">Nessuna</option>
+									<optgroup label="Abruzzo">
+										<option value="AQ">AQ</option>
+										<option value="Teramo">Teramo</option>
+										<option value="PE">PE</option>
+										<option value="CH">CH</option>
+									</optgroup>
+									<optgroup label="Basilicata">
+										<option value="PZ">PZ</option>
+										<option value="MT">MT</option>
+									</optgroup>
+									<optgroup label="Calabria">
+										<option value="CS">CS</option>
+										<option value="KR">KR</option>
+										<option value="CZ">CZ</option>
+										<option value="Vibo Valentia">Vibo Valentia</option>
+										<option value="RC">RC</option>
+									</optgroup>
+									<optgroup label="Campania">
+										<option value="CE">CE</option>
+										<option value="BN">BN</option>
+										<option value="NA">NA</option>
+										<option value="AV">AV</option>
+										<option value="SA">SA</option>
+									</optgroup>
+									<optgroup label="Emilia Romagna">
+										<option value="BO">BO</option>
+										<option value="FE">FE</option>
+										<option value="FC">FC</option>
+										<option value="MO">MO</option>
+										<option value="PR">PR</option>
+										<option value="PC">PC</option>
+										<option value="RE">RE</option>
+										<option value="RA">RA</option>
+										<option value="RN">RN</option>
+									</optgroup>
+									<optgroup label="Friuli Venezia Giulia">
+										<option value="PN">PN</option>
+										<option value="UD">UD</option>
+										<option value="GO">GO</option>
+										<option value="TS">TS</option>
+									</optgroup>
+									<optgroup label="Lazio">
+										<option value="VT">VT</option>
+										<option value="RI">RI</option>
+										<option value="Roma">Roma</option>
+										<option value="LT">LT</option>
+										<option value="FR">FR</option>
+									</optgroup>
+									<optgroup label="Liguria">
+										<option value="IM">IM</option>
+										<option value="SV">SV</option>
+										<option value="GE">GE</option>
+										<option value="SP">SP</option>
+									</optgroup>
+									<optgroup label="Lombardia">
+										<option value="VA">VA</option>
+										<option value="CO">CO</option>
+										<option value="LC">LC</option>
+										<option value="SO">SO</option>
+										<option value="MI">MI</option>
+										<option value="BG">BG</option>
+										<option value="BS">BS</option>
+										<option value="PV">PV</option>
+										<option value="LO">LO</option>
+										<option value="CR">CR</option>
+										<option value="MN">MN</option>
+										<option value="MB">MB</option>
+									</optgroup>
+									<optgroup label="Marche">
+										<option value="PU">PU</option>
+										<option value="AN">AN</option>
+										<option value="MC">MC</option>
+										<option value="AP">AP</option>
+										<option value="FM">FM</option>
+									</optgroup>
+									<optgroup label="Molise">
+										<option value="IS">IS</option>
+										<option value="CB">CB</option>
+									</optgroup>
+									<optgroup label="Piemonte">
+										<option value="TO">TO</option>
+										<option value="VC">VC</option>
+										<option value="BI">BI</option>
+										<option value="VB">VB</option>
+										<option value="NO">NO</option>
+										<option value="CN">CN</option>
+										<option value="AT">AT</option>
+										<option value="AL">AL</option>
+									</optgroup>
+									<optgroup label="Puglia">
+										<option value="FG">FG</option>
+										<option value="BA">BA</option>
+										<option value="TA">TA</option>
+										<option value="BR">BR</option>
+										<option value="LE">LE</option>
+										<option value="BT">BT</option>
+									</optgroup>
+									<optgroup label="Sardegna">
+										<option value="SS">SS</option>
+										<option value="NU">NU</option>
+										<option value="CA">CA</option>
+										<option value="OR">OR</option>
+										<option value="OT">OT</option>
+										<option value="OG">OG</option>
+										<option value="VS">VS</option>
+										<option value="CI">CI</option>
+									</optgroup>
+									<optgroup label="Sicilia">
+										<option value="TP">TP</option>
+										<option value="PA">PA</option>
+										<option value="ME">ME</option>
+										<option value="AG">AG</option>
+										<option value="CL">CL</option>
+										<option value="EN">EN</option>
+										<option value="CT">CT</option>
+										<option value="RG">RG</option>
+										<option value="SR">SR</option>
+									</optgroup>
+									<optgroup label="Toscana">
+										<option value="LI">LI</option>
+										<option value="PI">PI</option>
+										<option value="FI">FI</option>
+										<option value="GR">GR</option>
+										<option value="SI">SI</option>
+										<option value="MS">MS</option>
+										<option value="LU">LU</option>
+										<option value="PT">PT</option>
+										<option value="PO">PO</option>
+										<option value="AR">AR</option>
+									</optgroup>
+									<optgroup label="Trentino Alto-Adige">
+										<option value="BZ">BZ</option>
+										<option value="TN">TN</option>
+									</optgroup>
+									<optgroup label="Umbria">
+										<option value="PG">PG</option>
+										<option value="TR">TR</option>
+									</optgroup>
+									<optgroup label="Valle d'Aosta">
+										<option value="AO">AO</option>
+									</optgroup>
+									<optgroup label="Veneto">
+										<option value="VR">VR</option>
+										<option value="VI">VI</option>
+										<option value="BL">BL</option>
+										<option value="TV">TV</option>
+										<option value="VE">VE</option>
+										<option value="PD">PD</option>
+										<option value="RO">RO</option>
+									</optgroup>
 								</select>
-								<label>C.A.P.</label><input type="text" value="40121">
-								<label>Città</label><input type="text" value="Bologna">
-								<label>Latitudine</label><input type="text">
-								<label>Longitudine</label><input type="text">
+								<label>C.A.P.</label><input id="cap_struttura" type="text">
+								<label>Città</label><input id="città_struttura" type="text">
+								<label>Latitudine</label><input id="latitudine_struttura" type="text">
+								<label>Longitudine</label><input id="longitudine_struttura" type="text">
 							</div>
 						</form>
 					</div>
@@ -89,10 +264,10 @@
 						<h3>Altro:</h3>
 						<form>
 							<div class="sinistra">
-								<label>Località</label><input type="text">
-								<label>Frazione</label><input type="text">
-								<label>Fax</label><input type="tel">
-								<label>Sito web</label><input type="url">
+								<label>Località</label><input id="località_struttura" type="text">
+								<label>Frazione</label><input id="frazione_struttura" type="text">
+								<label>Fax</label><input id="fax_struttura" type="tel">
+								<label>Sito web</label><input id="website_struttura" type="text">
 								<label>Periodo di apertura</label><textarea id="orari" placeholder="Scrivi il periodo e/o gli orari di apertura della tua struttura..."></textarea>
 								<label>Servizi</label>
 									<div id="servizi">
@@ -183,12 +358,12 @@
 									</div>
 							</div>
 							<div class="destra">
-								<label>Numero posti letto</label><input type="number" value="1">
-								<label>Numero di camere</label><input type="number" value="6">
-								<label>Numero di suite</label><input type="number" value="0">
-								<label>Pagina Facebook</label><input type="text">
-								<label>Profilo Instagram</label><input type="text">
-								<label>Profilo Twitter</label><input type="text">
+								<label>Numero posti letto</label><input id="posti_struttura" type="number">
+								<label>Numero di camere</label><input id="camere_struttura" type="number">
+								<label>Numero di suite</label><input id="suite_struttura" type="number">
+								<label>Pagina Facebook</label><input id="facebook_struttura" type="text">
+								<label>Profilo Instagram</label><input id="instagram_struttura" type="text">
+								<label>Profilo Twitter</label><input id="twitter_struttura" type="text">
 								<label>Lingue</label>
 								<div id="lingue">
 									<div class="lingua"><input type="checkbox" name="lingue" value="English"><img class="lang" src="images/English.png" title="English" alt="English"></div>
@@ -213,10 +388,11 @@
 									<div class="lingua"><input type="checkbox" name="lingue" value="Norvegese"><img class="lang" src="images/Norvegese.png" title="Norvegese" alt="Norvegese"></div>
 									<div class="lingua"><input type="checkbox" name="lingue" value="Italian"><img class="lang" src="images/Italian.png" title="Italian" alt="Italian"></div>
 								</div>
-								<label>Descrizione albergo</label><textarea placeholder="Scrivi una breve descrizione della tua struttura..."></textarea>
+								<label>Descrizione albergo</label><textarea id="descrizione_struttura" placeholder="Scrivi una breve descrizione della tua struttura..."></textarea>
 							</div>
 						</form>
 					</div>
+					<input id="Invia" type="button" value="Invia">
 				</div>
 			</div>
 		</div>

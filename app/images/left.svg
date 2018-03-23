@@ -1,0 +1,12 @@
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_1" width="50" height="50" fill="none"/>
+  <polygon fill="#262261" transform="rotate(-180 25.082000732421875,25) " id="svg_2" points="15,2.75 12.913999557495117,4.835999965667725 33.077999114990234,25 12.913999557495117,45.16400146484375 15,47.25 37.25,25 "/>
+ </g>
+</svg>

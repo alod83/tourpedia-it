@@ -1,19 +1,9 @@
-/*QUERY Presenze negli alberghi
-ITALIA
-$sql = "SELECT Sigla, Periodo, Dato FROM `presenza_negli_alberghi` WHERE Territorio=\'Italia\' AND Esercizio=\'totale esercizi ricettivi\' AND Indicatori=\'presenze\'";
-REGIONE
-$sql = "SELECT Sigla, Periodo, Dato FROM `presenza_negli_alberghi` WHERE Esercizio=\'totale esercizi ricettivi\' AND Territorio=\'Emilia Romagna\' AND Indicatori=\'presenze\'";
-PROVINCIA
-$sql = "SELECT Territorio, Periodo, Dato FROM `presenza_negli_alberghi` WHERE Esercizio=\'totale esercizi ricettivi\' AND Sigla=\'BO\' AND Indicatori=\'presenze\'";
-*/
-/*QUERY Destinazione preferita
-$sql = "SELECT Destinazione, Viaggio, Dato FROM `regioni_destinazione` WHERE Destinazione=\'Piemonte\'";
-*/
-/*QUERY Voli aerei
-$sql = "SELECT Aeroporti, Periodo, Dato FROM `voli_aerei_per_aeroporto` WHERE Regione=\'Lazio\' AND servizio=\'linea interni\' AND Nazionalità=\'Mondo\' AND ArrivoPartenza=\'arrivi\'";
-*/
+var regione = null;
+var provincia = null;
+var latitudine = null;
+var longitudine = null;
 $(document).ready(function(){
-	$.getJSON("../api/statisticheG.php?&n=2", function (result) {
+	$.getJSON("../api/statisticheP.php?&n=2", function (result) {
 	// Create the chart
 		Highcharts.chart('grafico', {
 			chart: {
@@ -172,7 +162,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	$.getJSON("../api/statisticheG.php?&n=4", function (result){
+	$.getJSON("../api/statisticheP.php?&n=4", function (result){
 		Highcharts.chart('grafico2', {
 			chart: {
 				type: 'column'
@@ -219,7 +209,7 @@ $(document).ready(function(){
 			},
 			series: [{
 				name: result[0].Viaggio,
-				data: [result[8].Dato, result[7].Dato, result[5].Dato, result[1].Dato, result[4].Dato, result[6].Dato, result[3].Dato, result[2].Dato, result[0].Dato]
+				data: [result[8].Dato, result[7].Dato, result[5].Dato, result[1].Dato, result[4].Dato, result[6].Dato, result[3].Dato, result[2].Dato, result[0].Dato],
 			},{
 				name: result[9].Viaggio,
 				data: [result[17].Dato, result[16].Dato, result[14].Dato, result[10].Dato, result[13].Dato, result[15].Dato, result[12].Dato, result[11].Dato, result[9].Dato]
@@ -229,7 +219,7 @@ $(document).ready(function(){
 			}]
 		});
 	});
-	$.getJSON("../api/statisticheG.php?&n=1", function (result){
+	$.getJSON("../api/statisticheP.php?&n=1", function (result){
 		Highcharts.chart('grafico3', {
 
 			title: {
@@ -288,7 +278,7 @@ $(document).ready(function(){
 
 		});
 	});
-	$.getJSON("../api/statisticheG.php?&n=3", function (result){
+	$.getJSON("../api/statisticheP.php?&n=3", function (result){
 		Highcharts.chart('grafico4', {
 			chart: {
 				plotBackgroundColor: null,
@@ -345,5 +335,365 @@ $(document).ready(function(){
 				}]
 			}]
 		});
+	});
+	$.getJSON("../api/statisticheP.php?n=5", function (result){
+		Highcharts.chart('grafico5', {
+
+			title: {
+				text: 'Andamento di presenze nelle strutture ricettive in Italia'
+			},
+
+			subtitle: {
+				text: 'Serie dal 2010 al 2016'
+			},
+
+			yAxis: {
+				title: {
+					text: 'Numero di presenze'
+				}
+			},
+			xAxis: {
+				categories: [
+					result[0].Periodo,
+					result[1].Periodo,
+					result[2].Periodo,
+					result[3].Periodo,
+					result[4].Periodo,
+					result[5].Periodo,
+					result[6].Periodo,
+				],
+				tickPositions: [ 0, 1, 2, 3, 4, 5, 6]
+			},
+			
+			plotOptions: {
+				column: {
+					pointPadding: 0,
+					borderWidth: 0
+				}
+			},
+
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle'
+			},
+
+			series: [{
+				name: 'Italia',
+				data: [result[0].Dato,result[1].Dato,result[2].Dato,result[3].Dato,result[4].Dato,result[5].Dato,result[6].Dato],
+			}],
+
+			responsive: {
+				rules: [{
+					condition: {
+						maxWidth: 500
+					},
+					chartOptions: {
+						legend: {
+							layout: 'horizontal',
+							align: 'center',
+							verticalAlign: 'bottom'
+						}
+					}
+				}]
+			}
+
+		});
+	});
+	$.getJSON("../api/struttura_scelta.php", function (result){
+		regione=result["region"];
+		provincia=result["province"];
+		latitudine=result["latitude"];
+		longitudine=result["longitude"];
+		if(regione != null){
+			$.getJSON("../api/statisticheP.php?n=6&reg="+regione, function (result){
+				if(result.length > 0){
+					Highcharts.chart('grafico6', {
+
+						title: {
+							text: 'Andamento di presenze nelle strutture ricettive: dati regionali'
+						},
+
+						subtitle: {
+							text: 'Serie dal 2010 al 2016'
+						},
+
+						yAxis: {
+							title: {
+								text: 'Numero di presenze'
+							}
+						},
+						xAxis: {
+							categories: [
+								result[0].Periodo,
+								result[1].Periodo,
+								result[2].Periodo,
+								result[3].Periodo,
+								result[4].Periodo,
+								result[5].Periodo,
+								result[6].Periodo,
+							],
+							tickPositions: [ 0, 1, 2, 3, 4, 5, 6]
+						},
+						plotOptions: {
+							column: {
+								pointPadding: 0,
+								borderWidth: 0
+							}
+						},
+						legend: {
+							layout: 'vertical',
+							align: 'right',
+							verticalAlign: 'middle'
+						},
+						series: [{
+							name: 'Regione ('+result[0].Territorio+')',
+							data: [result[0].Dato,result[1].Dato,result[2].Dato,result[3].Dato,result[4].Dato,result[5].Dato,result[6].Dato],
+							color: '#434348'
+						}],
+
+						responsive: {
+							rules: [{
+								condition: {
+									maxWidth: 500
+								},
+								chartOptions: {
+									legend: {
+										layout: 'horizontal',
+										align: 'center',
+										verticalAlign: 'bottom'
+									}
+								}
+							}]
+						}
+
+					});
+				}else{
+					var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					$('#grafico6').html(s);
+				}
+			});
+			$.getJSON("../api/statisticheP.php?n=8&reg="+regione, function (result){
+				if(result.length>0){
+					Highcharts.chart('grafico8', {
+						chart: {
+							type: 'column'
+						},
+						title: {
+							text: 'Numero di persone che scelgono la tua regione come meta di viaggi'
+						},
+						subtitle: {
+							text: 'Dati aggiornati al 2016'
+						},
+						xAxis: {
+							categories: [
+								result[0].Viaggio,
+								result[1].Viaggio,
+								result[2].Viaggio,
+								result[3].Viaggio,
+								result[4].Viaggio
+							],
+							crosshair: true
+						},
+						yAxis: {
+							min: 0,
+							title: {
+								text: 'Dati (in migliaia)'
+							}
+						},
+						tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+								'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+						},
+						plotOptions: {
+							column: {
+								pointPadding: 0.1,
+								borderWidth: 0
+							}
+						},
+						series: [{
+							name: result[0].Destinazione,
+							data: [result[0].Dato, result[1].Dato, result[2].Dato, result[3].Dato, result[4].Dato],
+						}]
+					});
+				}else{
+					var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					$('#grafico8').html(s);
+				}
+			});
+			$.getJSON("../api/statisticheP.php?n=9&reg="+regione, function (result){
+				if(result.length>0){
+					var chart = Highcharts.chart('grafico9', {
+						chart: {
+							type: 'column'
+						},
+						title: {
+							text: 'Traffico aereo nei pricipali aeroporti della regione'
+						},
+						subtitle: {
+							text: 'Serie dal 2014 al 2016'
+						},
+						xAxis: {
+							categories: [
+								result[0].Periodo,
+								result[1].Periodo,
+								result[2].Periodo,
+							],
+							crosshair: true
+						},
+						yAxis: {
+							min: 0,
+							title: {
+								text: 'Dati (in migliaia)'
+							}
+						},
+						tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+								'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+						},
+						plotOptions: {
+							column: {
+								pointPadding: 0.1,
+								borderWidth: 0
+							}
+						},
+						series: [{
+							name: result[0].Aeroporti,
+							data: [result[0].Dato, result[1].Dato, result[2].Dato],
+						}]
+					});
+					/*Controllo se nella regione è presente più di un aeroporto*/
+					if(result.length>3){
+						for(var i=3; i< result.length; i=i+3){
+							chart.addSeries({ name: result[i].Aeroporti, data: [result[i].Dato, result[i+1].Dato, result[i+2].Dato]});
+						}
+					}
+				}else{
+					var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					$('#grafico9').html(s);
+				}
+			});
+		}else{
+			var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+			$('#grafico6').html(s);
+			$('#grafico8').html(s);
+			$('#grafico9').html(s);
+		}
+		if(provincia != null){
+			$.getJSON("../api/statisticheP.php?n=7&prov="+provincia, function (result){
+				Highcharts.chart('grafico7', {
+
+					title: {
+						text: 'Andamento di presenze nelle strutture ricettive: dati provinciali'
+					},
+
+					subtitle: {
+						text: 'Serie dal 2010 al 2016'
+					},
+
+					yAxis: {
+						title: {
+							text: 'Numero di presenze'
+						}
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'right',
+						verticalAlign: 'middle'
+					},
+					xAxis: {
+						categories: [
+							result[0].Periodo,
+							result[1].Periodo,
+							result[2].Periodo,
+							result[3].Periodo,
+							result[4].Periodo,
+							result[5].Periodo,
+							result[6].Periodo,
+						],
+						tickPositions: [ 0, 1, 2, 3, 4, 5, 6]
+					},
+					
+					plotOptions: {
+						column: {
+							pointPadding: 0,
+							borderWidth: 0
+						}
+					},
+
+					series: [{
+						name: 'Provincia ('+result[0].Sigla+')',
+						data: [result[0].Dato,result[1].Dato,result[2].Dato,result[3].Dato,result[4].Dato,result[5].Dato,result[6].Dato],
+						color: '#90ed7d'
+					}],
+
+					responsive: {
+						rules: [{
+							condition: {
+								maxWidth: 500
+							},
+							chartOptions: {
+								legend: {
+									layout: 'horizontal',
+									align: 'center',
+									verticalAlign: 'bottom'
+								}
+							}
+						}]
+					}
+				});
+			});
+		}else{
+			var s = '<div class="avviso"><p>Campo \'Provincia\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+			$('#grafico7').html(s);
+			$('#grafico9').html(s);
+		}
+		if((latitudine != null) && (longitudine != null)){
+			$.getJSON("../api/attrazioni_vicine.php?lat="+latitudine+"&lon="+longitudine, function (result){
+				if(result.length >0){
+					var s="<p>Le attrazioni più vicine alla tua struttura</p><div class='swiper-container'><div class='swiper-wrapper'>";
+					for(var i=0; i<result.length; i++){
+						s+="<div class='swiper-slide'><div class='didascalia'><img src='https://maps.googleapis.com/maps/api/streetview?size=300x250&location="+result[i].latitude+","+result[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'><p>"+result[i].name+"</p></div></div>";
+					}
+					s+="</div><div class='swiper-button-next'></div><div class='swiper-button-prev'></div><div class='swiper-pagination'></div></div>";
+					$('#attrazioni_vicine').html(s);
+					var swiper = new Swiper('.swiper-container', {
+						effect: 'coverflow',
+						grabCursor: true,
+						centeredSlides: true,
+						slidesPerView: 'auto',
+						coverflowEffect: {
+							rotate: 50,
+							stretch: 0,
+							depth: 100,
+							modifier: 1,
+							slideShadows : true,
+						},
+						navigation: {
+							nextEl: '.swiper-button-next',
+							prevEl: '.swiper-button-prev',
+						},
+						pagination: {
+							el: '.swiper-pagination',
+							clickable: true
+						},
+					});
+				}else{
+					var s = '<div class="avviso"><p>Campi \'Latitudine\' e\\o \'Latitudine\' assenti o non validi. Inseriscili correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					$('#attrazioni_vicine').html(s);
+				}
+			});
+		}else{
+			var s = '<div class="avviso"><p>Campi \'Latitudine\' e\\o \'Longitudine\' assenti o non validi. Inseriscili correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+			$('#attrazioni_vicine').html(s);
+		}
 	});
 });
