@@ -78,7 +78,8 @@ $(document).ready(function(){
 			}
 		}
 		if(result['photo'] != null){
-			/*$("#InputFile").val(result['latitude']);*/
+			$('#image_upload_preview').attr('src', result['photo']);
+			$('#NomeFile').html(result['photo'].replace('photos/',''));
 		}
 		if(result['beds'] != null){
 			$("#posti_struttura").val(result['beds']);
@@ -209,6 +210,25 @@ $(document).ready(function(){
 		var ciao = JSON.stringify(array);
 		$.getJSON("../api/modifica.php?ar="+ciao, function (result){
 			console.log(result);
+		});
+		var form = new FormData();
+		var myFormData = document.getElementById('inputFile').files[0]; //get the file 
+		if (myFormData) {   //Check the file is emty or not
+			form.append('inputFile', myFormData); //append files
+		}    
+		$.ajax({
+				type: 'POST',               
+				processData: false,
+				contentType: false, 
+				data: form,
+				url: "../api/photo.php", //My reference URL
+				dataType : 'json',  
+				success: function(jsonData){
+					if(jsonData == 1)
+						$('#img_msg').html("Image Uploaded Successfully");
+					else
+						$('#img_msg').html("Error While Image Uploading");
+				}
 		});
 	});
 });
