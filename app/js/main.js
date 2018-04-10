@@ -443,7 +443,11 @@ function createMarker(map){
 						var string="<div id='schedaS'><form><input class='chiudi' type='image' src='images/chiudiS.svg' onclick='ChiudiS()'></form>";
 						coordinate = {lat: data[i].latitude, lng: data[i].longitude};
 						map.setCenter({ lat : data[0].latitude , lng : data[0].longitude });
-						string+="<div class='foto'><img src='https://maps.googleapis.com/maps/api/streetview?size=480x250&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div>"
+						if(data[i].photo){
+							string+="<div class='foto'><img src=\'"+data[i].photo+"\'></div>";
+						}else{
+							string+="<div class='foto'><img src='https://maps.googleapis.com/maps/api/streetview?size=480x250&location="+data[i].latitude+","+data[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'></div>"
+						}
 						string+="<div id='header1' class='header'>";
 						if(data[i].name){
 							stringa+="<p>"+data[i].name+"</p>";
@@ -459,6 +463,12 @@ function createMarker(map){
 							string+="<p>Tipo di struttura: "+data[i].description+"</p>";
 						}
 						string+="</div><div class='contenuto'>";
+						if(data[i]['locality']){
+							string+="<p>Località: "+data[i]['locality']+"</p>";
+						}
+						if(data[i]['hamlet']){
+							string+="<p>Frazione di "+data[i]['hamlet']+"</p>";
+						}
 						string+="<img class='icons' src='images/address.svg' alt='address'><p class='infoscheda'> ";
 						if(data[i].address){
 							stringa+="<p>"+data[i].address+"</p>";
@@ -467,6 +477,9 @@ function createMarker(map){
 						ResultsS += "<li class='result' id="+data[i].name.replace(/ /g,"_")+"><div class='i'><div class='info'><p>"+stringa+"</p></div><div class='anteprima'></div></div></li>";
 						if(data[i].city){
 							string+=data[i].city;
+						}
+						if(data[i]['postal-code']){
+							string+=" "+data[i]['postal-code'];
 						}
 						if(data[i].province){
 							string+=" ("+data[i].province+")";
@@ -480,6 +493,47 @@ function createMarker(map){
 						}
 						if(data[i]['web site']){
 							string+="<img class='icons' src='images/internet.svg' alt='internet'><p class='infoscheda'> <a class='website' href='http://"+data[i]['web site']+"'>"+data[i]['web site']+"</a></p></br>";
+						}
+						if(data[i]['fax']){
+							string+="<p class='infoscheda'>Fax: "+data[i]['fax']+"</p></br>";
+						}
+						if(data[i]['opening period']){
+							string+="<p class='infoscheda'>Periodo di apertura: "+data[i]['opening period']+"</p></br>";
+						}
+						if(data[i]['facilities']){
+							string+="<p class='infoscheda'>Servizi:";
+							for(var j = 0; j< data[i]['facilities'].length; j++){
+								string+=" "+data[i]['facilities'][j];
+							}
+							string+="</p></br>"
+						}
+						if(data[i]['beds']){
+							string+="<p class='infoscheda'>Numero posti letto: "+data[i]['beds']+"</p></br>";
+						}
+						if(data[i]['rooms']){
+							string+="<p class='infoscheda'>Numero camere: "+data[i]['rooms']+"</p></br>";
+						}
+						if(data[i]['suites']){
+							string+="<p class='infoscheda'>Numero suite: "+data[i]['suites']+"</p></br>";
+						}
+						if(data[i]['facebook']){
+							string+="<p class='infoscheda'>Facebook: "+data[i]['facebook']+"</p></br>";
+						}
+						if(data[i]['instagram']){
+							string+="<p class='infoscheda'>Instagram: "+data[i]['instagram']+"</p></br>";
+						}
+						if(data[i]['twitter']){
+							string+="<p class='infoscheda'>Twitter: "+data[i]['twitter']+"</p></br>";
+						}
+						if(data[i]['languages']){
+							string+="<p class='infoscheda'>Lingue:";
+							for(var z = 0; z< data[i]['languages'].length; z++){
+								string+=" "+data[i]['languages'][z];
+							}
+							string+="</p></br>";
+						}
+						if(data[i]['category']){
+							string+="<p>Descrizione: "+data[i]['category']+"</p></br>";
 						}
 						string+="</div></div>"
 						var marker = new google.maps.Marker({

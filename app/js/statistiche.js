@@ -526,6 +526,7 @@ $(document).ready(function(){
 				}
 			});
 			$.getJSON("../api/statisticheP.php?n=9&reg="+regione, function (result){
+				console.log(result);
 				if(result.length>0){
 					var chart = Highcharts.chart('grafico9', {
 						chart: {
