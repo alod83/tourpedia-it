@@ -15,6 +15,11 @@ function Clear(){
 	$(".clear").css('display','none');
 }
 
+function hasExtension(inputID, exts) {
+    var fileName = document.getElementById(inputID).value;
+	return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$', "i")).test(fileName);
+}
+var array = {};
 $(document).ready(function(){
 	/*INTRODUCO LA STRUTTURA DALLA SESSIONE*/
 	$.getJSON("../api/struttura_scelta.php", function (result){
@@ -80,6 +85,7 @@ $(document).ready(function(){
 		if(result['photo'] != null){
 			$('#image_upload_preview').attr('src', result['photo']);
 			$('#NomeFile').html(result['photo'].replace('photos/',''));
+			$(".clear").fadeIn();
 		}
 		if(result['beds'] != null){
 			$("#posti_struttura").val(result['beds']);
@@ -110,16 +116,21 @@ $(document).ready(function(){
 	});
 	/*INPUT IMMAGINE*/
 	$("#inputFile").change(function () {
-		readURL(this);
-		$("#NomeFile").html($("#inputFile")[0].files[0]['name']);
-		$(".clear").fadeIn();
+		if(hasExtension('inputFile',['.jpg', '.png', '.jpeg'])){
+			readURL(this);
+			$('#img_msg').html("");
+			$("#NomeFile").html($("#inputFile")[0].files[0]['name']);
+			$(".clear").fadeIn();
+		}else{
+			Clear();
+			$('#img_msg').html("Estensione non valida");
+		}
 	});
 	$(".clear").click(function(event) {
 		event.preventDefault();
 		Clear();
 	});
 	$("#Invia").click(function (){
-		var array = {};
 		if($("#nome_struttura").val()){
 			array['name'] = $("#nome_struttura").val();
 		}
@@ -207,28 +218,35 @@ $(document).ready(function(){
 				array['languages'].push($("input[name=lingue]:checked:eq("+i+")").val());
 			}
 		}
-		var ciao = JSON.stringify(array);
-		$.getJSON("../api/modifica.php?ar="+ciao, function (result){
-			console.log(result);
+		var stringa = JSON.stringify(array);
+		$.getJSON("../api/modifica.php?ar="+stringa, function (result){
+			if(result.length > 0){
+				$('#ok_data').html("Dati caricati correttamente");
+			}
 		});
 		var form = new FormData();
 		var myFormData = document.getElementById('inputFile').files[0]; //get the file 
 		if (myFormData) {   //Check the file is emty or not
 			form.append('inputFile', myFormData); //append files
-		}    
-		$.ajax({
-				type: 'POST',               
-				processData: false,
-				contentType: false, 
-				data: form,
-				url: "../api/photo.php", //My reference URL
-				dataType : 'json',  
-				success: function(jsonData){
-					if(jsonData == 1)
-						$('#img_msg').html("Image Uploaded Successfully");
-					else
-						$('#img_msg').html("Error While Image Uploading");
-				}
-		});
+		}
+		if($('#inputFile').val() != null){
+			if (hasExtension('inputFile',['.jpg', '.png', '.jpeg'])) {
+				$.ajax({
+					type: 'POST',               
+					processData: false,
+					contentType: false, 
+					data: form,
+					url: "../api/photo.php", //My reference URL
+					dataType : 'json',  
+					success: function(jsonData){
+						if(jsonData == 1){
+							$('#ok_img').html("Immagine salvata correttamente");
+						}else{
+							$('#ok_img').html("Errore nel caricamento dell'immagine");
+						}
+					}
+				});
+			}
+		}
 	});
 });

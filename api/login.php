@@ -9,6 +9,7 @@ include('config.php');
 // verifico se username e password sono settati
 if(isset($nome_utente)){
 	if(isset($password_utente)){
+		session_unset();
 		// verifico se username e password matchano con quelli sul database
 		$sql = "SELECT COUNT(username) AS N FROM `utenti` WHERE username=\"$nome_utente\" AND utenti.password=\"$password_utente\"";
 		$risultati = mysqli_query($connessione, $sql);

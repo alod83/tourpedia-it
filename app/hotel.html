@@ -16,26 +16,29 @@
 			<div id="header"><img src="images/tourpedia.png"></div>
 			<div id="contenuto">
 				<div id="menu">
-					<ul>
-						<li>Login</li>
+					<ul class="progressbar">
+						<li class="active">Login</li>
 						<li>Modifica</li>
 						<li>Statistiche</li>
 					</ul>
 				</div>
 				<div id="intro">
-					<h2>Benvenuto</h2>
+					<h2>Login</h2>
 				</div>
 				<div id="login">
 					<div id="welcome">
-						
+						<h3>Benvenuto</h3>
+						<p>Questo è il portale albergatori di Tourpedia. Inserendo qui le credenziali fornite via mail, potrai:</p>
+						<p>1) Modificare i dati presenti relativi alla tua struttura e ad aggiungerne di nuovi.</p>
+						<p>2) Visualizzare le statistiche sul turismo della tua zona, come: flusso turistico nella tua regione e nella tua provincia, traffico aereo nei principali aeroporti della regione, le attrazioni più vicine da suggerire ai tuoi clienti, e molto altro ancora!</p>
 					</div>
 					<div id="accedi">
-						<h3>Accedi:</h3>
-						<p>Entra per modificare i dati della tua struttura e visualizzare le statistiche<p>
+						<h3>Accedi</h3>
 						<form name="login">
 							<label>Username</label><input id="username" type="text">
 							<label>Password</label><input id="password" type="password">
 							<input id="go" class="go" type="button" value="Accedi">
+							<p id="err_msg"></p>
 						</form>
 					</div>
 				</div>

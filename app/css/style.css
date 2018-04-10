@@ -16,6 +16,9 @@ html, body {
     min-height: 100%;
 }
 
+a {
+	text-decoration: none;
+}
 /*HEADER*/
 #header{
 	width: 100%;
@@ -39,18 +42,74 @@ html, body {
 #menu{
 	border-bottom: 2px solid #B6D78B;
 }
-#menu ul{
-	list-style: none;
-}
- 
-#menu ul li{
-	display: inline-block;
-	padding: 1%;
+
+.progressbar{
+    counter-reset: step;
+	margin: 30px auto;
+	display: table;
+	width: 100%;
 }
 
-#menu ul li:hover{
-	color: #f9b05b;
+.progressbar li {
+    list-style-type: none;
+    width: 33.3%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
 }
+
+.progressbar li a{
+	color: #7d7d7d;
+}
+
+.progressbar li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+
+.progressbar li:first-child:after {
+    content: none;
+}
+
+.progressbar li.active {
+    color: #B6D78B;
+}
+
+.progressbar li.active a{
+    color: #B6D78B;
+}
+
+.progressbar li.active:before {
+    border-color: #B6D78B;
+}
+
+.progressbar li.active:after {
+    background-color: #B6D78B;
+}
+
 
 /*LOGIN - MODIFICA - STATISTICHE*/
 
@@ -96,15 +155,21 @@ input:hover, form select:hover , textarea:hover{
 	width: 100%;
 	margin: 30px auto;
 }
+
 #welcome{
-	padding: 10px 0;
-	width: 45%;
+	padding: 10px;
+	width: calc(45% - 20px);
 	margin: 0 2.5%;
 	background-color: #8AD0EF;
 	border-radius: 15px;
 	float: left;
 	min-height: 250px;
-	
+	position: relative;
+}
+
+#welcome p{
+	font-size: 14px;
+	margin-bottom: 15px;
 }
 
 #accedi{
@@ -115,6 +180,10 @@ input:hover, form select:hover , textarea:hover{
 	background-color: #f9b05b;
 	border-radius: 15px;
 	float: right;
+}
+
+#welcome h3{
+	margin-bottom: 15px;
 }
 
 /*MODIFICA, STATISTICHE*/
@@ -241,9 +310,14 @@ textarea{
 }
 
 #scegli_foto{
-	width: 70%;
+	width: 80%;
 	display: table;
 	margin: 10px auto;
+}
+
+#info_photo{
+	font-size: 10px;
+	text-align: center;
 }
 
 #NomeFile{
@@ -286,14 +360,14 @@ label.myLabel input[type="file"] {
 	background-color: white;
 	margin: 0 auto;
 	max-width: 298px;
-	max-height: 169px;
+	min-height: 169px;
 	border-radius: 5px;
 	position: relative;
 }
 
 .image_prewiew img{
 	width: 100%;
-	max-height: 169px;
+	height: 169px;
 	max-width: 298px;
 	display: block;
 	margin: 0 auto;
@@ -314,6 +388,12 @@ label.myLabel input[type="file"] {
 	top: -13px;
 	right: -13px;
 	display: none;
+}
+
+#err_msg, #img_msg{
+	font-size: 12px;
+	text-align: center;
+	color: #ff0f00;
 }
 
 #Invia{
@@ -387,6 +467,157 @@ label.myLabel input[type="file"] {
 	background-image: url('../images/left.svg');
 }
 
-#didascalia img{
+.didascalia img{
 	display: block;
+}
+
+/*MEDIA QUERIES*/
+
+@media all and (max-width: 1000px), (max-device-width: 1000px){
+	.destra, .sinistra{
+		float: none;
+		clear: both;
+		margin: 2.5% auto;
+		min-width: 0;
+		width: 70%;
+	}
+	#NomeFile{
+		font-size: 10px;
+	}
+}
+@media all and (max-width: 906px), (max-device-width: 906px) {
+	#accedi, #welcome{
+		float: none;
+		clear: both;
+		width: 70%;
+		margin: 10px auto;
+	}
+	#welcome{
+		width: calc(70% - 20px);
+	}
+	#header img{
+		width: 50%;
+	}
+	.progressbar{
+		margin: 20px auto;
+	}
+}
+
+@media all and (max-width: 800px), (max-device-width: 800px) {
+	.destra, .sinistra{
+		width: 90%;
+	}
+	
+	#attrazioni_vicine{
+		max-width: 400px;
+		min-height: 300px;
+	}
+	
+	.didascalia img{
+		width: 200px;
+	}
+
+	.swiper-slide {
+		width: 200px;
+		height: 200px;
+	}
+}
+
+@media all and (max-width: 768px), (max-device-width: 768px) {
+	#accedi{
+		width: 80%;
+	}
+	#welcome{
+		width: calc(80% - 20px);
+	}
+	#header img{
+		width: 60%;
+	}
+	#scegli_foto{
+		width: 90%;
+	}
+}
+
+@media all and (max-width: 540px), (max-device-width: 540px) {
+	#accedi{
+		width: 100%;
+	}
+	#welcome{
+		width: calc(100% - 20px);
+	}
+	#header img{
+		width: 70%;
+	}
+	
+	#attrazioni_vicine{
+		max-width: 300px;
+		min-height: 300px;
+	}
+	
+	#contenuto{
+		width: 90%;
+	}
+	
+	.graficoP, .graficoG{
+		width: 98%;
+		height: 300px;
+		margin: 2.5% 1%;
+	}
+}
+
+@media all and (max-width: 440px), (max-device-width: 440px) {
+	#header img{
+		width: 80%;
+	}
+	#scegli_foto{
+		width: 100%;
+	}
+	#facoltativi form, #obbligatori form{
+		width: 100%;
+		padding: 0;
+	}
+	
+	#NomeFile{
+		font-size: 8px;
+	}
+	
+	.myLabel span{
+		font-size: 10px;
+	}
+	
+	#lingue{
+		padding: 0;
+	}
+	.destra, .sinistra{
+		margin: 0, auto;
+	}
+	.avviso{
+		height: 200px;
+		width: 200px;
+		font-size: 12px;
+	}
+	.highcharts-subtitle, .highcharts-axis-title{
+		font-size: 10px;
+	}
+	
+}
+
+@media all and (max-width: 360px), (max-device-width: 360px) {
+	#attrazioni_vicine{
+		max-width: 250px;
+		min-height: 250px;
+	}
+	
+	.didascalia{
+		font-size: 12px;
+	}
+	
+	.didascalia img{
+		width: 150px;
+	}
+
+	.swiper-slide {
+		width: 150px;
+		height: 150px;
+	}
 }

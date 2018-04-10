@@ -5,7 +5,10 @@ $(document).ready(function(){
 		/*CHIAMATA AJAX DOVE CONTROLLO SE I VALORI INSERITI ESISTONO NELLA TABELLA UTENTI*/
 		$.getJSON("../api/login.php?User="+username+"&Pass="+password, function(result){
 			if(result != "Username o password errati"){
+				$('#err_msg').html('');
 				$(location).attr('href', result);
+			}else{
+				$('#err_msg').html(result);
 			}
 		});
 	});

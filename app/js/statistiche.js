@@ -469,7 +469,7 @@ $(document).ready(function(){
 
 					});
 				}else{
-					var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					var s = '<div class="avviso"><p>Andamento di presenze nelle strutture ricettive, dati regionali. Nessun dato disponibile<p></div>';
 					$('#grafico6').html(s);
 				}
 			});
@@ -521,7 +521,7 @@ $(document).ready(function(){
 						}]
 					});
 				}else{
-					var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					var s = '<div class="avviso"><p>Numero di persone che scelgono la tua regione come meta di viaggi. Nessun dato disponibile.<p></div>';
 					$('#grafico8').html(s);
 				}
 			});
@@ -577,7 +577,7 @@ $(document).ready(function(){
 						}
 					}
 				}else{
-					var s = '<div class="avviso"><p>Campo \'Regione\' assente o non valido. Inseriscilo correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					var s = '<div class="avviso"><p>Traffico aereo nei pricipali aeroporti della regione. Nessun aeroporto disponibile per la tua regione.<p></div>';
 					$('#grafico9').html(s);
 				}
 			});
@@ -659,7 +659,7 @@ $(document).ready(function(){
 		if((latitudine != null) && (longitudine != null)){
 			$.getJSON("../api/attrazioni_vicine.php?lat="+latitudine+"&lon="+longitudine, function (result){
 				if(result.length >0){
-					var s="<p>Le attrazioni più vicine alla tua struttura</p><div class='swiper-container'><div class='swiper-wrapper'>";
+					var s="<p>Attrazioni più vicine alla tua struttura</p><div class='swiper-container'><div class='swiper-wrapper'>";
 					for(var i=0; i<result.length; i++){
 						s+="<div class='swiper-slide'><div class='didascalia'><img src='https://maps.googleapis.com/maps/api/streetview?size=300x250&location="+result[i].latitude+","+result[i].longitude+"&heading=151.78&pitch=-0.76&key=AIzaSyCtU5lBoEO2eEDY7GVUSoj-7sVqWbFS1rk'><p>"+result[i].name+"</p></div></div>";
 					}
@@ -687,7 +687,7 @@ $(document).ready(function(){
 						},
 					});
 				}else{
-					var s = '<div class="avviso"><p>Campi \'Latitudine\' e\\o \'Latitudine\' assenti o non validi. Inseriscili correttamente nella sezione di modifica per visualizzare altri dati<p></div>';
+					var s = '<div class="avviso"><p>Attrazioni più vicine alla tua struttura. Nessuna attrazione disponibile<p></div>';
 					$('#attrazioni_vicine').html(s);
 				}
 			});

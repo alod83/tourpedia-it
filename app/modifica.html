@@ -17,10 +17,10 @@
 			<div id="header"><img src="images/tourpedia.png"></div>
 			<div id="contenuto">
 				<div id="menu">
-					<ul>
-						<li>Login</li>
-						<li>Modifica</li>
-						<li>Statistiche</li>
+					<ul class="progressbar">
+						<li class="active"><a href="hotel.html">Login</a></li>
+						<li class="active">Modifica</li>
+						<li><a href="statistiche.html">Statistiche</a></li>
 					</ul>
 				</div>
 				<div id="intro">
@@ -31,7 +31,7 @@
 						<h3>Dati di base:</h3>
 						<form name="dati">
 							<div class="sinistra">
-								<label>Nome Struttura</label><input id="nome_struttura" type="text">
+								<label>Nome Struttura</label><input id="nome_struttura" type="text" placeholder="es. Albergo La Stella">
 								<label>Categoria</label>
 								<select id="categoria_struttura">
 									<option value="Albergo">Albergo</option>
@@ -40,7 +40,7 @@
 									<option value="Agriturismo, ittiturismo, pescaturismo">Agriturismo, ittiturismo, pescaturismo</option>
 									<option value="Ostello per la gioventù">Ostello per la gioventù</option>
 								</select>
-								<label>Indirizzo</label><input id="indirizzo_struttura" type="text">
+								<label>Indirizzo</label><input id="indirizzo_struttura" type="text" placeholder="es. Via Roma,11">
 								<label>Stelle</label>
 								<div id="stelle">
 									<input type="radio" name="stelle" value="Nessuna" checked>Nessuna<br>
@@ -50,8 +50,8 @@
 									<input type="radio" name="stelle" value="4"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
 									<input type="radio" name="stelle" value="5"><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><img class='star' src='images/star.svg'><br>
 								</div>
-								<label>Telefono</label><input id="telefono_struttura" type="tel">
-								<label>Email</label><input id="email_struttura" type="email">
+								<label>Telefono</label><input id="telefono_struttura" type="tel" placeholder="es. 3396535245">
+								<label>Email</label><input id="email_struttura" type="email" placeholder="es. il_mio_hotel@email.com">
 							</div>
 							<div class="destra">
 								<label>Paese</label>
@@ -104,7 +104,7 @@
 									<option value="Nessuna">Nessuna</option>
 									<optgroup label="Abruzzo">
 										<option value="AQ">AQ</option>
-										<option value="Teramo">Teramo</option>
+										<option value="TE">TE</option>
 										<option value="PE">PE</option>
 										<option value="CH">CH</option>
 									</optgroup>
@@ -116,7 +116,7 @@
 										<option value="CS">CS</option>
 										<option value="KR">KR</option>
 										<option value="CZ">CZ</option>
-										<option value="Vibo Valentia">Vibo Valentia</option>
+										<option value="VV">VV</option>
 										<option value="RC">RC</option>
 									</optgroup>
 									<optgroup label="Campania">
@@ -253,10 +253,10 @@
 										<option value="RO">RO</option>
 									</optgroup>
 								</select>
-								<label>C.A.P.</label><input id="cap_struttura" type="text">
-								<label>Città</label><input id="città_struttura" type="text">
-								<label>Latitudine</label><input id="latitudine_struttura" type="text">
-								<label>Longitudine</label><input id="longitudine_struttura" type="text">
+								<label>C.A.P.</label><input id="cap_struttura" type="text" placeholder="es. 57021">
+								<label>Città</label><input id="città_struttura" type="text" placeholder="es. Milano">
+								<label>Latitudine</label><input id="latitudine_struttura" type="text" placeholder="es. 45.667878">
+								<label>Longitudine</label><input id="longitudine_struttura" type="text" placeholder="es. 9.214217">
 							</div>
 						</form>
 					</div>
@@ -264,10 +264,10 @@
 						<h3>Altro:</h3>
 						<form enctype="multipart/form-data">
 							<div class="sinistra">
-								<label>Località</label><input id="località_struttura" type="text">
-								<label>Frazione</label><input id="frazione_struttura" type="text">
-								<label>Fax</label><input id="fax_struttura" type="tel">
-								<label>Sito web</label><input id="website_struttura" type="text">
+								<label>Località</label><input id="località_struttura" type="text" placeholder="es. Vidano">
+								<label>Frazione</label><input id="frazione_struttura" type="text" placeholder="es. Torlano">
+								<label>Fax</label><input id="fax_struttura" type="tel" placeholder="es. 0554789870">
+								<label>Sito web</label><input id="website_struttura" type="text" placeholder="Es. www.il_mio_hotel.com">
 								<label>Periodo di apertura</label><textarea id="orari" placeholder="Scrivi il periodo e/o gli orari di apertura della tua struttura..."></textarea>
 								<label>Servizi</label>
 									<div id="servizi">
@@ -349,21 +349,23 @@
 											<button class="clear" style="background-image: url('images/x.svg')"></button>
 										</div>
 										<div id="scegli_foto">
+											<p id="info_photo">Puoi inserire una sola immagine. Formati accettati: PNG, JPG e JPEG.</p>
 											<p id="NomeFile">Nessun file selezionato</p>
 											<label class="myLabel">
 												<input type="file" name="inputFile" id="inputFile" accept="image/jpeg, image/png, image/jpg">
 												<span>Scegli una foto</span>
 											</label>
+											<p id="img_msg"></p>
 										</div>
 									</div>
 							</div>
 							<div class="destra">
-								<label>Numero posti letto</label><input id="posti_struttura" type="number">
-								<label>Numero di camere</label><input id="camere_struttura" type="number">
-								<label>Numero di suite</label><input id="suite_struttura" type="number">
-								<label>Pagina Facebook</label><input id="facebook_struttura" type="text">
-								<label>Profilo Instagram</label><input id="instagram_struttura" type="text">
-								<label>Profilo Twitter</label><input id="twitter_struttura" type="text">
+								<label>Numero posti letto</label><input id="posti_struttura" type="number" placeholder="es. 40">
+								<label>Numero di camere</label><input id="camere_struttura" type="number" placeholder="es. 10">
+								<label>Numero di suite</label><input id="suite_struttura" type="number" placeholder="es. 4">
+								<label>Pagina Facebook</label><input id="facebook_struttura" type="text" placeholder="es. www.facebook.com/pages/Il-Mio-Albergo">
+								<label>Profilo Instagram</label><input id="instagram_struttura" type="text" placeholder="es. www.instagram.com/ilmioalbergo/?hl=it">
+								<label>Profilo Twitter</label><input id="twitter_struttura" type="text" placeholder="es. twitter.com/Il-Mio-Albergo">
 								<label>Lingue</label>
 								<div id="lingue">
 									<div class="lingua"><input type="checkbox" name="lingue" value="English"><img class="lang" src="images/English.png" title="English" alt="English"></div>
@@ -393,6 +395,8 @@
 						</form>
 					</div>
 					<input id="Invia" type="button" value="Invia">
+					<p id="ok_data"></p>
+					<p id="ok_image"></p>
 				</div>
 			</div>
 		</div>
