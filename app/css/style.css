@@ -114,7 +114,7 @@ a {
 /*LOGIN - MODIFICA - STATISTICHE*/
 
 #intro{
-	margin: 30px auto;
+	margin: 20px auto 10px auto
 }
 
 form{
@@ -187,10 +187,50 @@ input:hover, form select:hover , textarea:hover{
 }
 
 /*MODIFICA, STATISTICHE*/
+#profile{
+	width: 20%;
+	margin-left: 80%;
+}
+
+#utente, #logout{
+	display: inline-block;
+}
+
+#utente{
+	padding-right: 10px;
+	border-right: solid 1px #262261;
+}
+#logout{
+	cursor: pointer;
+}
+
+#utente img{
+	margin-bottom: -5px;
+}
+
+#logout img{
+	margin-bottom: -7px;
+}
+
+#utente p, #logout p{
+	display: inline-block;
+	font-size: 14px;
+}
+
+#utente img{
+	width: 32px;
+	height: 32px;
+}
+
+#logout img{
+	width: 32px;
+	height: 32px;
+}
+
 #modifica, #statistiche{
 	display: table;
 	width: 100%;
-	margin: 30px auto;
+	margin: 15px auto;
 }
 
 #obbligatori, #dati_generali{
@@ -471,9 +511,25 @@ label.myLabel input[type="file"] {
 	display: block;
 }
 
+/*AUTORIZZAZIONE*/
+#autorizzazione{
+	margin: 3% 0 3% 0;
+}
+#autorizzazione input{
+	width: 20px;
+	height: 0px;
+	margin-top: 2px;
+	display: inline-block;
+}
+
 /*MEDIA QUERIES*/
 
 @media all and (max-width: 1000px), (max-device-width: 1000px){
+	#profile{
+		width: 40%;
+		margin-left: 30%;
+		margin-right: 30%;
+	}
 	.destra, .sinistra{
 		float: none;
 		clear: both;
@@ -539,6 +595,10 @@ label.myLabel input[type="file"] {
 }
 
 @media all and (max-width: 540px), (max-device-width: 540px) {
+	#profile{
+		width: 100%;
+		margin: 0;
+	}
 	#accedi{
 		width: 100%;
 	}

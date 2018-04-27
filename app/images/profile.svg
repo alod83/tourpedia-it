@@ -1,0 +1,12 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="514" height="514" id="canvas_background" fill="none"/>
+ </g>
+
+ <g>
+  <title>Layer 1</title>
+  <circle stroke="#262261" cx="255.999994" cy="172.818428" fill="#262261" r="88.400726" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="10" id="svg_2"/>
+  <path stroke="#262261" d="m405.208555,444.309987c0,-82.808804 -66.713434,-149.775923 -149.20854,-149.775923s-149.20854,66.967119 -149.20854,149.775923l298.41708,0z" fill="#262261" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="10" id="svg_3"/>
+ </g>
+</svg>

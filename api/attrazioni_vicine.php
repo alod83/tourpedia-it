@@ -20,8 +20,14 @@ if(count($result) == 0){
 	$query = array('$and' => array( array('latitude' => array( '$gt' => $latitudine-0.01, '$lt' => $latitudine+0.01 )), array('longitude' => array( '$gt' => $longitudine-0.01, '$lt' => $longitudine+0.01 )) ));
 	$result=iterator_to_array($collection->find($query));
 }
-for($i=0; $i<count($result); $i++){
-	array_push($array , $result[$i]);
+if(count($result) > 10){
+	for($i=0; $i<10; $i++){
+		array_push($array , $result[$i]);
+	}
+}else{
+	for($i=0; $i<count($result); $i++){
+		array_push($array , $result[$i]);
+	}
 }
 echo(json_encode($array));
 ?>

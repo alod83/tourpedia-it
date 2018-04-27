@@ -20,6 +20,12 @@ function min_max_field($field, &$query)
 		$query[$field]['$lte'] = floatval($_REQUEST['max_'.$field]);
 }
 
+function not_null($field, &$query)
+{
+	if(isset($_REQUEST['not_null_'.$field]))
+		$query[$field]['$ne'] = null;
+}
+
 $mongo_url = $ini_array['Mongo']['url'];
 
 //$connection = new MongoClient($mongo_url);
@@ -42,8 +48,14 @@ if(isset($_REQUEST['category']))
 			$query['province'] = $_REQUEST['province'];
 		if(isset($_REQUEST['city']))
 			$query['city'] = new MongoDB\BSON\Regex($_REQUEST['city'], 'mi');
+		if(isset($_REQUEST['_id'])){
+			$query['_id'] = $_REQUEST['_id'];
+			$options = array('sort' => array('name' => 1));
+		}else{
+			$options = array('projection' => array('name' => 1, 'latitude' => 1, 'longitude' => 1, 'address' => 1), 'sort' => array('name' => 1));
+		}
 			
-		if(!isset($_REQUEST['region']) && !isset($_REQUEST['city']) && !isset($_REQUEST['province']) && isset($_REQUEST['place']))
+		if(!isset($_REQUEST['region']) && !isset($_REQUEST['city']) && !isset($_REQUEST['province']) && !isset($_REQUEST['_id']) && isset($_REQUEST['place']))
 		{
 			$place = new MongoDB\BSON\Regex('^'.$_REQUEST['place'].'( )*$', 'mi');
 			$query['$or'] = array(array('region' => $place), array('city' => $place));
@@ -51,17 +63,20 @@ if(isset($_REQUEST['category']))
 		min_max_field('beds', $query);
 		min_max_field('latitude', $query);
 		min_max_field('longitude', $query);
+		not_null('latitude', $query);
+		not_null('longitude', $query);
 		
 		$fields_list = $ini_array['Sources'][$category."_field"];
 		$excluded_fields = array('province', 'region','beds','city');
-		for($i = 0; $i < count($fields_list); $i++)
+		$lon_field=count($fields_list);
+		for($i = 0; $i < $lon_field; $i++)
 			if(isset($_REQUEST[$fields_list[$i]]) && ! in_array($fields_list[$i], $excluded_fields))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
 		//var_dump($query);
-		$options = array('sort' => array('name' => 1));
 		//$result=iterator_to_array($collection->find($query));//
 		$result=iterator_to_array($collection->find($query, $options));
-		for($i=0; $i<count($result); $i++){
+		$lunghezza=count($result);
+		for($i=0; $i<$lunghezza; $i++){
 			foreach($result[$i] as $k=>$v){
 				if($k=="number of stars"){
 					$result[$i]["number of stars"] = intval(trim(preg_replace('/[^0-9]/', '',$v)));

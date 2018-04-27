@@ -2,7 +2,18 @@ var regione = null;
 var provincia = null;
 var latitudine = null;
 var longitudine = null;
+function Logout(){
+	$.getJSON("../api/logout.php", function (result){
+		if(result == "SESSION CLOSED"){
+			$(location).attr('href', "..\/app\/hotel.html");
+		}
+	});
+}
 $(document).ready(function(){
+	/*LOGOUT*/
+	$("#logout").click(function(){
+		Logout();
+	});
 	$.getJSON("../api/statisticheP.php?&n=2", function (result) {
 	// Create the chart
 		Highcharts.chart('grafico', {
@@ -405,6 +416,10 @@ $(document).ready(function(){
 		provincia=result["province"];
 		latitudine=result["latitude"];
 		longitudine=result["longitude"];
+		if(result["_id"]){
+			var s="<img src='images/profile.svg' alt='utente'><p>"+result["_id"]+"</p>";
+			$("#utente").html(s);
+		}
 		if(regione != null){
 			$.getJSON("../api/statisticheP.php?n=6&reg="+regione, function (result){
 				if(result.length > 0){
@@ -687,7 +702,8 @@ $(document).ready(function(){
 							clickable: true
 						},
 					});
-				}else{
+				}
+				if(result.length == 0){
 					var s = '<div class="avviso"><p>Attrazioni più vicine alla tua struttura. Nessuna attrazione disponibile<p></div>';
 					$('#attrazioni_vicine').html(s);
 				}

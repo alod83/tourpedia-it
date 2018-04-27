@@ -283,6 +283,12 @@ html, body {
 	float: right;
 }
 
+.anteprima img{
+	height: 92px;
+	width: 80px;
+	display: block;
+}
+
 .info{
 	position: relative;
 	top:0;
@@ -307,14 +313,28 @@ html, body {
 	display: inline-block;
 }
 
+#address{
+	margin-bottom: 10px;
+}
+
 .infoscheda{
 	width: 90%;
-	display: inline;
+	display: inline-block;
+	padding-left: 5px;
 }
 
 .infoscheda a{
 	text-decoration: none;
 	color: black;
+}
+
+.n1{
+	display: inline-block;
+	padding-left: 5px;
+}
+
+.infowindows{
+	text-align: left;
 }
 
 #schedaS,#schedaA{
@@ -379,6 +399,130 @@ html, body {
 .website:hover{
 	text-decoration: underline;
 }
+
+.sottosezione{
+	padding: 5% 0 3% 0;
+	font-size: 18px;
+	color: grey;
+}
+
+#Servizi, #Capacità, #Lingue, #mod{
+	padding: 5px 0;
+}
+
+#Servizi h3, #Capacità h3, #Lingue h3, #attrazioni_vicine h3{
+	font-size: 14px;
+}
+
+#Servizi{
+}
+
+#Servizi ul{
+	list-style-type: disc;
+	padding-left: 20px;
+}
+
+#Servizi ul li, #Lingue ul li{
+	display: inline-block;
+}
+
+#Lingue ul li{
+	width: 30%;
+	margin-left: 3%;
+}
+
+#Servizi ul li{
+	width: 30%;
+	position: relative;
+	min-height: 72px;
+	padding: 0 1.5%;
+}
+
+#Servizi ul li span{
+	font-size: 12px;
+	display: inline-block;
+	width: 98%;
+	margin: 0 auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+
+.lang {
+    max-width: 30px;
+    margin-bottom: -8px;
+    display: inline-block;
+}
+
+#mod{
+	text-decoration: none;
+	color: #0000ff;
+	text-transform: uppercase;
+	font-size: 12px;
+	text-align: center;
+	display: block;
+	margin: 15px;
+}
+
+#mod:hover{
+	text-decoration: underline;
+	color: #000000;
+}
+
+/*SWIPER*/
+.avviso{
+	border: 2px solid #262261;
+	border-radius: 50%;
+	position: relative;
+	width: 250px;
+	height: 250px;
+	margin: 0 auto;
+}
+
+.avviso p{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.swiper-container {
+	width: 100%;
+	height: 230px;
+	padding-top: 30px;
+	padding-bottom: 40px;
+	text-align: center;
+	font-size: 12px;
+}
+
+.swiper-slide {
+	background-color: white;
+	background-position: center;
+	background-size: cover;
+	width: 200px;
+	height: 200px;
+}
+
+.swiper-pagination-bullet-active{
+	background: #262261;
+}
+
+.swiper-button-next{
+	background-image: url('../images/right.svg');
+}
+
+.swiper-button-prev{
+	background-image: url('../images/left.svg');
+}
+
+.didascalia img{
+	display: block;
+}
+
 
 /*MAPPA*/
 #main{

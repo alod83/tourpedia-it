@@ -17,111 +17,111 @@ if(isset($ar)){
 	$newdata = array();
 	if(isset($ar["name"])){
 		$newdata['name'] = $ar["name"];
-		$SESSION['name'] = $ar["name"];
+		$_SESSION['name'] = $ar["name"];
 	}
 	if(isset($ar["description"])){
 		$newdata['description'] = $ar["description"];
-		$SESSION['description'] = $ar["description"];
+		$_SESSION['description'] = $ar["description"];
 	}
 	if(isset($ar["address"])){
 		$newdata['address'] = $ar["address"];
-		$SESSION['address'] = $ar["address"];
+		$_SESSION['address'] = $ar["address"];
 	}
 	if(isset($ar["number of stars"])){
 		$newdata['number of stars'] = intval($ar["number of stars"]);
-		$SESSION['number of stars'] = intval($ar["number of stars"]);
+		$_SESSION['number of stars'] = intval($ar["number of stars"]);
 	}
 	if(isset($ar["email"])){
 		$newdata['email'] = $ar["email"];
-		$SESSION['email'] = $ar["email"];
+		$_SESSION['email'] = $ar["email"];
 	}
 	if(isset($ar["telephone"])){
 		$newdata['telephone'] = $ar["telephone"];
-		$SESSION['telephone'] = $ar["telephone"];
+		$_SESSION['telephone'] = $ar["telephone"];
 	}
 	if(isset($ar["country"])){
 		$newdata['country'] = $ar["country"];
-		$SESSION['country'] = $ar["country"];
+		$_SESSION['country'] = $ar["country"];
 	}
 	if(isset($ar["region"])){
 		$newdata['region'] = $ar["region"];
-		$SESSION['region'] = $ar["region"];
+		$_SESSION['region'] = $ar["region"];
 	}
 	if(isset($ar["province"])){
 		$newdata['province'] = $ar["province"];
-		$SESSION['province'] = $ar["province"];
+		$_SESSION['province'] = $ar["province"];
 	}
 	if(isset($ar["postal-code"])){
 		$newdata['postal-code'] = $ar["postal-code"];
-		$SESSION['postal-code'] = $ar["postal-code"];
+		$_SESSION['postal-code'] = $ar["postal-code"];
 	}
 	if(isset($ar["city"])){
 		$newdata['city'] = $ar["city"];
-		$SESSION['city'] = $ar["city"];
+		$_SESSION['city'] = $ar["city"];
 	}
 	if(isset($ar["latitude"])){
 		$newdata['latitude'] = floatval($ar["latitude"]);
-		$SESSION['latitude'] = $ar["latitude"];
+		$_SESSION['latitude'] = $ar["latitude"];
 	}
 	if(isset($ar["longitude"])){
 		$newdata['longitude'] = floatval($ar["longitude"]);
-		$SESSION['longitude'] = $ar["longitude"];
+		$_SESSION['longitude'] = $ar["longitude"];
 	}
 	if(isset($ar["locality"])){
 		$newdata['locality'] = $ar["locality"];
-		$SESSION['locality'] = $ar["locality"];
+		$_SESSION['locality'] = $ar["locality"];
 	}
 	if(isset($ar["hamlet"])){
 		$newdata['hamlet'] = $ar["hamlet"];
-		$SESSION['hamlet'] = $ar["hamlet"];
+		$_SESSION['hamlet'] = $ar["hamlet"];
 	}
 	if(isset($ar["fax"])){
 		$newdata['fax'] = $ar["fax"];
-		$SESSION['fax'] = $ar["fax"];
+		$_SESSION['fax'] = $ar["fax"];
 	}
 	if(isset($ar["opening period"])){
 		$newdata['opening period'] = $ar["opening period"];
-		$SESSION['opening period'] = $ar["opening period"];
+		$_SESSION['opening period'] = $ar["opening period"];
 	}
 	if(isset($ar["facilities"])){
 		$newdata['facilities'] = $ar["facilities"];
-		$SESSION['facilities'] = $ar["facilities"];
+		$_SESSION['facilities'] = $ar["facilities"];
 	}
 	if(isset($ar["web site"])){
 		$newdata['web site'] = $ar["web site"];
-		$SESSION['web site'] = $ar["web site"];
+		$_SESSION['web site'] = $ar["web site"];
 	}
 	if(isset($ar["beds"])){
 		$newdata['beds'] = $ar["beds"];
-		$SESSION['beds'] = $ar["beds"];
+		$_SESSION['beds'] = $ar["beds"];
 	}
 	if(isset($ar["rooms"])){
 		$newdata['rooms'] = $ar["rooms"];
-		$SESSION['rooms'] = $ar["rooms"];
+		$_SESSION['rooms'] = $ar["rooms"];
 	}
 	if(isset($ar["suites"])){
 		$newdata['suites'] = $ar["suites"];
-		$SESSION['suites'] = $ar["suites"];
+		$_SESSION['suites'] = $ar["suites"];
 	}
 	if(isset($ar["facebook"])){
 		$newdata['facebook'] = $ar["facebook"];
-		$SESSION['facebook'] = $ar["facebook"];
+		$_SESSION['facebook'] = $ar["facebook"];
 	}
 	if(isset($ar["instagram"])){
 		$newdata['instagram'] = $ar["instagram"];
-		$SESSION['instagram'] = $ar["instagram"];
+		$_SESSION['instagram'] = $ar["instagram"];
 	}
 	if(isset($ar["twitter"])){
 		$newdata['twitter'] = $ar["twitter"];
-		$SESSION['twitter'] = $ar["twitter"];
+		$_SESSION['twitter'] = $ar["twitter"];
 	}
 	if(isset($ar["category"])){
 		$newdata['category'] = $ar["category"];
-		$SESSION['category'] = $ar["category"];
+		$_SESSION['category'] = $ar["category"];
 	}
 	if(isset($ar["languages"])){
 		$newdata['languages'] = $ar["languages"];
-		$SESSION['languages'] = $ar["languages"];
+		$_SESSION['languages'] = $ar["languages"];
 	}
 	$setdata = array('$set' => $newdata);
 	$collection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
