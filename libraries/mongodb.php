@@ -24,15 +24,14 @@ class MyMongoClient
 	}
 	
 	public function find($query, $fields=null){
-		$fields = array('projection' => $fields);
 		if(!is_null($fields))
 			return $this->collection->find($query,$fields);
 		return $this->collection->find($query);
 	}
 	
-	public function find_with_projection($query, $fields=null)
+	public function find_with_projection($query, $fields_to_include=null)
 	{
-		$fields = array('projection' => $fields);
+		$fields = array('projection' => $fields_to_include);
 		return $this->find($query,$fields);
 	}
 }
