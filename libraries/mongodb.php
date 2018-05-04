@@ -17,9 +17,10 @@ class MyMongoClient
 	
 	public function selectDB($dbname)
 	{
-		$this->dbname = $ini_array['Mongo'][$dbname];
+		$this->dbname = $this->ini_array['Mongo'][$dbname];
 		$collection_name = $this->ini_array['Mongo']['collection'];
-		$this->collection = $connection->$dbname->$collection_name;
+		/*$this->collection = $connection->$dbname->$collection_name;*/
+		$this->collection = $this->connection->$dbname->$collection_name;
 	}
 	
 	public function find($query, $fields=null){

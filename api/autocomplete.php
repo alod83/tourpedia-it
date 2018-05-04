@@ -3,7 +3,7 @@
 header('Content-Type: application/json; charset=utf-8');
 $array=array();
 //require('../vendor/autoload.php');
-include('../libraries/mongodb_old.php');
+include('../libraries/mongodb.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
 
 function min_max_field($field, &$query)
