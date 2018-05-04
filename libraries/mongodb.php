@@ -18,9 +18,10 @@ class MyMongoClient
 	public function selectDB($dbname)
 	{
 		$this->dbname = $this->ini_array['Mongo'][$dbname];
+		$db_name = $this->dbname;
 		$collection_name = $this->ini_array['Mongo']['collection'];
 		/*$this->collection = $connection->$dbname->$collection_name;*/
-		$this->collection = $this->connection->$dbname->$collection_name;
+		$this->collection = $this->connection->$db_name->$collection_name;
 	}
 	
 	public function find($query, $fields=null){
@@ -32,7 +33,7 @@ class MyMongoClient
 	public function find_with_projection($query, $fields_to_include=null)
 	{
 		$fields = array('projection' => $fields_to_include);
-		return $this->find($query,$fields);
+		return $this->find($query);
 	}
 }
 
