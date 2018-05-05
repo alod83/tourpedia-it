@@ -2,8 +2,8 @@
 
 header('Content-Type: application/json');
 
-require('../vendor/autoload.php');
-
+//require('../vendor/autoload.php');
+include('../libraries/mongodb.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
 
 function min_max_field($field, &$query)
@@ -23,17 +23,19 @@ function not_null($field, &$query)
 $mongo_url = $ini_array['Mongo']['url'];
 
 //$connection = new MongoClient($mongo_url);
-$connection = new MongoDB\Client($mongo_url);
+//$connection = new MongoDB\Client($mongo_url);
+$connection = new MyMongoClient($mongo_url, $ini_array);
 if(isset($_REQUEST['category']))
 {
 	$category = $_REQUEST['category'];
 	if(isset($ini_array['Mongo']['db_'.$category]))
 	{
 		//$dbname = $connection->selectDB($ini_array['Mongo']['db_'.$category]);
-		$db_name = $ini_array['Mongo']['db_'.$category];
-		$collection_name = $ini_array['Mongo']['collection'];
+		//$db_name = $ini_array['Mongo']['db_'.$category];
+		//$collection_name = $ini_array['Mongo']['collection'];
 		//$collection = $dbname->$ini_array['Mongo']['collection'];
-		$collection = $connection->$db_name->$collection_name;
+		//$collection = $connection->$db_name->$collection_name;
+		$connection->selectDB('db_'.$category);
 		$query = array();
 		
 		if(isset($_REQUEST['country'])){
@@ -44,7 +46,7 @@ if(isset($_REQUEST['category']))
 			not_null('longitude', $query);
 		}
 		
-		$result=$collection->count($query);//
+		$result=$connection->collection->count($query);//
 		
 		echo json_encode($result);
 	}

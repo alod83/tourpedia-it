@@ -45,29 +45,30 @@ min_max_field('latitude', $query);
 min_max_field('longitude', $query);
 not_null('latitude', $query);
 not_null('longitude', $query);
-/////$fields = array('projection' => array('region' => 1, 'city' => 1));
-$fields = array('region' => 1, 'city' => 1);
+$fields = array('projection' => array('region' => 1, 'city' => 1));
+///$fields = array('region' => 1, 'city' => 1);
 ////$result=iterator_to_array($collection->find($query ,$fields));
 ////$result2=iterator_to_array($collection2->find($fields));
 
-$result = iterator_to_array($mongo_obj_acco->find_with_projection($query, $fields));
-$result2 = iterator_to_array($mongo_obj_attr->find($fields));
+///$result = iterator_to_array($mongo_obj_acco->find_with_projection($query, $fields));
+$result = iterator_to_array($mongo_obj_acco->find($query, $fields));
+$result2 = iterator_to_array($mongo_obj_attr->find($query, $fields));
 $r=array_merge($result,$result2);
 $array=array();
 $regioni=array();
 $citta=array();
 foreach($r as $record)
 {
-	$regioni[$record['region']] = true;
+	$regioni[substr(strtoupper(trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$record['region']))),0,1).substr(strtolower(trim(preg_replace('/[^ .A-Za-z0-9\-\']/', '',$record['region']))),1)] = true;
 	if(isset($record['city'])){
-		$citta[$record['city']] = true;
+		$citta[substr(strtoupper(trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$record['city']))),0,1).substr(strtolower(trim(preg_replace('/[^ .A-Za-z0-9\-\']/', '',$record['city']))),1)] = true;
 	}
 }
 foreach ($regioni as $j=>$v){
-	array_push($array, substr(strtoupper(trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$j))),0,1).substr(strtolower(trim(preg_replace('/[^ .A-Za-z0-9\-\']/', '',$j))),1));
+	array_push($array, $j);
 }
 foreach ($citta as $k=>$v){
-	array_push($array, substr(strtoupper(trim(preg_replace('/[^ .A-Za-z0-9\-]/', '',$k))),0,1).substr(strtolower(trim(preg_replace('/[^ .A-Za-z0-9\-\']/', '',$k))),1));
+	array_push($array, $k);
 }
 
 echo(json_encode($array));

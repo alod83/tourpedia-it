@@ -2,8 +2,8 @@
 
 header('Content-Type: application/json');
 
-require('../vendor/autoload.php');
-
+//require('../vendor/autoload.php');
+include('../libraries/mongodb.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
 
 function exists_field($field)
@@ -29,17 +29,19 @@ function not_null($field, &$query)
 $mongo_url = $ini_array['Mongo']['url'];
 
 //$connection = new MongoClient($mongo_url);
-$connection = new MongoDB\Client($mongo_url);
+//$connection = new MongoDB\Client($mongo_url);
+$connection = new MyMongoClient($mongo_url, $ini_array);
 if(isset($_REQUEST['category']))
 {
 	$category = $_REQUEST['category'];
 	if(isset($ini_array['Mongo']['db_'.$category]))
 	{
 		//$dbname = $connection->selectDB($ini_array['Mongo']['db_'.$category]);
-		$db_name = $ini_array['Mongo']['db_'.$category];
-		$collection_name = $ini_array['Mongo']['collection'];
+		//$db_name = $ini_array['Mongo']['db_'.$category];
+		//$collection_name = $ini_array['Mongo']['collection'];
 		//$collection = $dbname->$ini_array['Mongo']['collection'];
-		$collection = $connection->$db_name->$collection_name;
+		//$collection = $connection->$db_name->$collection_name;
+		$connection->selectDB('db_'.$category);
 		$query = array();
 		
 		if(isset($_REQUEST['region']))
@@ -74,7 +76,8 @@ if(isset($_REQUEST['category']))
 				$query[$fields_list[$i]] = exists_field($_REQUEST[$fields_list[$i]]);
 		//var_dump($query);
 		//$result=iterator_to_array($collection->find($query));//
-		$result=iterator_to_array($collection->find($query, $options));
+		//$result=iterator_to_array($collection->find($query, $options));
+		$result=iterator_to_array($connection->find($query, $options));
 		$lunghezza=count($result);
 		for($i=0; $i<$lunghezza; $i++){
 			foreach($result[$i] as $k=>$v){
