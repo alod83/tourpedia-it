@@ -30,6 +30,16 @@ class MyMongoClient
 	{
 		return $this->find($query,$fields);
 	}
+	
+	public function find_with_sort($query, $fields=null)
+	{
+		return $this->find($query,$fields);
+	}
+	
+	public function find_with_projection_and_sort($query, $fields=null)
+	{
+		return $this->find($query,$fields);
+	}
 }
 
 

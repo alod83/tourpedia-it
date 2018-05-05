@@ -45,14 +45,14 @@ min_max_field('latitude', $query);
 min_max_field('longitude', $query);
 not_null('latitude', $query);
 not_null('longitude', $query);
-$fields = array('projection' => array('region' => 1, 'city' => 1));
-///$fields = array('region' => 1, 'city' => 1);
+///$fields = array('projection' => array('region' => 1, 'city' => 1));
+$fields = array('region' => 1, 'city' => 1);
 ////$result=iterator_to_array($collection->find($query ,$fields));
 ////$result2=iterator_to_array($collection2->find($fields));
 
 ///$result = iterator_to_array($mongo_obj_acco->find_with_projection($query, $fields));
-$result = iterator_to_array($mongo_obj_acco->find($query, $fields));
-$result2 = iterator_to_array($mongo_obj_attr->find($query, $fields));
+$result = iterator_to_array($mongo_obj_acco->find_with_projection($query, $fields));
+$result2 = iterator_to_array($mongo_obj_attr->find_with_projection($query, $fields));
 $r=array_merge($result,$result2);
 $array=array();
 $regioni=array();

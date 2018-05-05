@@ -50,12 +50,6 @@ if(isset($_REQUEST['category']))
 			$query['province'] = $_REQUEST['province'];
 		if(isset($_REQUEST['city']))
 			$query['city'] = new MongoDB\BSON\Regex($_REQUEST['city'], 'mi');
-		if(isset($_REQUEST['_id'])){
-			$query['_id'] = $_REQUEST['_id'];
-			$options = array('sort' => array('name' => 1));
-		}else{
-			$options = array('projection' => array('name' => 1, 'latitude' => 1, 'longitude' => 1, 'address' => 1), 'sort' => array('name' => 1));
-		}
 			
 		if(!isset($_REQUEST['region']) && !isset($_REQUEST['city']) && !isset($_REQUEST['province']) && !isset($_REQUEST['_id']) && isset($_REQUEST['place']))
 		{
@@ -77,7 +71,14 @@ if(isset($_REQUEST['category']))
 		//var_dump($query);
 		//$result=iterator_to_array($collection->find($query));//
 		//$result=iterator_to_array($collection->find($query, $options));
-		$result=iterator_to_array($connection->find($query, $options));
+		if(isset($_REQUEST['_id'])){
+			$query['_id'] = $_REQUEST['_id'];
+			$fields = array('name' => 1);
+			$result=iterator_to_array($connection->find_with_sort($query, $fields));
+		}else{
+			$fields = array('name' => 1, 'latitude' => 1, 'longitude' => 1, 'address' => 1);
+			$result=iterator_to_array($connection->find_with_projection_and_sort($query, $fields));
+		}
 		$lunghezza=count($result);
 		for($i=0; $i<$lunghezza; $i++){
 			foreach($result[$i] as $k=>$v){
