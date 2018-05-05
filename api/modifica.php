@@ -3,16 +3,19 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 $ar = json_decode($_REQUEST['ar'], true);
 $array=array();
-require('../vendor/autoload.php');
+//require('../vendor/autoload.php');
+include('../libraries/mongodb.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
 $mongo_url = $ini_array['Mongo']['url'];
 //$connection = new MongoClient($mongo_url);
-$connection = new MongoDB\Client($mongo_url);
+//$connection = new MongoDB\Client($mongo_url);
 //$dbname = $connection->selectDB($ini_array['Mongo']['db_accommodation']);
-$db_name = $ini_array['Mongo']['db_accommodation'];
-$collection_name = $ini_array['Mongo']['collection'];
+//$db_name = $ini_array['Mongo']['db_accommodation'];
+//$collection_name = $ini_array['Mongo']['collection'];
 //$collection = $dbname->$ini_array['Mongo']['collection'];
-$collection = $connection->$db_name->$collection_name;
+//$collection = $connection->$db_name->$collection_name;
+$connection = new MyMongoClient($mongo_url, $ini_array);
+$connection->selectDB('db_accommodation');
 if(isset($ar)){
 	$newdata = array();
 	if(isset($ar["name"])){
@@ -124,9 +127,9 @@ if(isset($ar)){
 		$_SESSION['languages'] = $ar["languages"];
 	}
 	$setdata = array('$set' => $newdata);
-	$collection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
+	$connection->collection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
 	$query = array('_id' => $_SESSION['_id']);
-	$result=iterator_to_array($collection->find($query));
+	$result=iterator_to_array($connection->find($query));
 	$array=$result;
 }
 echo(json_encode($array));

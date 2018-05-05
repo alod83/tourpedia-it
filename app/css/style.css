@@ -517,7 +517,7 @@ label.myLabel input[type="file"] {
 }
 #autorizzazione input{
 	width: 20px;
-	height: 0px;
+	height: 15px;
 	margin-top: 2px;
 	display: inline-block;
 }
