@@ -3,7 +3,7 @@
 header('Content-Type: application/json');
 
 //require('../vendor/autoload.php');
-include('../libraries/mongodb.php');
+include('../libraries/mongodb_old.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
 
 function exists_field($field)
@@ -49,12 +49,15 @@ if(isset($_REQUEST['category']))
 		if(isset($_REQUEST['province']))
 			$query['province'] = $_REQUEST['province'];
 		if(isset($_REQUEST['city']))
-			$query['city'] = new MongoDB\BSON\Regex($_REQUEST['city'], 'mi'); /*versione per mongodb.php*/
+		{
+			$query['city'] = $connection->build_mongo_regex($_REQUEST['city'], 'mi');
+			//$query['city'] = new MongoDB\BSON\Regex($_REQUEST['city'], 'mi'); /*versione per mongodb.php*/
 			//$query['city'] = new MongoRegex('/'.$_REQUEST['city'].'/mi'); /*versione per mongodb_old.php*/
-			
+		}	
 		if(!isset($_REQUEST['region']) && !isset($_REQUEST['city']) && !isset($_REQUEST['province']) && !isset($_REQUEST['_id']) && isset($_REQUEST['place']))
 		{
-			$place = new MongoDB\BSON\Regex('^'.$_REQUEST['place'].'( )*$', 'mi'); /*versione per mongodb.php*/
+			$place = $connection->build_mongo_regex('^'.$_REQUEST['place'].'( )*$', 'mi');
+			//$place = new MongoDB\BSON\Regex('^'.$_REQUEST['place'].'( )*$', 'mi'); /*versione per mongodb.php*/
 			//$place = new MongoRegex('/^'.$_REQUEST['place'].'( )*$/mi'); /*versione per mongodb_old.php*/
 			$query['$or'] = array(array('region' => $place), array('city' => $place));
 		}

@@ -41,6 +41,11 @@ class MyMongoClient
 	{
 		return $this->find($query,$fields)->sort(array('name' => 1));
 	}
+	
+	public function build_mongo_regex($string, $option)
+	{
+		return new MongoRegex('/'.$string.'/'.$option);
+	}
 }
 
 

@@ -47,6 +47,11 @@ class MyMongoClient
 		$fields = array('projection' => $fields_to_include, 'sort' => array('name' => 1));
 		return $this->find($query, $fields);
 	}
+	
+	public function build_mongo_regex($string, $option)
+	{
+		return new MongoDB\BSON\Regex($string, $option);
+	}
 }
 
 
