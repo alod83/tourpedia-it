@@ -33,12 +33,13 @@ class MyMongoClient
 	
 	public function find_with_sort($query, $fields=null)
 	{
-		return $this->find($query,$fields);
+		return $this->find($query)->sort($fields);
+		//return $this->collection->find($query)->sort($fields);
 	}
 	
 	public function find_with_projection_and_sort($query, $fields=null)
 	{
-		return $this->find($query,$fields);
+		return $this->find($query,$fields)->sort(array('name' => 1));
 	}
 }
 
