@@ -97,9 +97,9 @@ function inizializza(){
 	var Francia=new Array(0,0);
 	var Italia=new Array(0,0);
 	var Spagna=new Array(0,0);
-	$.getJSON("../api/count.php?category=accommodation&country=France&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+	$.getJSON("../api/count.php?category=accommodation&country=France&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 		Francia[0] = result;
-		$.getJSON("../api/count.php?category=attraction&country=France&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+		$.getJSON("../api/count.php?category=attraction&country=France&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 			Francia[1] = result;
 			infowindowF = new google.maps.InfoWindow({ 
 				content: "<h1>Francia</h1><div class='infowindows'><img class='icons' src='images/structure.png'><p class='n1'> Strutture: "+Francia[0]+"</p></br><img class='icons' src='images/attr.png'><p class='n1'> Attrazioni: "+Francia[1]+"</p></div>",
@@ -107,9 +107,9 @@ function inizializza(){
 			infowindowF.open(map, markerF);
 		});
 	});
-	$.getJSON("../api/count.php?category=accommodation&country=Italy&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+	$.getJSON("../api/count.php?category=accommodation&country=Italy&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 		Italia[0] = result;
-		$.getJSON("../api/count.php?category=attraction&country=Italy&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+		$.getJSON("../api/count.php?category=attraction&country=Italy&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 			Italia[1] = result;
 			infowindowI = new google.maps.InfoWindow({ 
 				content: "<h1>Italia</h1><div class='infowindows'><img class='icons' src='images/structure.png'><p class='n1'> Strutture: "+Italia[0]+"</p></br><img class='icons' src='images/attr.png'><p class='n1'> Attrazioni: "+Italia[1]+"</p></div>",
@@ -117,9 +117,9 @@ function inizializza(){
 			infowindowI.open(map, markerI);
 		});
 	});
-	$.getJSON("../api/count.php?category=accommodation&country=Spain&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+	$.getJSON("../api/count.php?category=accommodation&country=Spain&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 		Spagna[0] = result;
-		$.getJSON("../api/count.php?category=attraction&country=Spain&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+		$.getJSON("../api/count.php?category=attraction&country=Spain&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 			Spagna[1] = result;
 		});
 		infowindowE = new google.maps.InfoWindow({
@@ -206,7 +206,7 @@ function ChiudiS(){
 		for(var j=0; j<markersS.length; j++){
 			if(res[i].id==markersS[j].title){
 				var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
-				$.getJSON("../api/query.php?category=accommodation&_id="+res[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1", function (result){
+				$.getJSON("../api/query.php?category=accommodation&_id="+res[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result){
 					var data = $.map(result, function(el) { return el });
 					if(data.length >0){
 						if(data[0].photo){
@@ -225,7 +225,7 @@ function ChiudiS(){
 			for(var j=0; j<markersS.length; j++){
 				if(res[i].id==markersS[j].title){
 					var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
-					$.getJSON("../api/query.php?category=accommodation&_id="+res[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1", function (result){
+					$.getJSON("../api/query.php?category=accommodation&_id="+res[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result){
 						var data = $.map(result, function(el) { return el });
 						if(data.length >0){
 							if(data[0].photo){
@@ -384,7 +384,7 @@ function ClickA(id){
 		}
 	}
 	/*Inserisco il contenuto nella scheda e la apro*/
-	$.getJSON("../api/query.php?category=attraction&_id="+id+"&not_null_latitude&not_null_longitude&min_latitude=1", function (result){
+	$.getJSON("../api/query.php?category=attraction&_id="+id+"&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result){
 		var data = $.map(result, function(el) { return el });
 		if(data.length >0){
 			var string="<div id='schedaA'><form><input class='chiudi' type='image' src='images/chiudiA.svg' onclick='ChiudiA()'></form>";
@@ -484,7 +484,7 @@ function ClickS(id){
 	contatori[1]=0;
 	$("#background").css("background-color","#0000ff");
 	/*Inserisco il contenuto nella scheda e la apro*/
-	$.getJSON("../api/query.php?category=accommodation&_id="+id+"&not_null_latitude&not_null_longitude&min_latitude=1", function (result){
+	$.getJSON("../api/query.php?category=accommodation&_id="+id+"&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result){
 		var data = $.map(result, function(el) { return el });
 		if(data.length >0){
 			var string="<div id='schedaS'><form><input class='chiudi' type='image' src='images/chiudiS.svg' onclick='ChiudiS()'></form>";
@@ -655,7 +655,7 @@ function createMarker(map){
 		}else{
 			url+=place;
 		}
-		$.getJSON(url+"&min_latitude=1&not_null_latitude&not_null_longitude", function (result) {
+		$.getJSON(url+"&min_latitude=1&max_latitude=90&not_null_latitude&not_null_longitude", function (result) {
 			var data = $.map(result, function(el) { return el });
 			var lunghezza = data.length;
 			if(lunghezza != 0){
@@ -697,7 +697,7 @@ function createMarker(map){
 				$("#ns").html("(Nessun risultato trovato)");
 			}
 		});
-		$.getJSON("../api/query.php?category=attraction&place="+place+"&min_latitude=1&not_null_latitude&not_null_longitude", function (result) {
+		$.getJSON("../api/query.php?category=attraction&place="+place+"&min_latitude=1&max_latitude=90&not_null_latitude&not_null_longitude", function (result) {
 			var data = $.map(result, function(el) { return el });
 			var lunghezza = data.length;
 			if(lunghezza != 0){
@@ -760,7 +760,7 @@ $(document).ready(function() {
 			async: false
 		});
 		var availableTags = [];
-		$.getJSON("../api/autocomplete.php?&not_null_latitude&not_null_longitude&min_latitude=1", function (result) {
+		$.getJSON("../api/autocomplete.php?&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result) {
 			var data = $.map(result, function(el) { return el });
 			availableTags = data;
 		});
@@ -830,7 +830,7 @@ $(document).ready(function() {
 				for(var j=0; j<markersS.length; j++){
 					if(structures[i].id == markersS[j].title){
 						var anteprima = structures[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
-						$.getJSON("../api/query.php?category=accommodation&_id="+structures[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1", function (result){
+						$.getJSON("../api/query.php?category=accommodation&_id="+structures[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result){
 							var data = $.map(result, function(el) { return el });
 							if(data.length >0){
 								if(data[0].photo){
@@ -858,7 +858,7 @@ $(document).ready(function() {
 						for(var j=0; j<markersS.length; j++){
 							if(res[i].id==markersS[j].title){
 								var anteprima = res[i].getElementsByClassName("i")[0].getElementsByClassName("anteprima")[0];
-								$.getJSON("../api/query.php?category=accommodation&_id="+res[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1", function (result){
+								$.getJSON("../api/query.php?category=accommodation&_id="+res[i].id+"&not_null_latitude&not_null_longitude&min_latitude=1&max_latitude=90", function (result){
 									var data = $.map(result, function(el) { return el });
 									if(data.length >0){
 										if(data[0].photo){
