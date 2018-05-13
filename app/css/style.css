@@ -128,7 +128,7 @@ form{
 input, form select{
 	display: block;
 	border: 1px solid #262261;
-	width: calc(100% - 22px);
+	width: 100%;
 	height: 20px;
 	padding: 0 10px;
 	border-radius: 4px;
