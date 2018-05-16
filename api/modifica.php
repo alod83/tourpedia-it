@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 $ar = json_decode($_REQUEST['ar'], true);
-$array=array();
+//$array=array();
 //require('../vendor/autoload.php');
 include('../libraries/mongodb.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
@@ -128,9 +128,11 @@ if(isset($ar)){
 	}
 	$setdata = array('$set' => $newdata);
 	$connection->collection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
-	$query = array('_id' => $_SESSION['_id']);
-	$result=iterator_to_array($connection->find($query));
-	$array=$result;
+	//$query = array('_id' => $_SESSION['_id']);
+	//$result=iterator_to_array($connection->find($query));
+	//$array=$result;
+	$a='../app/statistiche.html';
 }
-echo(json_encode($array));
+//echo(json_encode($array));
+echo(json_encode($a));
 ?>

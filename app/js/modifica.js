@@ -16,10 +16,11 @@ function Clear(){
 }
 
 function Logout(){
-	$.getJSON("../api/logout.php", function (result){
-		if(result == "SESSION CLOSED"){
+	$.getJSON("../api/logout.php", function(result){
+		/*if(result == "SESSION CLOSED"){
 			$(location).attr('href', "..\/app\/hotel.html");
-		}
+		}*/
+		$(location).attr('href', result);
 	});
 }
 
@@ -264,7 +265,8 @@ $(document).ready(function(){
 			$.getJSON("../api/modifica.php?ar="+stringa, function (result){
 				if(result.length > 0){
 					$('#ok_data').html("Dati caricati correttamente");
-					$(location).attr('href', "..\/app\/statistiche.html");
+					//$(location).attr('href', "..\/app\/statistiche.html");
+					$(location).attr('href', result);
 				}
 			});
 		}else{
