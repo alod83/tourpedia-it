@@ -4,9 +4,10 @@ var latitudine = null;
 var longitudine = null;
 function Logout(){
 	$.getJSON("../api/logout.php", function (result){
-		if(result == "SESSION CLOSED"){
+		/*if(result == "SESSION CLOSED"){
 			$(location).attr('href', "..\/app\/hotel.html");
-		}
+		}*/
+		$(location).attr('href', result);
 	});
 }
 $(document).ready(function(){
