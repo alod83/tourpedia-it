@@ -4,7 +4,7 @@ header('Content-Type: application/json; charset=utf-8');
 $ar = json_decode($_REQUEST['ar'], true);
 //$array=array();
 //require('../vendor/autoload.php');
-include('../libraries/mongodb.php');
+include('../libraries/mongodb_old.php');
 $ini_array = parse_ini_file("../update/config.ini", true);
 $mongo_url = $ini_array['Mongo']['url'];
 //$connection = new MongoClient($mongo_url);
@@ -127,7 +127,7 @@ if(isset($ar)){
 		$_SESSION['languages'] = $ar["languages"];
 	}
 	$setdata = array('$set' => $newdata);
-	$connection->collection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
+	$connection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
 	//$query = array('_id' => $_SESSION['_id']);
 	//$result=iterator_to_array($connection->find($query));
 	//$array=$result;
