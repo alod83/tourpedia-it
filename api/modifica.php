@@ -126,6 +126,7 @@ if(isset($ar)){
 		$newdata['languages'] = $ar["languages"];
 		$_SESSION['languages'] = $ar["languages"];
 	}
+	$newdata['verified'] = true;
 	$setdata = array('$set' => $newdata);
 	$connection->updateOne(array("_id" => $_SESSION['_id']), $setdata);
 	//$query = array('_id' => $_SESSION['_id']);
